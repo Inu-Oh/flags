@@ -32,6 +32,10 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # My apps
+    'flags.apps.FlagsConfig', # This object can be found in flags/apps.py
+
+    # Standard Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
