@@ -1,3 +1,36 @@
+from django.core.validators import MinLengthValidator, MaxLengthValidator
 from django.db import models
 
 # Create your models here.
+class Country(models.Model):
+    country = models.CharField(
+        max_length=50, 
+        unique=True, 
+        blank=False,
+        validators=[MinLengthValidator(4), MaxLengthValidator(50)]
+    )
+    capital = models.CharField(
+        max_length=50,
+        blank=False,
+        validators=[MinLengthValidator(4), MaxLengthValidator(50)]
+    )
+    hint = models.CharField(
+        max_length=150,
+        null=True
+    )
+    country_code = models.CharField(
+        max_length=2,
+        unique=True, 
+        blank=False,
+        validators=[MinLengthValidator(2), MaxLengthValidator(2)]
+    )
+
+    def save(self, *args, **kwargs):
+        # Convert case before saving
+        self.country = self.country.title()
+        self.capital = self.capital.title()
+        self.country_code = self.country_code.lower()
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.country_code.upper() + ' ' + self.country[:10]
