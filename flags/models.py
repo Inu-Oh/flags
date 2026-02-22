@@ -19,10 +19,10 @@ class Country(models.Model):
         null=True
     )
     country_code = models.CharField(
-        max_length=2,
+        max_length=6,
         unique=True, 
         blank=False,
-        validators=[MinLengthValidator(2), MaxLengthValidator(2)]
+        validators=[MinLengthValidator(2), MaxLengthValidator(6)]
     )
 
     def save(self, *args, **kwargs):

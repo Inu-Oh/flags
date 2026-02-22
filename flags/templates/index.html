@@ -1,1 +1,5 @@
 <b>hello</b>
+{% if user.is_staff %}
+<a href="{% url 'populate_db' %}"
+    class="btn btn-outline-primary">Manage content</a>
+{% endif %}

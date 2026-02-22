@@ -56,7 +56,7 @@ Curaçao,Willemstad,CW
 Cyprus,Nicosia,CY
 Côte d'Ivoire,Yamoussoukro,CI
 Czech Republic,Prague,CZ
-Democratic Republic of the  Congo,Kinshasa,CD
+Democratic Republic of the Congo,Kinshasa,CD
 Republic of the CongoBrazzaville,CG
 Denmark,Copenhagen,DK
 Djibouti,Djibouti,DJ
@@ -78,160 +78,166 @@ Finland,Helsinki,FI
 France,Paris,FR
 French Guiana,Cayenne,GF
 French Polynesia,Papeete,PF
-Gabon,Libreville
-Gambia,Banjul
-Georgia,Tbilisi
-Germany,Berlin
-Ghana,Accra
-Gibraltar,Gibraltar
-Greece,Athens
-Greenland,Nuuk
-Grenada,St. George's
-Guam,Hagatna
-Guatemala,Guatemala City,
-Guernsey,Saint Peter Port
-Guinea,Conakry
-Guinea-Bissau,Bissau
-Guyana,Georgetown,
-Haiti,Port-au-prince,
-HondurasTegucigalpaG,
-Hong Kong,Hong Kong,
-Hungary,Budapest,
-Iceland,Reykjavík,
-India,New Delhi,
-Indonesia,Jakarta
-Iran,Tehran
-Iraq,Baghdad,
-Ireland,Dublin
-Isle of Man,Douglas
-Israel,Jerusalem,
-Italy,Rome
-Jamaica,Kingston
-Japan,Tokyo
-Jersey,Saint Helier,
-Jordan,Amman,
-Kazakhstan,Astana,
-Kenya,Nairobi,
-Kiribati,Tarawa,
+Gabon,Libreville,GA
+Gambia,Banjul,GM
+Georgia,Tbilisi,GE
+Germany,Berlin,DE
+Ghana,Accra,GH
+Gibraltar,Gibraltar,GI
+Greece,Athens,GR
+Greenland,Nuuk,GL
+Grenada,St. George's,GD
+Guam,Hagatna,GU
+Guatemala,Guatemala City,GT
+Guernsey,Saint Peter Port,GG
+Guinea,Conakry,GN
+Guinea-Bissau,Bissau,GW
+Guyana,Georgetown,GY
+Haiti,Port-au-prince,HT
+Heard Island and McDonald Islands,0,HM
+Honduras,Tegucigalpa,HN
+Hong Kong,Hong Kong,HK
+Hungary,Budapest,HU
+Iceland,Reykjavík,IS
+India,New Delhi,IN
+Indonesia,Jakarta,ID
+Iran,Tehran,IR
+Iraq,Baghdad,IQ
+Ireland,Dublin,IE
+Isle of Man,Douglas,IM
+Israel,Jerusalem,IL
+Italy,Rome,IT
+Jamaica,Kingston,JM
+Japan,Tokyo,JP
+Jersey,Saint Helier,JE
+Jordan,Amman,JO
+Kazakhstan,Astana,KZ
+Kenya,Nairobi,KE
+Kiribati,Tarawa,KI
 Kosovo,Pristina,
 Kuwait,Kuwait City,KW
-Kyrgyzstan,Bishkek
-Laos,Vientiane
-Latvia,Riga,
-Lebanon,Beirut,
-Lesotho,Maseru,
-Liberia,Monrovia,
-Libya,Tripoli
-Liechtenstein,Vaduz,
-Lithuania,Vilnius,
-Luxembourg,Luxembourg,
+Kyrgyzstan,Bishkek,KG
+Laos,Vientiane,LA
+Latvia,Riga,LV
+Lebanon,Beirut,LB
+Lesotho,Maseru,LS
+Liberia,Monrovia,LR
+Libya,TripoliLY
+Liechtenstein,Vaduz,LI
+Lithuania,Vilnius,LT
+Luxembourg,Luxembourg,LU
 Macao,Macao,MO
-Macedonia,Skopje,
-Madagascar,Antananarivo
-Malawi,Lilongwe,
-Malaysia,Kuala Lumpur
-Maldives,Malé
-Mali,Bamako
-Malta,Valletta,
-Marshall Islands,Majuro
-Mauritania,Nouakchott,
-Mauritius,Port Louis,
-Mexico,Mexico City,
-Micronesia,Palikir,
-Moldova,Chisinau,
-Monaco,Monaco,
-Mongolia,Ulan Bator,
-Montenegro,Podgorica,
+North Macedonia,Skopje,MK
+Madagascar,Antananarivo,MG
+Malawi,Lilongwe,MW
+Malaysia,Kuala Lumpur,MY
+Maldives,Malé,MV
+Mali,Bamako,ML
+Malta,Valletta,MT
+Marshall Islands,Majuro,MH
+Mauritania,Nouakchott,MR
+Mauritius,Port Louis,MU
+Mexico,Mexico City,MX
+Micronesia,Palikir,FM
+Moldova,Chisinau,MD
+Monaco,Monaco,MC
+Mongolia,Ulan Bator,MN
+Montenegro,Podgorica,ME
 Montserrat,Brades,MS
-Morocco,Rabat,
-Mozambique,Maputo,
-Myanmar,Naypyidaw,
-Namibia,Windhoek,
-Nauru,Yaren,
-Nepal,Kathmandu,
-Netherlands,Amsterdam,
-New Caledonia,Nouméa,
-New Zealand,Wellington,
-Nicaragua,Managua,
-Niger,Niamey,
-Nigeria,Abuja,
-Niue,Alofi,
+Morocco,Rabat,MA
+Mozambique,Maputo,MZ
+Myanmar,Naypyidaw,MM
+Namibia,Windhoek,NA
+Nauru,Yaren,NR
+Nepal,Kathmandu,NP
+Netherlands,Amsterdam,NL
+New Caledonia,Nouméa,NC
+New Zealand,Wellington,NZ
+Nicaragua,Managua,NI
+Niger,Niamey,NE
+Nigeria,Abuja,NG
+Niue,Alofi,NU
 Norfolk Island,Kingston,NF
-North Korea,Pyongyang,
-Northern Mariana Islands,Saipan,
-Norway,Oslo,
-Oman,Muscat,
-Pakistan,Islamabad,
-Palau,Ngerulmud,
-Palestine,Ramallah and Gaza,
-Panama,Panama City,
-Papua New Guinea,Port Moresby,
-Paraguay,Asunción,
-Peru,Lima,
-Philippines,Manila,
-Pitcairn Islands,Adamstown,
+North Korea,Pyongyang,KP
+Northern Mariana Islands,Saipan,MP
+Norway,Oslo,NO
+Oman,Muscat,OM
+Pakistan,Islamabad,PK
+Palau,Ngerulmud,PW
+Palestine,Jerusalem,PS
+Panama,Panama City,PA
+Papua New Guinea,Port Moresby,PG
+Paraguay,Asunción,PY
+Peru,Lima,PE
+Philippines,Manila,PH
+Pitcairn Islands,Adamstown,PN
 Poland,Warsaw,PL
-Portugal,Lisbon,
-Puerto Rico,San Juan,
-Qatar,Doha,
-Romania,Bucharest,
-Russia,Moscow,
-Rwanda,Kigali,
+Portugal,Lisbon,PO
+Puerto Rico,San Juan,PR
+Qatar,Doha,QA
+Réunion,0,RE
+Romania,Bucharest,RO
+Russia,Moscow,RU
+Rwanda,Kigali,RW
 Saint Barthelemy,Gustavia,BL
 Saint Helena,Jamestown,SH
 Saint Kitts and Nevis,Basseterre,KN
 Saint Lucia,Castries,LC
 Saint Martin,Marigot,MF
-Saint Pierre and Miquelon,Saint-Pierre,
-Saint Vincent and the Grenadines,Kingstown,
-Samoa,Apia,
+Saint Pierre and Miquelon,Saint-Pierre,PM
+Saint Vincent and the Grenadines,Kingstown,VC
+Samoa,Apia,WS
 San Marino,San Marino,SM
 São Tomé and Príncipe,Sao Tome,ST
 Saudi Arabia,Riyadh,SA
 Senegal,Dakar,SN
 Serbia,Belgrade,RS
 Seychelles,Victoria,SC
-Sierra Leone,Freetown,
-Singapor,Singapore,
-Sint Maarten,Philipsburg
-Slovakia,Bratislava,
-Slovenia,Ljubljana,
-Solomon Islands,Honiara,
-Somalia,Mogadishu,
-South Africa,Cape Town,
-South Korea,Seoul,
-South Sudan,Juba,
-Spain,Madrid,
-Sri Lanka,Sri Jayawardenapura-kotte,
-Sudan,Khartoum,
-Suriname,Paramaribo,
-Sweden,Stockholm,
-Switzerland,Bern,
-Syria,Damascus,
-Taiwan,Taipei,
-Tajikistan,Dushanbe,
-Tanzania,Dodoma,
-Thailand,Bangkok,
-Togo,Lomé,
+Sierra Leone,Freetown,SL
+Singapor,Singapore,SG
+Sint Maarten,Philipsburg,SX
+Slovakia,Bratislava,SK
+Slovenia,Ljubljana,SI
+Solomon Islands,Honiara,SB
+Somalia,Mogadishu,SO
+South Africa,Cape Town,ZA
+South Korea,Seoul,KR
+South Sudan,Juba,SS
+Spain,Madrid,ES
+Sri Lanka,Sri Jayawardenapura-kotte,LK
+Sudan,Khartoum,SD
+Suriname,Paramaribo,SR
+Sweden,Stockholm,SE
+Switzerland,Bern,CH
+Syrian Arab Republic,Damascus,SY
+Taiwan,Taipei,TW
+Tajikistan,Dushanbe,TJ
+Tanzania,Dodoma,TZ
+Thailand,Bangkok,TH
+Togo,Lomé,TG
 Tokelau,None,TK
-Tonga,Nuku'alofa,
-Transnistria,Tiraspol,
-Trinidad and Tobago,Port of Spain,
-Tunisia,Tunis,
-Turkey,Ankara,
-Turkmenistan,Ashgabat,
-Turks and Caicos Islands,Cockburn Town,
-Tuvalu,Funafuti,
-Uganda,Kampala,
-Ukraine,Kiev,
-United Arab Emirates,Abu Dhabi,
-United Kingdom,London,
-United States,Washington D.C.,
+Tonga,Nuku'alofa,TO
+Transnistria,Tiraspol,TS
+Trinidad and Tobago,Port of Spain,TT
+Tunisia,Tunis,TN
+Turkey,Ankara,TR
+Turkmenistan,Ashgabat,TM
+Turks and Caicos Islands,Cockburn Town,TC
+Tuvalu,Funafuti,TV
+Uganda,Kampala,UG
+Ukraine,Kiev,UA
+United Arab Emirates,Abu Dhabi,AE
+United Kingdom,London,GB
+England,London,GB-ENG
+Wales,Cardiff,GB-WLS
+Scotland,Edinburgh,GB-SCT
+Northern Ireland,Belfast,GB-NIR
+United States,Washington D.C.,US
 United States Virgin Islands,Charlotte Amalie,VI
 Uruguay,Montevideo,UY
 Uzbekistan,Tashkent,UZ
 Vanuatu,Port Vila,VU
-Holy See,Vatican City,VA
+The Holy See,Vatican City,VA
 Venezuela,Caracas,VE
 Viet Nam,Hanoi,VN
 Wallis and Futuna,Mata-Utu,WF
