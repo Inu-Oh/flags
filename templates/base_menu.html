@@ -17,7 +17,7 @@
         {% endif %}
             <li>
                 <a class="nav-link link-style" href="{{ x }}" role="button">
-                    Browse Glossary</a>
+                    Index</a>
             </li>
         </ul>
         {% if user.is_authenticated %}
@@ -25,8 +25,8 @@
             <li class="nav-item dropdown">
                 <a class"nav-link link-style dropdown-toggle" href="#" id="rightnavDropdown" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false">
-                    <!--<img id="gravatar" class="rounded-3"
-                        src=" user|gravatar:60" /><strong class="caret"></strong>-->
+                    <img id="gravatar" class="rounded-3"
+                        src="user|gravatar:60" /><strong class="caret"></strong>-->
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="rightnavDropdown">
                     <li><a class="dropdown-item link-style" href="{% url 'logout' %}?next={{ x }}">
