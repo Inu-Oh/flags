@@ -64,7 +64,11 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
             else:
                 deletions 
 
-        msg = f'New entries: {new}\nEdited entries: {edits}\nDeleted entries: {deletions}'   
+        if new == 0 and edits == 0 and deletions == 0:
+            msg = 'Nothing to edit'
+            return render(request, self.template_name, { 'message': msg })
+        
+        msg = f'New entries: {new}<br>Edited entries: {edits}<br>Deleted entries: {deletions}'   
         form = PopulateDbForm()
         context = { 'form': form, 'message': msg }
 
