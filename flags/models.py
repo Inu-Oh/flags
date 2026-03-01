@@ -1,4 +1,6 @@
 from django.core.validators import MinLengthValidator, MaxLengthValidator
+from django.urls import reverse
+
 from django.db import models
 
 # Create your models here.
@@ -28,8 +30,15 @@ class Country(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['country']
+
+    def get_absolute_url(self):
+        """Returns the URL to access a particular instance of the Country model"""
+        return reverse("model-detail-view", args=[str(self.id)])
+    
     def save(self, *args, **kwargs):
-        # Convert case before saving
+        """Converts string case of country, capitad and country code before saving"""
         self.country = self.country.title()
         self.capital = self.capital.title()
         self.country_code = self.country_code.lower()
