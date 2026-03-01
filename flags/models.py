@@ -25,6 +25,9 @@ class Country(models.Model):
         validators=[MinLengthValidator(2), MaxLengthValidator(6)]
     )
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def save(self, *args, **kwargs):
         # Convert case before saving
         self.country = self.country.title()

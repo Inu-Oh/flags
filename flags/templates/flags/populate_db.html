@@ -18,4 +18,10 @@
     <p class="p-3">{{ message|safe }}</p>
 {% endif %}
 
+{% if db %}
+    {% for c in db %}
+        {{ c.country }} {{c.capital}} {{c.country_code}} <br> 
+    {% endfor %}
+{% endif %}
+
 {% endblock content %}

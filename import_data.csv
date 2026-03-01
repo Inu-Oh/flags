@@ -1,0 +1,248 @@
+country,capital,code,hint,pk
+Afghanistan,Kabul,af,,248
+Åland Islands,Mariehamn,ax,,249
+Albania,Tirana,al,,250
+Algeria,Algiers,dz,,251
+American Samoa,Pago Pago,as,,252
+Andorra,Andorra La Vella,ad,,253
+Angola,Luanda,ao,,254
+Anguilla,The Valley,ai,,255
+Antigua And Barbuda,Saint Johns,ag,,256
+Antarctica,0,aq,,257
+Argentina,Buenos Aires,ar,,258
+Armenia,Yerevan,am,,259
+Aruba,Oranjestad,aw,,260
+Australia,Canberra,au,,261
+Austria,Vienna,at,,262
+Azerbaijan,Baku,az,,263
+Bahamas,Nassau,bs,,264
+Bahrain,Manama,bh,,265
+Bangladesh,Dhaka,bd,,266
+Barbados,Bridgetown,bb,,267
+Bonaire,Kralendijk,bq,,268
+Belarus,Minsk,by,,269
+Belgium,Brussels,be,,270
+Belize,Belmopan,bz,,271
+Benin,Porto-Novo,bj,,272
+Bermuda,Hamilton,bm,,273
+Bhutan,Thimphu,bt,,274
+British Indian Ocean Territory,0,io,,275
+Bolivia,Sucre,bo,,276
+Bosnia And Herzegovina,Sarajevo,ba,,277
+Botswana,Gaborone,bw,,278
+Brazil,Brasília,br,,279
+British Virgin Islands,Road Town,vg,,280
+Brunei,Bandar Seri Begawan,bn,,281
+Bulgaria,Sofia,bg,,282
+Burkina Faso,Ouagadougou,bf,,283
+Burundi,Bujumbura,bi,,284
+Cambodia,Phnom Penh,kh,,285
+Cameroon,Yaoundé,cm,,286
+Canada,Ottawa,ca,,287
+Cape Verde,Praia,cv,,288
+Cayman Islands,George Town,ky,,289
+Central African Republic,Bangui,cf,,290
+Chad,N'Djamena,td,,291
+Chile,Santiago,cl,,292
+China,Beijing,cn,,293
+Christmas Island,Flying Fish Cove,cx,,294
+Cocos Islands,West Island,cc,,295
+Colombia,Bogotá,co,,296
+Comoros,Moroni,km,,297
+Cook Islands,Avarua,ck,,298
+Costa Rica,San José,cr,,299
+Croatia,Zagreb,hr,,300
+Cuba,Havana,cu,,301
+Curaçao,Willemstad,cw,,302
+Cyprus,Nicosia,cy,,303
+Côte D'Ivoire,Yamoussoukro,ci,,304
+Czech Republic,Prague,cz,,305
+Democratic Republic Of The Congo,Kinshasa,cd,,306
+Republic Of The Congo,Brazzaville,cg,,307
+Denmark,Copenhagen,dk,,308
+Djibouti,Djibouti,dj,,309
+Dominica,Roseau,dm,,310
+Dominican Republic,Santo Domingo,do,,311
+East Timor,Dili,tl,,312
+Ecuador,Quito,ec,,313
+Egypt,Cairo,eg,,314
+El Salvador,San Salvador,sv,,315
+Equatorial Guinea,Malabo,gq,,316
+Eritrea,Asmara,er,,317
+Estonia,Tallinn,ee,,318
+Eswatini,Mbabane,sz,,319
+Ethiopia,Addis Ababa,et,,320
+Falkland Islands,Stanley,fk,,321
+Faroe Islands,Tórshavn,fo,,322
+Fiji,Suva,fj,,323
+Finland,Helsinki,fi,,324
+France,Paris,fr,,325
+French Guiana,Cayenne,gf,,326
+French Polynesia,Papeete,pf,,327
+Gabon,Libreville,ga,,328
+Gambia,Banjul,gm,,329
+Georgia,Tbilisi,ge,,330
+Germany,Berlin,de,,331
+Ghana,Accra,gh,,332
+Gibraltar,Gibraltar,gi,,333
+Greece,Athens,gr,,334
+Greenland,Nuuk,gl,,335
+Grenada,St. George'S,gd,,336
+Guam,Hagatna,gu,,337
+Guatemala,Guatemala City,gt,,338
+Guernsey,Saint Peter Port,gg,,339
+Guinea,Conakry,gn,,340
+Guinea-Bissau,Bissau,gw,,341
+Guyana,Georgetown,gy,,342
+Haiti,Port-Au-Prince,ht,,343
+Heard Island And Mcdonald Islands,0,hm,,344
+Honduras,Tegucigalpa,hn,,345
+Hong Kong,Hong Kong,hk,,346
+Hungary,Budapest,hu,,347
+Iceland,Reykjavík,is,,348
+India,New Delhi,in,,349
+Indonesia,Jakarta,id,,350
+Iran,Tehran,ir,,351
+Iraq,Baghdad,iq,,352
+Ireland,Dublin,ie,,353
+Isle Of Man,Douglas,im,,354
+Israel,Jerusalem,il,,355
+Italy,Rome,it,,356
+Jamaica,Kingston,jm,,357
+Japan,Tokyo,jp,,358
+Jersey,Saint Helier,je,,359
+Jordan,Amman,jo,,360
+Kazakhstan,Astana,kz,,361
+Kenya,Nairobi,ke,,362
+Kiribati,Tarawa,ki,,363
+Kosovo,Pristina,xk,,364
+Kuwait,Kuwait City,kw,,365
+Kyrgyzstan,Bishkek,kg,,366
+Laos,Vientiane,la,,367
+Latvia,Riga,lv,,368
+Lebanon,Beirut,lb,,369
+Lesotho,Maseru,ls,,370
+Liberia,Monrovia,lr,,371
+Libya,Tripoli,ly,,372
+Liechtenstein,Vaduz,li,,373
+Lithuania,Vilnius,lt,,374
+Luxembourg,Luxembourg,lu,,375
+Macao,Macao,mo,,376
+North Macedonia,Skopje,mk,,377
+Madagascar,Antananarivo,mg,,378
+Malawi,Lilongwe,mw,,379
+Malaysia,Kuala Lumpur,my,,380
+Maldives,Malé,mv,,381
+Mali,Bamako,ml,,382
+Malta,Valletta,mt,,383
+Marshall Islands,Majuro,mh,,384
+Mauritania,Nouakchott,mr,,385
+Mauritius,Port Louis,mu,,386
+Mexico,Mexico City,mx,,387
+Micronesia,Palikir,fm,,388
+Moldova,Chisinau,md,,389
+Monaco,Monaco,mc,,390
+Mongolia,Ulan Bator,mn,,391
+Montenegro,Podgorica,me,,392
+Montserrat,Brades,ms,,393
+Morocco,Rabat,ma,,394
+Mozambique,Maputo,mz,,395
+Myanmar,Naypyidaw,mm,,396
+Namibia,Windhoek,na,,397
+Nauru,Yaren,nr,,398
+Nepal,Kathmandu,np,,399
+Netherlands,Amsterdam,nl,,400
+New Caledonia,Nouméa,nc,,401
+New Zealand,Wellington,nz,,402
+Nicaragua,Managua,ni,,403
+Niger,Niamey,ne,,404
+Nigeria,Abuja,ng,,405
+Niue,Alofi,nu,,406
+Norfolk Island,Kingston,nf,,407
+North Korea,Pyongyang,kp,,408
+Northern Mariana Islands,Saipan,mp,,409
+Norway,Oslo,no,,410
+Oman,Muscat,om,,411
+Pakistan,Islamabad,pk,,412
+Palau,Ngerulmud,pw,,413
+Palestine,Jerusalem,ps,,414
+Panama,Panama City,pa,,415
+Papua New Guinea,Port Moresby,pg,,416
+Paraguay,Asunción,py,,417
+Peru,Lima,pe,,418
+Philippines,Manila,ph,,419
+Pitcairn Islands,Adamstown,pn,,420
+Poland,Warsaw,pl,,421
+Portugal,Lisbon,po,,422
+Puerto Rico,San Juan,pr,,423
+Qatar,Doha,qa,,424
+Réunion,0,re,,425
+Romania,Bucharest,ro,,426
+Russia,Moscow,ru,,427
+Rwanda,Kigali,rw,,428
+Saint Barthelemy,Gustavia,bl,,429
+Saint Helena,Jamestown,sh,,430
+Saint Kitts And Nevis,Basseterre,kn,,431
+Saint Lucia,Castries,lc,,432
+Saint Martin,Marigot,mf,,433
+Saint Pierre And Miquelon,Saint-Pierre,pm,,434
+Saint Vincent And The Grenadines,Kingstown,vc,,435
+Samoa,Apia,ws,,436
+San Marino,San Marino,sm,,437
+São Tomé And Príncipe,Sao Tome,st,,438
+Saudi Arabia,Riyadh,sa,,439
+Senegal,Dakar,sn,,440
+Serbia,Belgrade,rs,,441
+Seychelles,Victoria,sc,,442
+Sierra Leone,Freetown,sl,,443
+Singapor,Singapore,sg,,444
+Sint Maarten,Philipsburg,sx,,445
+Slovakia,Bratislava,sk,,446
+Slovenia,Ljubljana,si,,447
+Solomon Islands,Honiara,sb,,448
+Somalia,Mogadishu,so,,449
+South Africa,Cape Town,za,,450
+South Korea,Seoul,kr,,451
+South Sudan,Juba,ss,,452
+Spain,Madrid,es,,453
+Sri Lanka,Sri Jayawardenapura-Kotte,lk,,454
+Sudan,Khartoum,sd,,455
+Suriname,Paramaribo,sr,,456
+Sweden,Stockholm,se,,457
+Switzerland,Bern,ch,,458
+Syrian Arab Republic,Damascus,sy,,459
+Taiwan,Taipei,tw,,460
+Tajikistan,Dushanbe,tj,,461
+Tanzania,Dodoma,tz,,462
+Thailand,Bangkok,th,,463
+Togo,Lomé,tg,,464
+Tokelau,None,tk,,465
+Tonga,Nuku'Alofa,to,,466
+Transnistria,Tiraspol,ts,,467
+Trinidad And Tobago,Port Of Spain,tt,,468
+Tunisia,Tunis,tn,,469
+Turkey,Ankara,tr,,470
+Turkmenistan,Ashgabat,tm,,471
+Turks And Caicos Islands,Cockburn Town,tc,,472
+Tuvalu,Funafuti,tv,,473
+Uganda,Kampala,ug,,474
+Ukraine,Kiev,ua,,475
+United Arab Emirates,Abu Dhabi,ae,,476
+United Kingdom,London,gb,,477
+England,London,gb-eng,,478
+Wales,Cardiff,gb-wls,,479
+Scotland,Edinburgh,gb-sct,,480
+Northern Ireland,Belfast,gb-nir,,481
+United States,Washington D.C.,us,,482
+United States Virgin Islands,Charlotte Amalie,vi,,483
+Uruguay,Montevideo,uy,,484
+Uzbekistan,Tashkent,uz,,485
+Vanuatu,Port Vila,vu,,486
+The Holy See,Vatican City,va,,487
+Venezuela,Caracas,ve,,488
+Viet Nam,Hanoi,vn,,489
+Wallis And Futuna,Mata-Utu,wf,,490
+Sahrawi Arab Democratic Republic,El Aaiun,eh,,491
+Yemen,Sana'A,ye,,492
+Zambia,Lusaka,zm,,493
+Zimbabwe,Harare,zw,,494
