@@ -126,6 +126,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'flags/static')
 
 # Redirect to home URL after login (Default redirect to /accounts/provile/)
 LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
