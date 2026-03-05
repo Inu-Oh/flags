@@ -14,13 +14,7 @@
                 <a class="nav-link link-style" href="{% url 'populate_db' %}" role="button">
                     Manage Content</a>
             </li>
-        {% endif %}
-            <li>
-                <a class="nav-link link-style" href="{{ x }}" role="button">
-                    Index</a>
-            </li>
         </ul>
-        {% if user.is_authenticated %}
         <ul class="navbar-nav">
             <li class="nav-item dropdown">
                 <a class"nav-link link-style dropdown-toggle" href="#" id="rightnavDropdown" role="button"
@@ -41,9 +35,9 @@
             </li>
         </ul>
         {% else %}
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link link-style" href="{% url 'login' %}?next={{ x }}">Login</a>
+            <li>
+                <a class="nav-link link-style" href="{{ x }}" role="button">
+                    Index</a>
             </li>
         </ul>
         {% endif %}
