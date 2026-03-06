@@ -19,12 +19,12 @@ def index(request):
 
 @csrf_exempt
 def get_question(request):
-    country = Country.objects.all.first()
+    country = Country.objects.all().first()
     country_name = str(country.country)
     flag = str(country.country_code) + ".png"
     hint = str(country.hint) if country.hint is not None else ""
     pk = int(country.pk)
-    print(country_name, flag, hint, pk)
+    print(country_name, flag, "hint", hint, pk)
 
     return JsonResponse({
         'country': country_name,

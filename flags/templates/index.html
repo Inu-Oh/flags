@@ -1,11 +1,19 @@
 {% extends "base_menu.html" %}
 {% load static %}
 
+
+
 {% block content %}
+{% if user.is_staff %}
+
+{% else %}
 <div class="container m-3">
     <h1 id="page-heading">Choose a quiz</h1>
     <div id="msg" hidden="true" class="text-danger fw-bold fs-5 px-5"></div>
-    <div id="quiz-form" hidden="true" class="container p-3 mb-1 border rounded">
+    <div id="quiz-form" hidden="true" value="start"
+        class="container p-3 mb-1 border rounded">
+        <img id="flag" hidden="true" src="" alt="guess">
+        <p id="hint" hidden="true"></p>
          <form action="">
             {% comment %} add csrf token here {% endcomment %}
             <input id="country" hidden="true" type="text" name="country" placeholder="Enter country">
@@ -13,9 +21,14 @@
          </form>
     </div>
 </div>
+{% endif %}
 {% endblock %}
 
 
 {% block script %}
+{% if user.is_staff %}
+
+{% else %}
     <script src="{% static 'flags.js' %}"></script>
+{% endif %}
 {% endblock %}
