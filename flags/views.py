@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
 from django.shortcuts import redirect, render
+from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
 
 from .forms import PopulateDbForm

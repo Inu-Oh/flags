@@ -1,13 +1,15 @@
 {% extends "base_menu.html" %}
-
+{% load static %}
 
 {% block content %}
-<b>hello</b>
-{% if user.is_staff %}
-<a href="{% url 'populate_db' %}"
-    class="btn btn-outline-primary">Manage content</a>
-{% endif %}
+<div class="container m-3">
+    <h1 id="page-heading">Choose a quiz</h1>
+    <div id="msg" hidden="true" class="text-danger fw-bold fs-5 px-5"></div>
+    <div id="quiz-form" hidden="true" class="container p-3 mb-1 border rounded"></div>
+</div>
+{% endblock %}
 
-{% endblock content %}
 
-
+{% block script %}
+    <script src="{% static 'flags.js' %}">
+{% endblock %}

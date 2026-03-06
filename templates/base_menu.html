@@ -1,5 +1,5 @@
 {% extends "base_bootstrap.html" %}
-
+{% load static %}
 <!--% load app_tags % <!-- see home/templatetags/app_tags.py -->
 
 {% block navbar %}
@@ -36,11 +36,13 @@
         </ul>
         {% else %}
             <li>
-                <a class="nav-link link-style" href="{{ x }}" role="button">
-                    Index</a>
+                <a id="flag-quiz" class="nav-link link-style" href="#">
+                    Flag quiz</a>
             </li>
         </ul>
         {% endif %}
     </div>
 </nav>
-{% endblock navbar %}
+{% endblock %}
+
+{% block script %}{% endblock %}
