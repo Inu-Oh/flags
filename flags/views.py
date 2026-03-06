@@ -4,9 +4,10 @@ from datetime import datetime
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
-from django.views.generic import DetailView
 from django.views.generic.edit import CreateView
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import PopulateDbForm
 from .models import Country
@@ -15,6 +16,22 @@ from .models import Country
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
+
+@csrf_exempt
+def get_question(request):
+    country = Country.objects.all.first()
+    country_name = str(country.country)
+    flag = str(country.country_code) + ".png"
+    hint = str(country.hint) if country.hint is not None else ""
+    pk = int(country.pk)
+    print(country_name, flag, hint, pk)
+
+    return JsonResponse({
+        'country': country_name,
+        'flag': flag,
+        'hint': hint,
+        'pk': pk
+    })
 
 
 # Superuser view for pupulating DB

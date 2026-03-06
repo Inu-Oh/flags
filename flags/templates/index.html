@@ -5,11 +5,17 @@
 <div class="container m-3">
     <h1 id="page-heading">Choose a quiz</h1>
     <div id="msg" hidden="true" class="text-danger fw-bold fs-5 px-5"></div>
-    <div id="quiz-form" hidden="true" class="container p-3 mb-1 border rounded"></div>
+    <div id="quiz-form" hidden="true" class="container p-3 mb-1 border rounded">
+         <form action="">
+            {% comment %} add csrf token here {% endcomment %}
+            <input id="country" hidden="true" type="text" name="country" placeholder="Enter country">
+            <input id="quiz-button" class="btn btn-primary" type="button" value="Start"></button>
+         </form>
+    </div>
 </div>
 {% endblock %}
 
 
 {% block script %}
-    <script src="{% static 'flags.js' %}">
+    <script src="{% static 'flags.js' %}"></script>
 {% endblock %}
