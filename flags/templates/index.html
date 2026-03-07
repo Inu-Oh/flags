@@ -9,16 +9,27 @@
 {% else %}
 <div class="container m-3">
     <h1 id="page-heading">Choose a quiz</h1>
-    <div id="msg" hidden="true" class="text-danger fw-bold fs-5 px-5"></div>
-    <div id="quiz-form" hidden="true" value="start"
-        class="container p-3 mb-1 border rounded">
-        <img id="flag" hidden="true" src="" alt="guess" style="width:333px">
-        <p id="hint" hidden="true"></p>
-         <form action="">
-            {% comment %} add csrf token here {% endcomment %}
-            <input id="country" hidden="true" type="text" name="country" placeholder="Enter country">
-            <input id="quiz-button" class="btn btn-primary" type="button" value="Start"></button>
-         </form>
+
+    <div id="msg" class="text-danger fw-bold fs-5 px-5"></div>
+
+    <div id="quiz-form" class="card w-50 bg-light" hidden="true" value="start" >
+        <div class="bg-image hover-overlay" data-mbd-ripple-init data-mdb-ripple-color="light">
+            <img id="flag" class="card-img-top" hidden="true" src="" alt="guess">
+            <p id="hint" hidden="true"></p>
+        </div>
+        
+        <div class="card-body">
+            <form action="" class="p-1 row">
+                <div class="col-9">
+                    <input id="country" class="form-control" hidden="true" type="text" 
+                        name="country" placeholder="Enter country" autofocus>
+                </div>
+                <div class="col-3">
+                    <input id="quiz-button" class="btn btn-primary form-control" 
+                    type="button" value="Start"></button>
+                </div>       
+            </form>
+        </div>
     </div>
 </div>
 {% endif %}

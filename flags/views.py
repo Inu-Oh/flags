@@ -1,6 +1,5 @@
 from csv import reader, DictWriter
 from datetime import datetime
-import json
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -8,13 +7,11 @@ from django.db import IntegrityError
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
-from django.views.decorators.csrf import csrf_exempt
 
 from .forms import PopulateDbForm
 from .models import Country
 
 
-# Create your views here.
 def index(request):
     return render(request, 'index.html')
 
@@ -22,9 +19,9 @@ def index(request):
 def get_question(request, pk):
     country = Country.objects.get(id=pk)
     country_name = str(country.country)
+    # Change domain for production
     flag = "http://127.0.0.1:8000/static/images/" + str(country.country_code) + ".png"
     hint = str(country.hint) if country.hint is not None else ""
-    print(country_name, flag, "hint", hint, pk)
 
     return JsonResponse({
         'country': country_name,
@@ -47,6 +44,8 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
         'flats.delete_country'
     ]
     template_name = 'flags/populate_db.html'
+
+    # TODO - implement ObjectDoesNotExist or delete from imports
 
     def get(self, request):
         if not request.user.is_superuser:

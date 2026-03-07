@@ -1,6 +1,5 @@
 // Start quiz counter
-let counter = 0;
-let flagQuizList = [];
+let flagQuizList;
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -8,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     setList();
 });
+
 
 function loadFlagQuiz() {
     // Quiz form will be set up here
@@ -17,7 +17,6 @@ function loadFlagQuiz() {
 
     // Choose a random flag from flag quiz list
     const randomFlag = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
-    console.log(randomFlag);
     
     const quizButton = document.querySelector('#quiz-button');
     quizButton.innerHTML = `<div id="next-q" class="btn btn-primary" value="Start quiz"></div>`;
@@ -51,7 +50,6 @@ function setList() {
     fetch('set_list')
     .then(response => response.json())
     .then(list => {
-        console.log(list);
         flagQuizList = list;
     });
 }
