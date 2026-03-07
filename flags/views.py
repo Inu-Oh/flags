@@ -1,5 +1,6 @@
 from csv import reader, DictWriter
 from datetime import datetime
+import json
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -17,13 +18,12 @@ from .models import Country
 def index(request):
     return render(request, 'index.html')
 
-@csrf_exempt
-def get_question(request):
-    country = Country.objects.all().first()
+
+def get_question(request, pk):
+    country = Country.objects.get(id=pk)
     country_name = str(country.country)
-    flag = str(country.country_code) + ".png"
+    flag = "http://127.0.0.1:8000/static/images/" + str(country.country_code) + ".png"
     hint = str(country.hint) if country.hint is not None else ""
-    pk = int(country.pk)
     print(country_name, flag, "hint", hint, pk)
 
     return JsonResponse({
@@ -32,6 +32,11 @@ def get_question(request):
         'hint': hint,
         'pk': pk
     })
+
+
+def set_list(request):
+    quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
+    return JsonResponse(quiz_list, safe=False)
 
 
 # Superuser view for pupulating DB

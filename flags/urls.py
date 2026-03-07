@@ -8,5 +8,6 @@ urlpatterns = [
     path('populate_DB', views.PopulateDbView.as_view(), name='populate_db'),
 
     # API Routes
-    path('get_question', views.get_question, name='get_question'),
+    path('get_question/<int:pk>', views.get_question, name='get_question'),
+    path('set_list', views.set_list, name='set_list')
 ]
