@@ -10,8 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function loadFlagQuiz() {
+    document.getElementById('home-link').classList.remove('active');
+    document.getElementById('flag-quiz').classList.add('active');
+
     // Quiz form will be set up here
-    document.querySelector('#page-heading').innerText = "Test your knowledge of flags"
+    document.querySelector('#page-heading').innerText = "Flag quiz"
     const quizForm = document.querySelector('#quiz-form');
     quizForm.hidden = false;
 

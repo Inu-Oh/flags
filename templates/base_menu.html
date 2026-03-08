@@ -5,46 +5,42 @@
 {% comment %} TODO - realignt layout of items to vertical {% endcomment %}
 
 {% block navbar %}
-<nav class="nav p-2 my-3 navbar navbar-expand-sm navbar-light bg-light rounded-3 shadow-sm">
-    <div class="container-fluid">
-        {% url 'index' as x %}
-        <a class="navbar-brand link-style" href="{{ x }}">Home Menu</a>
-        <ul class="navbar-nav container-fluid d-flex justify-content-around">
-{% comment %} {% if request.get_full_path == x %}class="active"{% endif %} {% endcomment %}
-        {% if user.is_staff %}
-            <li>
-                <a class="nav-link link-style" href="{% url 'populate_db' %}" role="button">
-                    Manage Content</a>
+<ul class="nav nav-tabs nav-justified bg-light">
+    {% url 'index' as x %}
+    <li class="nav-item">
+        <a id="home-link" class="nav-link link-style active" href="{{ x }}">Home Menu</a>
+    </li>
+    
+    {% if user.is_staff %}
+    <li class="nav-item">
+        <a id="manage_content" href="{% url 'manage_content' %}" 
+            class="nav-link link-style" role="button">
+            Manage Content</a>
+    </li>
+    <li class="nav-item dropdown">
+        <a id="dropdown"  class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+            aria-expanded="false">
+            <img id="gravatar" class="rounded-3" 
+            {% comment %} TODO fix the gravatar {% endcomment %}
+                src="user|gravatar:60"  
+                />{{ user.username }}<strong class="caret"></strong>
+        </a>
+        <ul class="dropdown-menu bg-light">
+             <li class="dropdown-item">
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <input class="dropdown-item link-style" type="submit" value="Logout">
+                <form>
             </li>
         </ul>
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class"nav-link link-style dropdown-toggle" href="#" id="rightnavDropdown" role="button"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img id="gravatar" class="rounded-3" 
-                    {% comment %} TODO fix the gravatar {% endcomment %}
-                        src="user|gravatar:60"  
-                        /><strong class="caret"></strong>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="rightnavDropdown">
-                    <li>
-                        <form action="{% url 'logout' %}" method="post">
-                            {% csrf_token %}
-                            <input class="dropdown-item link-style" type="submit" value="Logout">
-                        <form>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        {% else %}
-            <li>
-                <a id="flag-quiz" class="nav-link link-style" href="#">
-                    Flag quiz</a>
-            </li>
-        </ul>
-        {% endif %}
-    </div>
-</nav>
+    </li>
+    {% else %}
+    <li>
+        <a id="flag-quiz" class="nav-link link-style" href="#">
+            Flag quiz</a>
+    </li>
+    {% endif %}
+</ul>
 {% endblock %}
 
 {% block script %}{% endblock %}
