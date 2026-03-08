@@ -48,6 +48,12 @@ def update_score(request, score):
     return JsonResponse({'new_score': new_score})
 
 
+def reset_score(request):
+    request.session['score'] = 0
+
+    return HttpResponse(status=204)
+
+
 def set_list(request):
     quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
     return JsonResponse(quiz_list, safe=False)

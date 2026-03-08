@@ -13,20 +13,24 @@
 
     <div id="quiz-form" class="card bg-light mb-3" style="width:26rem" hidden="true" value="start" >
         <div class="bg-image hover-overlay" data-mbd-ripple-init data-mdb-ripple-color="light">
-            <img id="flag" class="card-img-top" hidden="true" src="" alt="guess">
+            <img id="flag" class="card-img-top" hidden="false" src="" alt="guess">
             <p id="hint" hidden="true"></p>
         </div>
         
-        <div class="row">
-        <div class="card-body">
+        <div class="card-body p-3">
             <form action="" class="row">
+                <h3 id="feedback" class="fw-bold" hidden="true"></h3>
                 <div class="col-9">
                     <input id="answer" class="form-control" hidden="true" type="text" 
-                        name="answer" placeholder="Enter country" autofocus >
+                        name="answer" placeholder="Enter country" value="" autofocus >
                 </div>
                 <div class="col-3">
-                    <input id="quiz-button" class="btn btn-success form-control" 
-                    type="button" value="Start"></button>
+                    <input id="start" class="btn btn-success form-control"
+                    type="button" value="Start">
+                    <input id="submit" class="btn btn-success form-control" hidden="true"
+                    type="button" value="Submit">
+                    <input id="next" class="btn btn-success form-control" hidden="true"
+                    type="button" value="Next">
                 </div>       
             </form>
         </div>

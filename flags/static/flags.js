@@ -1,45 +1,52 @@
 // Start quiz counter
 let flagQuizList;
-
+let currId;
+console.log(flagQuizList);
 
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to switch between different quiz views and home page
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     setList();
+    document.querySelector('#next').addEventListener('click', () => loadNextFlag())
+    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
+    document.querySelector('#start').addEventListener('click', () => loadNextFlag());
 });
 
 
 function loadFlagQuiz() {
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
-    const score = document.getElementById('score');
-    score.hidden = false;
-    score.innerText = "Score: 0";
+    reset_score()
 
     // Quiz form will be set up here
     document.querySelector('#page-heading').innerText = "Flag quiz"
     const quizForm = document.querySelector('#quiz-form');
     quizForm.hidden = false;
-
-    // Choose a random flag from flag quiz list
-    const randomFlag = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
-    
-    const quizButton = document.querySelector('#quiz-button');
-    quizButton.innerHTML = `<div id="next-q" class="btn btn-primary" value="Start quiz"></div>`;
-    quizButton.addEventListener('click', () => loadNextFlag(randomFlag))
+    console.log("quiz loaded")
 }
 
 
-function loadNextFlag(flagId) {
-    document.querySelector('#answer').hidden = false;
-    const quizButton = document.querySelector('#quiz-button')
+function loadNextFlag() {
+    // Choose a random flag and load it
+    currId = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
+
+    document.querySelector('#start').hidden = true;
+    document.querySelector('#next').hidden = true;
+    document.querySelector('#submit').hidden = false;
+    document.querySelector('#feedback').hidden = true;
+    console.log("quiz started / next question")
+
+    console.log(`list length: ${flagQuizList.length}`, flagQuizList)
+    const answer = document.querySelector('#answer');
+    answer.hidden = false;
+    answer.value - "";
     
     const flag = document.querySelector("#flag");
     flag.hidden = false;
     const hint = document.querySelector("#hint");
     hint.hidden = false;
 
-    fetch(`get_flag_q/${flagId}`)
+    fetch(`get_flag_q/${currId}`)
     .then(response => response.json())
     .then(country => {
         flag.src = country.flag;
@@ -49,47 +56,51 @@ function loadNextFlag(flagId) {
             hint.innerText = "";
         }
     });
-
-    quizButton.value = "Submit";
-    quizButton.addEventListener('click', () => flagFeedback(flagId));
 }
 
 
-function flagFeedback(flagId) {
-    const answer = document.querySelector('#answer').value;
-    const quizButton = document.querySelector('#quiz-button');
+function flagFeedback() {
+    document.querySelector('#next').hidden = false;
+    document.querySelector('#submit').hidden = true;
 
-    fetch(`get_flag_ans/${flagId}`)
+    const answer = document.querySelector('#answer').value;
+    const scoreboard = document.querySelector('#score');
+    const feedback = document.querySelector('#feedback');
+
+    fetch(`get_flag_ans/${currId}`)
     .then(response => response.json())
     .then(country => {
         if (answer.toLowerCase() == country.country.toLowerCase()) {
-            updateScore(1);
+            fetch(`update_score/${1}`)
+            .then(response => response.json())
+            .then(data => {
+                scoreboard.innerText = "Score: " + data.new_score;
+             });
+            
+            feedback.hidden = false;
+            feedback.classList.remove('text-danger');
+            feedback.classList.add('text-success');
+            feedback.innerText = "Correct";
         } else {
-            updateScore(0);
+            feedback.hidden = false;
+            feedback.classList.remove('text-success');
+            feedback.classList.add('text-danger');
+            feedback.innerText = country.country;
         }
     });
-    
-
-    flagQuizList.splice(flagQuizList.indexOf(flagId), 1);
-    if (flagQuizList.length > 0) {
-        const nextFlag = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
-        quizButton.value = "Next";
-        quizButton.addEventListener('click', () => loadNextFlag(nextFlag));
-    } else {
-        // TODO - add score info to page
+    flagQuizList.splice(flagQuizList.indexOf(currId), 1);
+    if (flagQuizList.length <= 0) {
         document.querySelector('#page-heading').innerText = "Done"
     }
 }
 
 
-function updateScore(score) {
-    const scoreboard = document.querySelector('#score');
+function reset_score() {
+    const score = document.getElementById('score');
+    score.hidden = false;
+    score.innerText = "Score: 0";
 
-    fetch(`update_score/${score}`)
-    .then(response => response.json())
-    .then(data => {
-        scoreboard.innerText = data.new_score;
-    });
+    fetch('reset_score');
 }
 
 

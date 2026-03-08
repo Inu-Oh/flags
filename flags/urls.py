@@ -11,4 +11,5 @@ urlpatterns = [
     path('get_flag_ans/<int:pk>', views.get_flag_ans, name='get_flag_ans'),
     path('set_list', views.set_list, name='set_list'),
     path('update_score/<int:score>', views.update_score, name='update_score'),
+    path('reset_score', views.reset_score, name='reset_score')
 ]
