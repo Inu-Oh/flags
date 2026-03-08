@@ -4,7 +4,7 @@ from datetime import datetime
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
 
@@ -16,19 +16,36 @@ def index(request):
     return render(request, 'index.html')
 
 
-def get_question(request, pk):
+def get_flag_q(request, pk):
     country = Country.objects.get(id=pk)
-    country_name = str(country.country)
     # Change domain for production
     flag = "http://127.0.0.1:8000/static/images/" + str(country.country_code) + ".png"
     hint = str(country.hint) if country.hint is not None else ""
 
     return JsonResponse({
-        'country': country_name,
         'flag': flag,
         'hint': hint,
         'pk': pk
     })
+
+
+def get_flag_ans(request, pk):
+    country = Country.objects.get(id=pk)
+    country_name = country.country
+
+    return JsonResponse({'country': country_name})
+
+
+def update_score(request, score):
+    if 'score' in request.session:
+        if int(score) == 1:
+            request.session['score'] += 1
+    else:
+        request.session['score'] = 1
+    
+    new_score = request.session['score']
+
+    return JsonResponse({'new_score': new_score})
 
 
 def set_list(request):

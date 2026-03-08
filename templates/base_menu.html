@@ -10,7 +10,9 @@
     <li class="nav-item">
         <a id="home-link" class="nav-link link-style active" href="{{ x }}">Home Menu</a>
     </li>
-    
+    <li class="nav-tem">
+        <p id="score" class="" hidden="true"></p>
+    </li>
     {% if user.is_staff %}
     <li class="nav-item">
         <a id="manage_content" href="{% url 'manage_content' %}" 

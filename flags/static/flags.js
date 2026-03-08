@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
 function loadFlagQuiz() {
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
+    const score = document.getElementById('score');
+    score.hidden = false;
+    score.innerText = "Score: 0";
 
     // Quiz form will be set up here
     document.querySelector('#page-heading').innerText = "Flag quiz"
@@ -28,15 +31,15 @@ function loadFlagQuiz() {
 
 
 function loadNextFlag(flagId) {
-    const quizForm = document.querySelector('#quiz-form');
-    document.querySelector('#country').hidden = false;
-    document.querySelector('#quiz-button').value = "Submit";
+    document.querySelector('#answer').hidden = false;
+    const quizButton = document.querySelector('#quiz-button')
+    
     const flag = document.querySelector("#flag");
     flag.hidden = false;
     const hint = document.querySelector("#hint");
     hint.hidden = false;
 
-    fetch(`get_question/${flagId}`)
+    fetch(`get_flag_q/${flagId}`)
     .then(response => response.json())
     .then(country => {
         flag.src = country.flag;
@@ -45,6 +48,47 @@ function loadNextFlag(flagId) {
         } else {
             hint.innerText = "";
         }
+    });
+
+    quizButton.value = "Submit";
+    quizButton.addEventListener('click', () => flagFeedback(flagId));
+}
+
+
+function flagFeedback(flagId) {
+    const answer = document.querySelector('#answer').value;
+    const quizButton = document.querySelector('#quiz-button');
+
+    fetch(`get_flag_ans/${flagId}`)
+    .then(response => response.json())
+    .then(country => {
+        if (answer.toLowerCase() == country.country.toLowerCase()) {
+            updateScore(1);
+        } else {
+            updateScore(0);
+        }
+    });
+    
+
+    flagQuizList.splice(flagQuizList.indexOf(flagId), 1);
+    if (flagQuizList.length > 0) {
+        const nextFlag = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
+        quizButton.value = "Next";
+        quizButton.addEventListener('click', () => loadNextFlag(nextFlag));
+    } else {
+        // TODO - add score info to page
+        document.querySelector('#page-heading').innerText = "Done"
+    }
+}
+
+
+function updateScore(score) {
+    const scoreboard = document.querySelector('#score');
+
+    fetch(`update_score/${score}`)
+    .then(response => response.json())
+    .then(data => {
+        scoreboard.innerText = data.new_score;
     });
 }
 
