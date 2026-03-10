@@ -42,7 +42,7 @@ Canada,Ottawa,ca,,287
 Cape Verde,Praia,cv,,288
 Cayman Islands,George Town,ky,,289
 Central African Republic,Bangui,cf,,290
-Chad,N'Djamena,td,,291
+Chad,N'Djamena,td,Similar to Romania,291
 Chile,Santiago,cl,,292
 China,Beijing,cn,,293
 Christmas Island,Flying Fish Cove,cx,,294
@@ -101,7 +101,7 @@ Hong Kong,Hong Kong,hk,,346
 Hungary,Budapest,hu,,347
 Iceland,Reykjavík,is,,348
 India,New Delhi,in,,349
-Indonesia,Jakarta,id,,350
+Indonesia,Jakarta,id,Similar to Monaco,350
 Iran,Tehran,ir,,351
 Iraq,Baghdad,iq,,352
 Ireland,Dublin,ie,,353
@@ -141,7 +141,7 @@ Mauritius,Port Louis,mu,,386
 Mexico,Mexico City,mx,,387
 Micronesia,Palikir,fm,,388
 Moldova,Chisinau,md,,389
-Monaco,Monaco,mc,,390
+Monaco,Monaco,mc,Similar to Indonesia,390
 Mongolia,Ulan Bator,mn,,391
 Montenegro,Podgorica,me,,392
 Montserrat,Brades,ms,,393
@@ -177,7 +177,7 @@ Portugal,Lisbon,po,,422
 Puerto Rico,San Juan,pr,,423
 Qatar,Doha,qa,,424
 Réunion,0,re,,425
-Romania,Bucharest,ro,,426
+Romania,Bucharest,ro,Similar to Chad,426
 Russia,Moscow,ru,,427
 Rwanda,Kigali,rw,,428
 Saint Barthelemy,Gustavia,bl,,429

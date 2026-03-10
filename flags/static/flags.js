@@ -1,32 +1,41 @@
 // Start quiz counter
 let flagQuizList;
 let currId;
-console.log(flagQuizList);
 
 document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to switch between different quiz views and home page
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     setList();
-    document.querySelector('#next').addEventListener('click', () => loadNextFlag())
+    document.querySelector('#next').addEventListener('click', () => loadNextFlag());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
     document.querySelector('#start').addEventListener('click', () => loadNextFlag());
+    document.querySelector('#quiz-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
 });
 
 
 function loadFlagQuiz() {
+    // const quizForm = document.querySelector('#quiz-form');
+    // quizForm.removeEventListener('submit', flagFeedback);
+    // quizForm.addEventListener('submit', loadNextFlag);
+
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
-    reset_score()
+    document.getElementById('next').focus();
 
     // Quiz form will be set up here
-    document.querySelector('#page-heading').innerText = "Flag quiz"
-    const quizForm = document.querySelector('#quiz-form');
-    quizForm.hidden = false;
-    console.log("quiz loaded")
+    document.querySelector('#page-heading').innerText = "Flag quiz";
+    document.querySelector('#quiz-card').hidden = false;
+    reset_score()
 }
 
 
 function loadNextFlag() {
+    // const quizForm = document.querySelector('#quiz-form');
+    // quizForm.removeEventListener('submit', loadNextFlag);
+    // quizForm.addEventListener('submit', flagFeedback);
+
     // Choose a random flag and load it
     currId = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
 
@@ -34,17 +43,10 @@ function loadNextFlag() {
     document.querySelector('#next').hidden = true;
     document.querySelector('#submit').hidden = false;
     document.querySelector('#feedback').hidden = true;
-    console.log("quiz started / next question")
+    document.querySelector("#flag").hidden = false;
+    document.querySelector("#hint").hidden = false;
 
     console.log(`list length: ${flagQuizList.length}`, flagQuizList)
-    const answer = document.querySelector('#answer');
-    answer.hidden = false;
-    answer.value - "";
-    
-    const flag = document.querySelector("#flag");
-    flag.hidden = false;
-    const hint = document.querySelector("#hint");
-    hint.hidden = false;
 
     fetch(`get_flag_q/${currId}`)
     .then(response => response.json())
@@ -56,12 +58,18 @@ function loadNextFlag() {
             hint.innerText = "";
         }
     });
+
+    const answer = document.querySelector('#answer');
+    answer.hidden = false;
+    answer.value = "";
+    answer.focus();
 }
 
 
 function flagFeedback() {
-    document.querySelector('#next').hidden = false;
-    document.querySelector('#submit').hidden = true;
+    // const quizForm = document.querySelector('#quiz-form');
+    // quizForm.removeEventListener('submit', flagFeedback);
+    // quizForm.addEventListener('submit', loadNextFlag);
 
     const answer = document.querySelector('#answer').value;
     const scoreboard = document.querySelector('#score');
@@ -92,6 +100,11 @@ function flagFeedback() {
     if (flagQuizList.length <= 0) {
         document.querySelector('#page-heading').innerText = "Done"
     }
+
+    document.querySelector('#submit').hidden = true;
+    const next = document.querySelector('#next')
+    next.hidden = false;
+    next.focus();
 }
 
 

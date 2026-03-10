@@ -5,21 +5,17 @@
 {% comment %} TODO - realignt layout of items to vertical {% endcomment %}
 
 {% block navbar %}
-<ul class="nav nav-tabs nav-justified bg-light">
-    {% url 'index' as x %}
-    <li class="nav-item">
-        <a id="home-link" class="nav-link link-style active" href="{{ x }}">Home Menu</a>
-    </li>
-    <li class="nav-tem">
-        <p id="score" class="nav-link active" hidden="true"></p>
+<ul class="nav nav-tabs flex-column flex-sm-row bg-light">
+    <li class="flex-sm-fill text-sm-center nav-item">
+        <a id="home-link" class="nav-link link-style active" href="{% url 'index' %}">Home Menu</a>
     </li>
     {% if user.is_staff %}
-    <li class="nav-item">
+    <li class="flex-sm-fill text-sm-center nav-item">
         <a id="manage_content" href="{% url 'manage_content' %}" 
             class="nav-link link-style" role="button">
             Manage Content</a>
     </li>
-    <li class="nav-item dropdown">
+    <li class="flex-sm-fill text-sm-center nav-item dropdown">
         <a id="dropdown"  class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
             aria-expanded="false">
             <img id="gravatar" class="rounded-3" 
@@ -37,9 +33,12 @@
         </ul>
     </li>
     {% else %}
-    <li>
+    <li class="flex-sm-fill text-sm-center nav-item">
         <a id="flag-quiz" class="nav-link link-style" href="#">
             Flag quiz</a>
+    </li>
+    <li class="flex-sm-fill text-sm-center nav-item">
+        <p id="score" class="nav-link disabled" hidden="true"></p>
     </li>
     {% endif %}
 </ul>
