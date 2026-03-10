@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener to switch between different quiz views and home page
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     setList();
-    document.querySelector('#next').addEventListener('click', () => loadNextFlag());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
     document.querySelector('#start').addEventListener('click', () => loadNextFlag());
     document.querySelector('#quiz-form').addEventListener('submit', function(event) {
@@ -16,36 +15,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function loadFlagQuiz() {
-    // const quizForm = document.querySelector('#quiz-form');
-    // quizForm.removeEventListener('submit', flagFeedback);
-    // quizForm.addEventListener('submit', loadNextFlag);
-
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
-    document.getElementById('next').focus();
 
     // Quiz form will be set up here
     document.querySelector('#page-heading').innerText = "Flag quiz";
     document.querySelector('#quiz-card').hidden = false;
+    document.querySelector('#feedback').hidden = false;
     reset_score()
+
+    document.getElementById('start').focus();
 }
 
 
 function loadNextFlag() {
-    // const quizForm = document.querySelector('#quiz-form');
-    // quizForm.removeEventListener('submit', loadNextFlag);
-    // quizForm.addEventListener('submit', flagFeedback);
-
     // Choose a random flag and load it
     currId = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
-
-    document.querySelector('#start').hidden = true;
-    document.querySelector('#next').hidden = true;
-    document.querySelector('#submit').hidden = false;
-    document.querySelector('#feedback').hidden = true;
-    document.querySelector("#flag").hidden = false;
-    document.querySelector("#hint").hidden = false;
-
     console.log(`list length: ${flagQuizList.length}`, flagQuizList)
 
     fetch(`get_flag_q/${currId}`)
@@ -59,6 +44,8 @@ function loadNextFlag() {
         }
     });
 
+    document.querySelector('#feedback').hidden = true;
+    document.querySelector('#quiz-form').hidden = false;
     const answer = document.querySelector('#answer');
     answer.hidden = false;
     answer.value = "";
@@ -67,13 +54,10 @@ function loadNextFlag() {
 
 
 function flagFeedback() {
-    // const quizForm = document.querySelector('#quiz-form');
-    // quizForm.removeEventListener('submit', flagFeedback);
-    // quizForm.addEventListener('submit', loadNextFlag);
-
     const answer = document.querySelector('#answer').value;
     const scoreboard = document.querySelector('#score');
     const feedback = document.querySelector('#feedback');
+    const feedbackText = document.querySelector('#feedback-text');
 
     fetch(`get_flag_ans/${currId}`)
     .then(response => response.json())
@@ -86,14 +70,14 @@ function flagFeedback() {
              });
             
             feedback.hidden = false;
-            feedback.classList.remove('text-danger');
-            feedback.classList.add('text-success');
-            feedback.innerText = "Correct";
+            feedbackText.classList.remove('text-danger');
+            feedbackText.classList.add('text-success');
+            feedbackText.innerText = "Correct";
         } else {
             feedback.hidden = false;
-            feedback.classList.remove('text-success');
-            feedback.classList.add('text-danger');
-            feedback.innerText = country.country;
+            feedbackText.classList.remove('text-success');
+            feedbackText.classList.add('text-danger');
+            feedbackText.innerText = country.country;
         }
     });
     flagQuizList.splice(flagQuizList.indexOf(currId), 1);
@@ -101,9 +85,9 @@ function flagFeedback() {
         document.querySelector('#page-heading').innerText = "Done"
     }
 
-    document.querySelector('#submit').hidden = true;
-    const next = document.querySelector('#next')
-    next.hidden = false;
+    document.querySelector('#quiz-form').hidden = true;
+    const next = document.getElementById('start');
+    next.innerText = "Next";
     next.focus();
 }
 
