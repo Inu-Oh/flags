@@ -39,8 +39,6 @@ class Country(models.Model):
     
     def save(self, *args, **kwargs):
         """Converts string case of country, capitad and country code before saving"""
-        self.country = self.country.title()
-        self.capital = self.capital.title()
         self.country_code = self.country_code.lower()
         super().save(*args, **kwargs)
 

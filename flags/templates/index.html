@@ -11,33 +11,39 @@
 
     <div id="msg" class="text-danger fw-bold fs-5 px-5"></div>
 
-    <div id="quiz-card" class="card bg-light mb-3" style="width:26rem" hidden="true" value="start" >
-        <div class="bg-image hover-overlay" data-mbd-ripple-init data-mdb-ripple-color="light">
+    <div id="quiz-card" class="card bg-light  mb-3" hidden="true" value="start">
+        <div id="flag-div" class="card-img-top bg-image hover-overlay" data-mbd-ripple-init data-mdb-ripple-color="light">
             <img id="flag" class="card-img-top" src="" alt="guess">
         </div>
         
-        <div class="card-body p-3">
-            <form id="quiz-form" action="" class="row" hidden="true">
-                <p id="hint"></p>
-                <div class="col-9">
-                    <input id="answer" class="form-control" type="text" 
-                        name="answer" placeholder="Enter country" value="" autofocus >
-                </div>
-                <div class="col-3">
-                    <input id="submit" class="btn btn-success form-control" 
-                    type="button" value="Submit">
-                </div>       
-            </form>
-            <div id="feedback" hidden="true" class="row">
-                <div class="col-9">
-                    <p id="feedback-text" class="fs-3 fw-bold"></p>
-                </div>
-                <div class="col-3">
-                    <a id="start" class="btn btn-success form-control" href="#">Start</a>
+        <div id="card-bod" class="card-body">
+            <div "hint-frame">
+                <div class="p-3">
+                    <p id="hint-text"></p>
                 </div>
             </div>
+            <div id="feedback-form-frame">
+                <div id="feedback" hidden="true" class="row py-2">
+                    <div class="col-9">
+                        <p id="feedback-text" class="fs-3 fw-bold"></p>
+                    </div>
+                    <div class="col-3">
+                        <a id="start" class="btn btn-success form-control" href="#">Start</a>
+                    </div>
+                </div>
+
+                <form id="quiz-form" action="" class="row py-2" hidden="true">
+                    <div class="col-9">
+                        <input id="answer" class="form-control" type="text" 
+                            name="answer" placeholder="Enter country" value="" autofocus >
+                    </div>
+                    <div class="col-3">
+                        <input id="submit" class="btn btn-success form-control" 
+                        type="button" value="Submit">
+                    </div>       
+                </form>
+            </div>
         </div>
-        
     </div>
 </div>
 {% endif %}

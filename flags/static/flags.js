@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#quiz-form').addEventListener('submit', function(event) {
         event.preventDefault();
     });
+    const input = document.querySelector('#answer');
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            document.querySelector('#submit').click();
+        }
+    });
 });
 
 
@@ -32,6 +38,7 @@ function loadNextFlag() {
     // Choose a random flag and load it
     currId = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
     console.log(`list length: ${flagQuizList.length}`, flagQuizList)
+    const hint = document.querySelector('#hint-text');
 
     fetch(`get_flag_q/${currId}`)
     .then(response => response.json())
@@ -47,14 +54,14 @@ function loadNextFlag() {
     document.querySelector('#feedback').hidden = true;
     document.querySelector('#quiz-form').hidden = false;
     const answer = document.querySelector('#answer');
-    answer.hidden = false;
+    answer.disabled = false;
     answer.value = "";
     answer.focus();
 }
 
 
 function flagFeedback() {
-    const answer = document.querySelector('#answer').value;
+    const answer = document.querySelector('#answer');
     const scoreboard = document.querySelector('#score');
     const feedback = document.querySelector('#feedback');
     const feedbackText = document.querySelector('#feedback-text');
@@ -62,13 +69,12 @@ function flagFeedback() {
     fetch(`get_flag_ans/${currId}`)
     .then(response => response.json())
     .then(country => {
-        if (answer.toLowerCase() == country.country.toLowerCase()) {
+        if (answer.value.toLowerCase() == country.country.toLowerCase()) {
             fetch(`update_score/${1}`)
             .then(response => response.json())
             .then(data => {
                 scoreboard.innerText = "Score: " + data.new_score;
              });
-            
             feedback.hidden = false;
             feedbackText.classList.remove('text-danger');
             feedbackText.classList.add('text-success');
@@ -85,10 +91,14 @@ function flagFeedback() {
         document.querySelector('#page-heading').innerText = "Done"
     }
 
+    document.querySelector('#hint-text').innerText = "";
     document.querySelector('#quiz-form').hidden = true;
+    answer.disabled = true;
     const next = document.getElementById('start');
     next.innerText = "Next";
-    next.focus();
+    setTimeout(() => {
+        next.focus();
+    }, 500);
 }
 
 

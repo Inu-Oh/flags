@@ -4,10 +4,10 @@ Afghanistan,Kabul,af,,248
 Albania,Tirana,al,,250
 Algeria,Algiers,dz,,251
 American Samoa,Pago Pago,as,,252
-Andorra,Andorra La Vella,ad,,253
+Andorra,Andorra la Vella,ad,,253
 Angola,Luanda,ao,,254
 Anguilla,The Valley,ai,,255
-Antigua And Barbuda,Saint Johns,ag,,256
+Antigua and Barbuda,Saint Johns,ag,,256
 Antarctica,0,aq,,257
 Argentina,Buenos Aires,ar,,258
 Armenia,Yerevan,am,,259
@@ -28,7 +28,7 @@ Bermuda,Hamilton,bm,,273
 Bhutan,Thimphu,bt,,274
 British Indian Ocean Territory,0,io,,275
 Bolivia,Sucre,bo,,276
-Bosnia And Herzegovina,Sarajevo,ba,,277
+Bosnia and Herzegovina,Sarajevo,ba,,277
 Botswana,Gaborone,bw,,278
 Brazil,Brasília,br,,279
 British Virgin Islands,Road Town,vg,,280
@@ -42,7 +42,7 @@ Canada,Ottawa,ca,,287
 Cape Verde,Praia,cv,,288
 Cayman Islands,George Town,ky,,289
 Central African Republic,Bangui,cf,,290
-Chad,N'Djamena,td,Similar to Romania,291
+Chad,N'Djamena,td,Flag similar to Romania,291
 Chile,Santiago,cl,,292
 China,Beijing,cn,,293
 Christmas Island,Flying Fish Cove,cx,,294
@@ -55,10 +55,10 @@ Croatia,Zagreb,hr,,300
 Cuba,Havana,cu,,301
 Curaçao,Willemstad,cw,,302
 Cyprus,Nicosia,cy,,303
-Côte D'Ivoire,Yamoussoukro,ci,,304
+Côte d'Ivoire,Yamoussoukro,ci,,304
 Czech Republic,Prague,cz,,305
-Democratic Republic Of The Congo,Kinshasa,cd,,306
-Republic Of The Congo,Brazzaville,cg,,307
+Democratic Republic of the Congo,Kinshasa,cd,,306
+Republic of the Congo,Brazzaville,cg,,307
 Denmark,Copenhagen,dk,,308
 Djibouti,Djibouti,dj,,309
 Dominica,Roseau,dm,,310
@@ -95,17 +95,17 @@ Guinea,Conakry,gn,,340
 Guinea-Bissau,Bissau,gw,,341
 Guyana,Georgetown,gy,,342
 Haiti,Port-Au-Prince,ht,,343
-Heard Island And Mcdonald Islands,0,hm,,344
+Heard Island and Mcdonald Islands,0,hm,,344
 Honduras,Tegucigalpa,hn,,345
 Hong Kong,Hong Kong,hk,,346
 Hungary,Budapest,hu,,347
 Iceland,Reykjavík,is,,348
 India,New Delhi,in,,349
-Indonesia,Jakarta,id,Similar to Monaco,350
+Indonesia,Jakarta,id,Flag similar to Monaco,350
 Iran,Tehran,ir,,351
 Iraq,Baghdad,iq,,352
 Ireland,Dublin,ie,,353
-Isle Of Man,Douglas,im,,354
+Isle of Man,Douglas,im,,354
 Israel,Jerusalem,il,,355
 Italy,Rome,it,,356
 Jamaica,Kingston,jm,,357
@@ -139,9 +139,9 @@ Marshall Islands,Majuro,mh,,384
 Mauritania,Nouakchott,mr,,385
 Mauritius,Port Louis,mu,,386
 Mexico,Mexico City,mx,,387
-Micronesia,Palikir,fm,,388
+Federated States of Micronesia,Palikir,fm,,388
 Moldova,Chisinau,md,,389
-Monaco,Monaco,mc,Similar to Indonesia,390
+Monaco,Monaco,mc,Flag similar to Indonesia,390
 Mongolia,Ulan Bator,mn,,391
 Montenegro,Podgorica,me,,392
 Montserrat,Brades,ms,,393
@@ -173,23 +173,23 @@ Peru,Lima,pe,,418
 Philippines,Manila,ph,,419
 Pitcairn Islands,Adamstown,pn,,420
 Poland,Warsaw,pl,,421
-Portugal,Lisbon,po,,422
+Portugal,Lisbon,pt,,422
 Puerto Rico,San Juan,pr,,423
 Qatar,Doha,qa,,424
 Réunion,0,re,,425
-Romania,Bucharest,ro,Similar to Chad,426
+Romania,Bucharest,ro,Flag similar to Chad,426
 Russia,Moscow,ru,,427
 Rwanda,Kigali,rw,,428
 Saint Barthelemy,Gustavia,bl,,429
 Saint Helena,Jamestown,sh,,430
-Saint Kitts And Nevis,Basseterre,kn,,431
+Saint Kitts and Nevis,Basseterre,kn,,431
 Saint Lucia,Castries,lc,,432
-Saint Martin,Marigot,mf,,433
-Saint Pierre And Miquelon,Saint-Pierre,pm,,434
-Saint Vincent And The Grenadines,Kingstown,vc,,435
+Saint Martin,Marigot,mf,Flag similar to France,433
+Saint Pierre and Miquelon,Saint-Pierre,pm,,434
+Saint Vincent and the Grenadines,Kingstown,vc,,435
 Samoa,Apia,ws,,436
 San Marino,San Marino,sm,,437
-São Tomé And Príncipe,Sao Tome,st,,438
+São Tomé and Príncipe,Sao Tome,st,,438
 Saudi Arabia,Riyadh,sa,,439
 Senegal,Dakar,sn,,440
 Serbia,Belgrade,rs,,441
@@ -205,7 +205,7 @@ South Africa,Cape Town,za,,450
 South Korea,Seoul,kr,,451
 South Sudan,Juba,ss,,452
 Spain,Madrid,es,,453
-Sri Lanka,Sri Jayawardenapura-Kotte,lk,,454
+Sri Lanka,Sri Jayawardenapura-kotte,lk,,454
 Sudan,Khartoum,sd,,455
 Suriname,Paramaribo,sr,,456
 Sweden,Stockholm,se,,457
@@ -219,11 +219,11 @@ Togo,Lomé,tg,,464
 Tokelau,None,tk,,465
 Tonga,Nuku'Alofa,to,,466
 Transnistria,Tiraspol,ts,,467
-Trinidad And Tobago,Port Of Spain,tt,,468
+Trinidad And Tobago,Port of Spain,tt,,468
 Tunisia,Tunis,tn,,469
 Turkey,Ankara,tr,,470
 Turkmenistan,Ashgabat,tm,,471
-Turks And Caicos Islands,Cockburn Town,tc,,472
+Turks and Caicos Islands,Cockburn Town,tc,,472
 Tuvalu,Funafuti,tv,,473
 Uganda,Kampala,ug,,474
 Ukraine,Kiev,ua,,475
@@ -233,7 +233,7 @@ England,London,gb-eng,,478
 Wales,Cardiff,gb-wls,,479
 Scotland,Edinburgh,gb-sct,,480
 Northern Ireland,Belfast,gb-nir,,481
-United States,Washington D.C.,us,,482
+United States of America,Washington D.C.,us,,482
 United States Virgin Islands,Charlotte Amalie,vi,,483
 Uruguay,Montevideo,uy,,484
 Uzbekistan,Tashkent,uz,,485
@@ -241,8 +241,8 @@ Vanuatu,Port Vila,vu,,486
 The Holy See,Vatican City,va,,487
 Venezuela,Caracas,ve,,488
 Viet Nam,Hanoi,vn,,489
-Wallis And Futuna,Mata-Utu,wf,,490
+Wallis and Futuna,Mata-Utu,wf,,490
 Sahrawi Arab Democratic Republic,El Aaiun,eh,,491
-Yemen,Sana'A,ye,,492
+Yemen,Sana'a,ye,,492
 Zambia,Lusaka,zm,,493
 Zimbabwe,Harare,zw,,494
