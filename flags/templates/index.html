@@ -12,6 +12,7 @@
     <div id="msg" class="text-danger fw-bold fs-5 px-5"></div>
 
     <div id="quiz-card" class="card bg-light  mb-3" hidden="true" value="start">
+        <p id="score" class="p-3 fw-bold" hidden="true"></p>
         <div id="flag-div" class="card-img-top bg-image hover-overlay" data-mbd-ripple-init data-mdb-ripple-color="light">
             <img id="flag" class="card-img-top" src="" alt="guess">
         </div>
@@ -32,7 +33,7 @@
                     </div>
                 </div>
 
-                <form id="quiz-form" action="" class="row py-2" hidden="true">
+                <form id="quiz-form" action="" class="row py-2" hidden="true" autocomplete="off">
                     <div class="col-9">
                         <input id="answer" class="form-control" type="text" 
                             name="answer" placeholder="Enter country" value="" autofocus >

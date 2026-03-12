@@ -5,13 +5,13 @@
 
 {% if form %}
     <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_table }}
-    <input type="submit" value="Submit"
-        class="btn btn-outline-success m-2">
-    <input type="submit" value="Cancel &nbsp;&raquo;&nbsp; return to menu"
-        class="btn btn-outline-danger m-2 text-dark"
-        onclick="window.location.href='{% url 'index' %}';return false">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <input type="submit" value="Submit"
+            class="btn btn-outline-success m-2">
+        <input type="submit" value="Cancel &nbsp;&raquo;&nbsp; return to menu"
+            class="btn btn-outline-danger m-2 text-dark"
+            onclick="window.location.href='{% url 'index' %}';return false">
     </form>
 {% endif %}
 
@@ -39,8 +39,6 @@
             <td>{{c.hint}}</td>
             <td>{{c.pk}}</td>
         </tr> 
-    {% empty %}
-        <p>No countries have been added to the database.</p>
     {% endfor %}
     </tbody>
 </table>

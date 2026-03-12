@@ -1,9 +1,15 @@
 #quiz-card {
-    height: 30rem;
+    height: 31rem;
     width: 26rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+}
+
+#score {
+    height: 1rem;
+    text-align: center;
 }
 
 #flag {

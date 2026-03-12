@@ -3,8 +3,10 @@ let flagQuizList;
 let currId;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners to switch main interfaces and set quiz list
+    // Add event listeners to switch main quiz GUIs and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
+    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
+    document.querySelector('#start').addEventListener('click', () => loadNextFlag());
     setList();
     document.querySelector('#quiz-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -19,9 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function loadFlagQuiz() {
-    reset_score();
-    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
-    document.querySelector('#start').addEventListener('click', () => loadNextFlag());
+    resetScore();
 
     // Switch nav tabs
     document.getElementById('home-link').classList.remove('active');
@@ -57,19 +57,18 @@ function loadNextFlag() {
     document.querySelector('#feedback').hidden = true;
     document.querySelector('#quiz-form').hidden = false;
     const answer = document.querySelector('#answer');
-    answer.disabled = false;
     answer.value = "";
     answer.focus();
 }
 
 
 function flagFeedback() {
-
     // Get result of user quiz answer and set feedback
     const answer = document.querySelector('#answer');
     const scoreboard = document.querySelector('#score');
     const feedback = document.querySelector('#feedback');
     const feedbackText = document.querySelector('#feedback-text');
+
     fetch(`get_flag_ans/${currId}`)
     .then(response => response.json())
     .then(country => {
@@ -77,7 +76,8 @@ function flagFeedback() {
             fetch(`update_score/${1}`)
             .then(response => response.json())
             .then(data => {
-                scoreboard.innerText = "Score: " + data.new_score;
+                scoreboard.innerHTML = "Score: " + data.new_score + " &nbsp;&nbsp ";
+                scoreboard.innerHTML += "Flags left: " + flagQuizList.length;
              });
             feedback.hidden = false;
             feedbackText.classList.remove('text-danger');
@@ -98,20 +98,19 @@ function flagFeedback() {
     // Set up GUI for feedback and next button
     document.querySelector('#hint-text').innerText = "";
     document.querySelector('#quiz-form').hidden = true;
-    answer.disabled = true;
     const next = document.getElementById('start');
     next.innerText = "Next";
     setTimeout(() => {
         next.focus();
-    }, 500);
+    }, 100);
 }
 
 
-function reset_score() {
+function resetScore() {
     // Sets score to 0 in session
     const score = document.getElementById('score');
     score.hidden = false;
-    score.innerText = "Score: 0";
+    score.innerHTML = "Score: 0 &nbsp;&nbsp Flags left: " + flagQuizList.length;
 
     fetch('reset_score');
 }
