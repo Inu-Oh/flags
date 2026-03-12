@@ -1,13 +1,11 @@
-// Start quiz counter
+// Initiate data
 let flagQuizList;
 let currId;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listener to switch between different quiz views and home page
+    // Add event listeners to switch main interfaces and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     setList();
-    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
-    document.querySelector('#start').addEventListener('click', () => loadNextFlag());
     document.querySelector('#quiz-form').addEventListener('submit', function(event) {
         event.preventDefault();
     });
@@ -21,25 +19,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function loadFlagQuiz() {
+    reset_score();
+    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
+    document.querySelector('#start').addEventListener('click', () => loadNextFlag());
+
+    // Switch nav tabs
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
 
-    // Quiz form will be set up here
+    // Show quiz card
     document.querySelector('#page-heading').innerText = "Flag quiz";
     document.querySelector('#quiz-card').hidden = false;
-    document.querySelector('#feedback').hidden = false;
-    reset_score()
-
-    document.getElementById('start').focus();
+    
+    // Start quiz
+    loadNextFlag();
 }
 
 
 function loadNextFlag() {
     // Choose a random flag and load it
     currId = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
-    console.log(`list length: ${flagQuizList.length}`, flagQuizList)
+    
+    // Get flag data
     const hint = document.querySelector('#hint-text');
-
     fetch(`get_flag_q/${currId}`)
     .then(response => response.json())
     .then(country => {
@@ -51,6 +53,7 @@ function loadNextFlag() {
         }
     });
 
+    // Set up GUI for quiz question
     document.querySelector('#feedback').hidden = true;
     document.querySelector('#quiz-form').hidden = false;
     const answer = document.querySelector('#answer');
@@ -61,11 +64,12 @@ function loadNextFlag() {
 
 
 function flagFeedback() {
+
+    // Get result of user quiz answer and set feedback
     const answer = document.querySelector('#answer');
     const scoreboard = document.querySelector('#score');
     const feedback = document.querySelector('#feedback');
     const feedbackText = document.querySelector('#feedback-text');
-
     fetch(`get_flag_ans/${currId}`)
     .then(response => response.json())
     .then(country => {
@@ -91,6 +95,7 @@ function flagFeedback() {
         document.querySelector('#page-heading').innerText = "Done"
     }
 
+    // Set up GUI for feedback and next button
     document.querySelector('#hint-text').innerText = "";
     document.querySelector('#quiz-form').hidden = true;
     answer.disabled = true;
@@ -103,6 +108,7 @@ function flagFeedback() {
 
 
 function reset_score() {
+    // Sets score to 0 in session
     const score = document.getElementById('score');
     score.hidden = false;
     score.innerText = "Score: 0";
@@ -112,6 +118,7 @@ function reset_score() {
 
 
 function setList() {
+    // Set list of question IDs for quiz progress
     fetch('set_list')
     .then(response => response.json())
     .then(list => {
