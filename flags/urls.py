@@ -7,6 +7,7 @@ urlpatterns = [
     path('manage_content', views.PopulateDbView.as_view(), name='manage_content'),
 
     # API Routes
+    path('get_flag_id', views.get_flag_id, name='get_flag_id'),
     path('get_flag_q/<int:pk>', views.get_flag_q, name='get_flag_q'),
     path('get_flag_ans/<int:pk>', views.get_flag_ans, name='get_flag_ans'),
     path('set_list', views.set_list, name='set_list'),

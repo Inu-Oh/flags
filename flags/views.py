@@ -1,5 +1,6 @@
 from csv import reader, DictWriter
 from datetime import datetime
+from random import choice
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,6 +15,25 @@ from .models import Country
 
 def index(request):
     return render(request, 'index.html')
+
+
+def get_flag_id(request):
+    if not request.session['quiz_list']:
+        quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
+        
+    else:
+        quiz_list = request.session['quiz_list']
+
+    next_id = choice(quiz_list)
+    quiz_list.remove(next_id)
+    request.session['quiz_list'] = quiz_list
+    quiz_length = len(quiz_list)
+
+    return JsonResponse({
+        'flagCount': quiz_length,
+        'currId': next_id
+    })
+
 
 
 def get_flag_q(request, pk):
@@ -32,8 +52,12 @@ def get_flag_q(request, pk):
 def get_flag_ans(request, pk):
     country = Country.objects.get(id=pk)
     country_name = country.country
-
     return JsonResponse({'country': country_name})
+
+
+def get_score(request):
+    score = request.session['score']
+    return JsonResponse({'score': score})
 
 
 def update_score(request, score):
@@ -55,8 +79,11 @@ def reset_score(request):
 
 
 def set_list(request):
+    # Set list of question IDs in session for quiz progress & get question count
     quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
-    return JsonResponse(quiz_list, safe=False)
+    request.session['quiz_list'] = quiz_list
+    quiz_length = len(quiz_list)
+    return JsonResponse({'flagCount': quiz_length})
 
 
 # Superuser view for pupulating DB

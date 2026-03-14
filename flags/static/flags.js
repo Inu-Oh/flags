@@ -1,13 +1,15 @@
 // Initiate data
-let flagQuizList;
+let flagCount;
 let currId;
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Create a list for first quiz
+    setList();
     // Add event listeners to switch main quiz GUIs and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
     document.querySelector('#start').addEventListener('click', () => loadNextFlag());
-    setList();
+    
     document.querySelector('#quiz-form').addEventListener('submit', function(event) {
         event.preventDefault();
     });
@@ -21,7 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 function loadFlagQuiz() {
+    // Choose a random flag and set currID
     resetScore();
+    getFlagId();
 
     // Switch nav tabs
     document.getElementById('home-link').classList.remove('active');
@@ -31,15 +35,15 @@ function loadFlagQuiz() {
     document.querySelector('#page-heading').innerText = "Flag quiz";
     document.querySelector('#quiz-card').hidden = false;
     
+    
     // Start quiz
-    loadNextFlag();
+    setTimeout(() => {
+        loadNextFlag();
+    }, 100);
 }
 
 
-function loadNextFlag() {
-    // Choose a random flag and load it
-    currId = flagQuizList[Math.floor(Math.random() * flagQuizList.length)];
-    
+function loadNextFlag() {    
     // Get flag data
     const hint = document.querySelector('#hint-text');
     fetch(`get_flag_q/${currId}`)
@@ -69,6 +73,7 @@ function flagFeedback() {
     const feedback = document.querySelector('#feedback');
     const feedbackText = document.querySelector('#feedback-text');
 
+    // Update score and generate feedback
     fetch(`get_flag_ans/${currId}`)
     .then(response => response.json())
     .then(country => {
@@ -77,7 +82,7 @@ function flagFeedback() {
             .then(response => response.json())
             .then(data => {
                 scoreboard.innerHTML = "Score: " + data.new_score + " &nbsp;&nbsp ";
-                scoreboard.innerHTML += "Flags left: " + flagQuizList.length;
+                scoreboard.innerHTML += "Flags left: " + flagCount;
              });
             feedback.hidden = false;
             feedbackText.classList.remove('text-danger');
@@ -86,6 +91,12 @@ function flagFeedback() {
             feedbackText.classList.add('fs-3');
             feedbackText.innerText = "Correct";
         } else {
+            fetch('get_score') 
+            .then(response => response.json())           
+            .then(data => {
+                scoreboard.innerHTML = "Score: " + data.new_score + " &nbsp;&nbsp ";
+                scoreboard.innerHTML += "Flags left: " + flagCount;
+             });
             feedback.hidden = false;
             feedbackText.classList.remove('text-success');
             feedbackText.classList.add('text-danger');
@@ -94,8 +105,8 @@ function flagFeedback() {
             feedbackText.innerText = country.country;
         }
     });
-    flagQuizList.splice(flagQuizList.indexOf(currId), 1);
-    if (flagQuizList.length <= 0) {
+    
+    if (flagCount <= 0) {
         document.querySelector('#page-heading').innerText = "Done"
     }
 
@@ -103,15 +114,23 @@ function flagFeedback() {
     document.querySelector('#hint-text').innerText = "";
     document.querySelector('#quiz-form').hidden = true;
     const next = document.getElementById('start');
+    
     next.innerText = "Next";
     setTimeout(() => {
         next.focus();
+        getFlagId();
     }, 100);
 }
 
 
 function getFlagId() {
-
+    // Get ID of next flag question and update quiz question list in session
+    fetch('get_flag_id')
+    .then(response => response.json())
+    .then(data => {
+        flagCount = data.flagCount;
+        currId = data.currId;
+    });
 }
 
 
@@ -119,17 +138,17 @@ function resetScore() {
     // Sets score to 0 in session
     const score = document.getElementById('score');
     score.hidden = false;
-    score.innerHTML = "Score: 0 &nbsp;&nbsp Flags left: " + flagQuizList.length;
+    score.innerHTML = "Score: 0 &nbsp;&nbsp Flags left: " + flagCount;
 
     fetch('reset_score');
 }
 
 
 function setList() {
-    // Set list of question IDs for quiz progress
+    // Set list of question IDs in session for quiz progress & get question count
     fetch('set_list')
     .then(response => response.json())
-    .then(list => {
-        flagQuizList = list;
+    .then(data => {
+        flagCount = data.flagCount;
     });
 }
