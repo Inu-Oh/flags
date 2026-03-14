@@ -3,10 +3,13 @@
 
 
 {% block content %}
-{% if user.is_staff %}
-
-{% else %}
 <div class="container">
+
+
+    {% if user.is_staff %}
+
+
+    {% else %}
     <h1 id="page-heading" class="pb-2">Choose a quiz</h1>
 
     <div id="msg" class="text-danger fw-bold fs-5 px-5"></div>
@@ -29,7 +32,7 @@
                         <p id="feedback-text" class="fs-3 fw-bold"></p>
                     </div>
                     <div class="col-3">
-                        <a id="start" class="btn btn-success form-control" href="#">Start</a>
+                        <a id="start" class="btn btn-success" href="#">Start</a>
                     </div>
                 </div>
 
@@ -46,15 +49,15 @@
             </div>
         </div>
     </div>
+    {% endif %}
+
+
 </div>
-{% endif %}
 {% endblock %}
 
 
 {% block script %}
-{% if user.is_staff %}
-
-{% else %}
-    <script src="{% static 'flags.js' %}"></script>
-{% endif %}
+    {% if user.is_staff %}{% else %}
+        <script src="{% static 'flags.js' %}"></script>
+    {% endif %}
 {% endblock %}

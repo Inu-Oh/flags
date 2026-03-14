@@ -104,8 +104,10 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                             TypeError
                     else:
                         new += 1          
-        except (ValueError, TypeError):
+        except (ValueError, TypeError, ObjectDoesNotExist):
             msg = "Error: Review data.csv and fix errors then refresh this page."
+            msg += "If you previously cleared the database you may need to delete"
+            msk += "former primary keys from the pk column."
             return render(request, self.template_name, { 'message': msg })
         
         old_pk_list = Country.objects.values_list('id', flat=True).distinct()

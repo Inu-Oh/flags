@@ -131,8 +131,8 @@ CRISPY_TEMPLATE_PACH = 'bootsrap'
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'flags/static')
 
-# Redirect to home URL after login (Default redirect to /accounts/provile/)
-LOGIN_REDIRECT_URL = '/'
+# Redirect to home URL after login (Default redirect to /accounts/profile/)
+LOGIN_REDIRECT_URL = 'manage_content'
 LOGOUT_REDIRECT_URL = '/'
 
 # Default primary key field type

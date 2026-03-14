@@ -1,0 +1,248 @@
+country,capital,code,hint,pk
+Afghanistan,Kabul,af,,495
+Albania,Tirana,al,,497
+Algeria,Algiers,dz,,498
+American Samoa,Pago Pago,as,,499
+Andorra,Andorra la Vella,ad,,500
+Angola,Luanda,ao,,501
+Anguilla,The Valley,ai,,502
+Antarctica,0,aq,,504
+Antigua and Barbuda,Saint Johns,ag,,503
+Argentina,Buenos Aires,ar,,505
+Armenia,Yerevan,am,,506
+Aruba,Oranjestad,aw,,507
+Australia,Canberra,au,,508
+Austria,Vienna,at,,509
+Azerbaijan,Baku,az,,510
+Bahamas,Nassau,bs,,511
+Bahrain,Manama,bh,,512
+Bangladesh,Dhaka,bd,,513
+Barbados,Bridgetown,bb,,514
+Belarus,Minsk,by,,516
+Belgium,Brussels,be,,517
+Belize,Belmopan,bz,,518
+Benin,Porto-Novo,bj,,519
+Bermuda,Hamilton,bm,,520
+Bhutan,Thimphu,bt,,521
+Bolivia,Sucre,bo,,523
+Bonaire,Kralendijk,bq,,515
+Bosnia and Herzegovina,Sarajevo,ba,,524
+Botswana,Gaborone,bw,,525
+Brazil,Brasília,br,,526
+British Indian Ocean Territory,0,io,,522
+British Virgin Islands,Road Town,vg,,527
+Brunei,Bandar Seri Begawan,bn,,528
+Bulgaria,Sofia,bg,,529
+Burkina Faso,Ouagadougou,bf,,530
+Burundi,Bujumbura,bi,,531
+Cambodia,Phnom Penh,kh,,532
+Cameroon,Yaoundé,cm,,533
+Canada,Ottawa,ca,,534
+Cape Verde,Praia,cv,,535
+Cayman Islands,George Town,ky,,536
+Central African Republic,Bangui,cf,,537
+Chad,N'Djamena,td,Flag similar to Romania,538
+Chile,Santiago,cl,,539
+China,Beijing,cn,,540
+Christmas Island,Flying Fish Cove,cx,,541
+Cocos Islands,West Island,cc,,542
+Colombia,Bogotá,co,,543
+Comoros,Moroni,km,,544
+Cook Islands,Avarua,ck,,545
+Costa Rica,San José,cr,,546
+Croatia,Zagreb,hr,,547
+Cuba,Havana,cu,,548
+Curaçao,Willemstad,cw,,549
+Cyprus,Nicosia,cy,,550
+Czech Republic,Prague,cz,,552
+Côte d'Ivoire,Yamoussoukro,ci,,551
+Democratic Republic of the Congo,Kinshasa,cd,,553
+Denmark,Copenhagen,dk,,555
+Djibouti,Djibouti,dj,,556
+Dominica,Roseau,dm,,557
+Dominican Republic,Santo Domingo,do,,558
+East Timor,Dili,tl,,559
+Ecuador,Quito,ec,,560
+Egypt,Cairo,eg,,561
+El Salvador,San Salvador,sv,,562
+England,London,gb-eng,,725
+Equatorial Guinea,Malabo,gq,,563
+Eritrea,Asmara,er,,564
+Estonia,Tallinn,ee,,565
+Eswatini,Mbabane,sz,,566
+Ethiopia,Addis Ababa,et,,567
+Falkland Islands,Stanley,fk,,568
+Faroe Islands,Tórshavn,fo,,569
+Federated States of Micronesia,Palikir,fm,,635
+Fiji,Suva,fj,,570
+Finland,Helsinki,fi,,571
+France,Paris,fr,,572
+French Guiana,Cayenne,gf,,573
+French Polynesia,Papeete,pf,,574
+Gabon,Libreville,ga,,575
+Gambia,Banjul,gm,,576
+Georgia,Tbilisi,ge,,577
+Germany,Berlin,de,,578
+Ghana,Accra,gh,,579
+Gibraltar,Gibraltar,gi,,580
+Greece,Athens,gr,,581
+Greenland,Nuuk,gl,,582
+Grenada,St. George'S,gd,,583
+Guam,Hagatna,gu,,584
+Guatemala,Guatemala City,gt,,585
+Guernsey,Saint Peter Port,gg,,586
+Guinea,Conakry,gn,,587
+Guinea-Bissau,Bissau,gw,,588
+Guyana,Georgetown,gy,,589
+Haiti,Port-Au-Prince,ht,,590
+Heard Island and Mcdonald Islands,0,hm,,591
+Honduras,Tegucigalpa,hn,,592
+Hong Kong,Hong Kong,hk,,593
+Hungary,Budapest,hu,,594
+Iceland,Reykjavík,is,,595
+India,New Delhi,in,,596
+Indonesia,Jakarta,id,Flag similar to Monaco,597
+Iran,Tehran,ir,,598
+Iraq,Baghdad,iq,,599
+Ireland,Dublin,ie,,600
+Isle of Man,Douglas,im,,601
+Israel,Jerusalem,il,,602
+Italy,Rome,it,,603
+Jamaica,Kingston,jm,,604
+Japan,Tokyo,jp,,605
+Jersey,Saint Helier,je,,606
+Jordan,Amman,jo,,607
+Kazakhstan,Astana,kz,,608
+Kenya,Nairobi,ke,,609
+Kiribati,Tarawa,ki,,610
+Kosovo,Pristina,xk,,611
+Kuwait,Kuwait City,kw,,612
+Kyrgyzstan,Bishkek,kg,,613
+Laos,Vientiane,la,,614
+Latvia,Riga,lv,,615
+Lebanon,Beirut,lb,,616
+Lesotho,Maseru,ls,,617
+Liberia,Monrovia,lr,,618
+Libya,Tripoli,ly,,619
+Liechtenstein,Vaduz,li,,620
+Lithuania,Vilnius,lt,,621
+Luxembourg,Luxembourg,lu,,622
+Macao,Macao,mo,,623
+Madagascar,Antananarivo,mg,,625
+Malawi,Lilongwe,mw,,626
+Malaysia,Kuala Lumpur,my,,627
+Maldives,Malé,mv,,628
+Mali,Bamako,ml,,629
+Malta,Valletta,mt,,630
+Marshall Islands,Majuro,mh,,631
+Mauritania,Nouakchott,mr,,632
+Mauritius,Port Louis,mu,,633
+Mexico,Mexico City,mx,,634
+Moldova,Chisinau,md,,636
+Monaco,Monaco,mc,Flag similar to Indonesia,637
+Mongolia,Ulan Bator,mn,,638
+Montenegro,Podgorica,me,,639
+Montserrat,Brades,ms,,640
+Morocco,Rabat,ma,,641
+Mozambique,Maputo,mz,,642
+Myanmar,Naypyidaw,mm,,643
+Namibia,Windhoek,na,,644
+Nauru,Yaren,nr,,645
+Nepal,Kathmandu,np,,646
+Netherlands,Amsterdam,nl,,647
+New Caledonia,Nouméa,nc,,648
+New Zealand,Wellington,nz,,649
+Nicaragua,Managua,ni,,650
+Niger,Niamey,ne,,651
+Nigeria,Abuja,ng,,652
+Niue,Alofi,nu,,653
+Norfolk Island,Kingston,nf,,654
+North Korea,Pyongyang,kp,,655
+North Macedonia,Skopje,mk,,624
+Northern Ireland,Belfast,gb-nir,,728
+Northern Mariana Islands,Saipan,mp,,656
+Norway,Oslo,no,,657
+Oman,Muscat,om,,658
+Pakistan,Islamabad,pk,,659
+Palau,Ngerulmud,pw,,660
+Palestine,Jerusalem,ps,,661
+Panama,Panama City,pa,,662
+Papua New Guinea,Port Moresby,pg,,663
+Paraguay,Asunción,py,,664
+Peru,Lima,pe,,665
+Philippines,Manila,ph,,666
+Pitcairn Islands,Adamstown,pn,,667
+Poland,Warsaw,pl,,668
+Portugal,Lisbon,pt,,669
+Puerto Rico,San Juan,pr,,670
+Qatar,Doha,qa,,671
+Republic of the Congo,Brazzaville,cg,,554
+Romania,Bucharest,ro,Flag similar to Chad,673
+Russia,Moscow,ru,,674
+Rwanda,Kigali,rw,,675
+Réunion,0,re,,672
+Sahrawi Arab Democratic Republic,El Aaiun,eh,,738
+Saint Barthelemy,Gustavia,bl,,676
+Saint Helena,Jamestown,sh,,677
+Saint Kitts and Nevis,Basseterre,kn,,678
+Saint Lucia,Castries,lc,,679
+Saint Martin,Marigot,mf,Flag similar to France,680
+Saint Pierre and Miquelon,Saint-Pierre,pm,,681
+Saint Vincent and the Grenadines,Kingstown,vc,,682
+Samoa,Apia,ws,,683
+San Marino,San Marino,sm,,684
+Saudi Arabia,Riyadh,sa,,686
+Scotland,Edinburgh,gb-sct,,727
+Senegal,Dakar,sn,,687
+Serbia,Belgrade,rs,,688
+Seychelles,Victoria,sc,,689
+Sierra Leone,Freetown,sl,,690
+Singapore,Singapore,sg,,691
+Sint Maarten,Philipsburg,sx,,692
+Slovakia,Bratislava,sk,,693
+Slovenia,Ljubljana,si,,694
+Solomon Islands,Honiara,sb,,695
+Somalia,Mogadishu,so,,696
+South Africa,Cape Town,za,,697
+South Korea,Seoul,kr,,698
+South Sudan,Juba,ss,,699
+Spain,Madrid,es,,700
+Sri Lanka,Sri Jayawardenapura-kotte,lk,,701
+Sudan,Khartoum,sd,,702
+Suriname,Paramaribo,sr,,703
+Sweden,Stockholm,se,,704
+Switzerland,Bern,ch,,705
+Syrian Arab Republic,Damascus,sy,,706
+São Tomé and Príncipe,Sao Tome,st,,685
+Taiwan,Taipei,tw,,707
+Tajikistan,Dushanbe,tj,,708
+Tanzania,Dodoma,tz,,709
+Thailand,Bangkok,th,,710
+The Holy See,Vatican City,va,,734
+Togo,Lomé,tg,,711
+Tokelau,None,tk,,712
+Tonga,Nuku'Alofa,to,,713
+Transnistria,Tiraspol,ts,,714
+Trinidad And Tobago,Port of Spain,tt,,715
+Tunisia,Tunis,tn,,716
+Turkey,Ankara,tr,,717
+Turkmenistan,Ashgabat,tm,,718
+Turks and Caicos Islands,Cockburn Town,tc,,719
+Tuvalu,Funafuti,tv,,720
+Uganda,Kampala,ug,,721
+Ukraine,Kiev,ua,,722
+United Arab Emirates,Abu Dhabi,ae,,723
+United Kingdom,London,gb,,724
+United States Virgin Islands,Charlotte Amalie,vi,,730
+United States of America,Washington D.C.,us,,729
+Uruguay,Montevideo,uy,,731
+Uzbekistan,Tashkent,uz,,732
+Vanuatu,Port Vila,vu,,733
+Venezuela,Caracas,ve,,735
+Viet Nam,Hanoi,vn,,736
+Wales,Cardiff,gb-wls,,726
+Wallis and Futuna,Mata-Utu,wf,,737
+Yemen,Sana'a,ye,,739
+Zambia,Lusaka,zm,,740
+Zimbabwe,Harare,zw,,741
+Åland Islands,Mariehamn,ax,,496
