@@ -14,22 +14,24 @@
 
     <div id="msg" class="text-danger fw-bold fs-5 px-5"></div>
 
-    <div id="quiz-card" class="card bg-light  mb-3" hidden="true" value="start">
-        <p id="score" class="p-3 fw-bold" hidden="true"></p>
-        <div id="flag-div" class="card-img-top bg-image hover-overlay" data-mbd-ripple-init data-mdb-ripple-color="light">
+    <div id="quiz-card" class="container" hidden="true">
+        <div class="card mb-3 pt-2 bg-secondary border-light">
+            <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
+        </div>
+
+        <div id="flag-div" class="card card-img-top bg-light hover-overlay border-light" 
+            data-mbd-ripple-init data-mdb-ripple-color="light">
             <img id="flag" class="card-img-top" src="" alt="guess">
         </div>
-        
-        <div id="card-bod" class="card-body">
-            <div "hint-frame">
-                <div class="p-3">
+    
+        <div id="card-bod" class="container bg-light border-light">
+            <div id="hint-frame" class="ps-2 my-1">
                     <p id="hint-text"></p>
-                </div>
             </div>
             <div id="feedback-form-frame">
                 <div id="feedback" hidden="true" class="row py-2">
                     <div class="col-9">
-                        <p id="feedback-text" class="fs-3 fw-bold"></p>
+                        <p id="feedback-text" class="ps-2 fs-5 fw-bold"></p>
                     </div>
                     <div class="col-3">
                         <a id="start" class="btn btn-success" href="#">Start</a>

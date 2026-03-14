@@ -1,25 +1,24 @@
 #quiz-card {
-    height: 31rem;
-    width: 26rem;
+    height: 32rem;
+    width: 32rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 }
 
 #score {
-    height: 1rem;
+    height: 1.5rem;
     text-align: center;
 }
 
 #flag {
     max-height: 18rem;
-    max-width: 26rem;
+    max-width: 32rem;
 }
 
 #flag-div {
     width: 100%;
-    height: 19rem;
+    height: 18rem;
     overflow: hidden;
 }
 
@@ -29,10 +28,14 @@
     object-fit: contain;
 }
 
+#card-bod {
+    height: 8rem;
+}
+
 #hint-frame {
-    height: 7rem;
+    height: 2rem;
 }
 
 #feedback-form-frame {
-    height: 5rem;
+    height: 6rem;
 }

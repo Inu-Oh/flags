@@ -11,10 +11,10 @@
         <a id="manage-content" href="" class="nav-link link-style active">
             Manage Content</a>
     </li>
-    <li class="flex-sm-fill text-sm-center nav-item">
+    <li class="nav-item">
         <form method="POST" action="{% url 'logout' %}">
             {% csrf_token %}
-            <button type="submit" class="nav-link link-style">Logout</button>
+            <button type="submit" class="btn btn-outline-primary nav-link">Logout</button>
         </form>
     </li>
 

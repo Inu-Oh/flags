@@ -82,11 +82,15 @@ function flagFeedback() {
             feedback.hidden = false;
             feedbackText.classList.remove('text-danger');
             feedbackText.classList.add('text-success');
+            feedbackText.classList.remove('fs-5');
+            feedbackText.classList.add('fs-3');
             feedbackText.innerText = "Correct";
         } else {
             feedback.hidden = false;
             feedbackText.classList.remove('text-success');
             feedbackText.classList.add('text-danger');
+            feedbackText.classList.remove('fs-3');
+            feedbackText.classList.add('fs-5');
             feedbackText.innerText = country.country;
         }
     });
@@ -103,6 +107,11 @@ function flagFeedback() {
     setTimeout(() => {
         next.focus();
     }, 100);
+}
+
+
+function getFlagId() {
+
 }
 
 
