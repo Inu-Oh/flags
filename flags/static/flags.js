@@ -68,7 +68,11 @@ function loadNextFlag() {
 
 function flagFeedback() {
     // Get result of user quiz answer and set feedback
-    const answer = document.querySelector('#answer');
+    const answer = document.querySelector('#answer').value;
+    const parser = new DOMParser();
+    const cleanAns = parser.parseFromString(answer, 'text/html')
+    const ansText = cleanAns.body.innerText;
+    const normalizedAns = ansText.trim().normalize('NFD').replace(/\p{Diacritic}/gu, '');
     const scoreboard = document.querySelector('#score');
     const feedback = document.querySelector('#feedback');
     const feedbackText = document.querySelector('#feedback-text');
@@ -77,7 +81,10 @@ function flagFeedback() {
     fetch(`get_flag_ans/${currId}`)
     .then(response => response.json())
     .then(country => {
-        if (answer.value.toLowerCase() == country.country.toLowerCase()) {
+        const normalizedCountry = country.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+        // TODO - remove log after testing
+        console.log('Ans:', ansText, normalizedAns, 'Corr:', country.country, normalizedCountry);
+        if (normalizedAns.toLowerCase() == normalizedCountry.toLowerCase()) {
             fetch(`update_score/${1}`)
             .then(response => response.json())
             .then(data => {
@@ -94,7 +101,7 @@ function flagFeedback() {
             fetch('get_score') 
             .then(response => response.json())           
             .then(data => {
-                scoreboard.innerHTML = "Score: " + data.new_score + " &nbsp;&nbsp ";
+                scoreboard.innerHTML = "Score: " + data.score + " &nbsp;&nbsp ";
                 scoreboard.innerHTML += "Flags left: " + flagCount;
              });
             feedback.hidden = false;
@@ -106,6 +113,7 @@ function flagFeedback() {
         }
     });
     
+    // TODO - game over results page
     if (flagCount <= 0) {
         document.querySelector('#page-heading').innerText = "Done"
     }

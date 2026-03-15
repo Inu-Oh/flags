@@ -17,6 +17,7 @@ def index(request):
     return render(request, 'index.html')
 
 
+# Javascript API views
 def get_flag_id(request):
     if not request.session['quiz_list']:
         quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
@@ -86,7 +87,7 @@ def set_list(request):
     return JsonResponse({'flagCount': quiz_length})
 
 
-# Superuser view for pupulating DB
+# Superuser view for pupulating DB - edit import_data.csv then submit
 class PopulateDbView(PermissionRequiredMixin, CreateView):
     permission_required = [
         'flags.add_country',
