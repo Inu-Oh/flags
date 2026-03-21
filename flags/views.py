@@ -106,6 +106,7 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
         except:
             db = False
 
+        # Create researchable dictionary of existing DB objects
         db_data = []
         if db:
             for obj in db:
@@ -116,17 +117,21 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                 country['cc'] = obj.country_code
                 country['pk'] = obj.pk
                 db_data.append(country)
-
+        
+        # Review CSV data for errors and compare with existing DB objects
+        new, edits, unchanged = 0, 0, 0
+        country_dict, cc_dict, pk_dict = {}, {}, {}
+        bad_pks =[]
         try:
             with open('import_data.csv') as csv:
-                new, edits, unchanged, deletions = 0, 0, 0, []
-                csv_pk_list = []
                 data_reader = reader(csv)
                 next(data_reader)
                 for row in data_reader:
                     # Validate data quality
-                    try: 
-                        _, _, _ = row[0], row[1], row[2]
+                    try:
+                        country_dict[row[0]] = country_dict.get(row[0], 0) + 1
+                        _ = row[1]
+                        cc_dict[row[2]] = cc_dict.get(row[2], 0) + 1
                     except IndexError:
                         raise ValueError
                     try:
@@ -136,11 +141,10 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                     if pk_str:
                         try:
                             pk = int(pk_str)
-                            csv_pk_list.append(pk)
+                            pk_dict[pk] = pk_dict.get(pk, 0) + 1
                         except:
                             raise TypeError
                     else:
-                        new += 1
                         pk = False
                     # Check CSV data against existing objects saved in DB
                     if pk:
@@ -156,31 +160,56 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                             else:
                                 country['status'] = 'edited'
                                 edits += 1
-                        else:
-                            country['status'] = 'deleted'
-                            deletions.append(pk)
-                          
+                        else: # TODO does this make sense
+                            country['status'] = 'bad pk'
+                            bad_pks.append(pk)
+
+                    # TODO How to determin if item is new
+                    else:
+                        new += 1
+
         except (ValueError, TypeError, ObjectDoesNotExist):
             msg = "Error: Review data.csv and fix errors then refresh this page. "
             msg += "If you previously cleared the database you may need to delete"
             msg += "former primary keys from the pk column."
             return render(request, self.template_name, { 'message': msg })
-        
-        db_pk_list = Country.objects.values_list('id', flat=True).distinct()
-        for pk in csv_pk_list:
-            if pk not in db_pk_list:
-                msg = f"Error: primary key {pk} does not exist in database."
-                msg += "<br>Correct CSV then refresh the page"
-                return render(request, self.template_name, { 'message': msg })
 
-
-        if new == 0 and edits == 0 and deletions == 0:
-            msg = 'Nothing to edit'
+        # Present error if CSV includes bad pk values
+        if bad_pks:
+            msg = "Error: you CSV includes primary keys that are not in the data base."
+            msg += f"<br>List of bad keys: {bad_pks}<br>Correct CSV then refresh page."
             return render(request, self.template_name, { 'message': msg })
+
+        # Check for duplicates
+        dup_country = [country for country, count in country_dict.items() if count > 1]
+        dup_cc = [cc for cc, count in cc_dict.items() if count > 1]
+        dup_pk = [pk for pk, count in pk_dict.items() if count > 1]
+
+        if len(dup_country) > 0 or len(dup_cc) > 0 or len(dup_pk):
+            msg = "Your CSV import file includes duplicate country names or country "
+            msg += "codes. Correct these errors before proceeding.<br>"
+            msg += f"Duplicate countries: {dup_country}<br>Duplicate country codes: "
+            msg += f"{dup_cc}<br>Duplicate primary keys: {dup_pk}"
+
+        # Get data on deleted items
+        csv_pk_list = [pk for pk, count in pk_dict.items()]
+        db_pk_list = Country.objects.all().values_list('id', flat=True)
+        deletions = []
+        for pk in db_pk_list:
+            if pk not in csv_pk_list:
+                country = Country.objects.get(pk=pk)
+                deletions.append(
+                    country.country + " " + country.country_code + " " + country.capital
+                )
+
+        # Prepare all data for context, form and session if validation is successful
+        msg = f"New entries: {new}<br>Edited entries: {edits}<br>Unchanged entries: "
+        msg += f"{unchanged}<br>Deleted entries: {len(deletions)}"
+        if deletions:
+            msg += "<br>The following countries will be deleted:"
+            for country in deletions:
+                msg += f"<br>{country}"
         
-        msg = f"New entries: {new}<br>Edited entries: {edits}<br>"
-        msg += f"Unchanged entries: {unchanged}"
-        msg += f"<br>Deleted entries: {len(deletions)} {db_pk_list}" 
         form = PopulateDbForm()
         context = { 'form': form, 'message': msg, 'db': db_data }
 
@@ -198,6 +227,7 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
             return render(request, self.template_name, { 'form': form })
 
         # TODO check database before creating new object
+        # TODO CHANGE logic for deletions since deletions were change din get
 
         with open('import_data.csv') as csv:
             data_reader = reader(csv)
