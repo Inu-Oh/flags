@@ -96,8 +96,7 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
     ]
     template_name = 'flags/populate_db.html'
 
-    # TODO - implement ObjectDoesNotExist or delete from imports
-
+    # TODO review get method for unneeded variables
     def get(self, request):
         if not request.user.is_superuser:
             return redirect('index')
@@ -107,15 +106,25 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
         except:
             db = False
 
-        # TODO - revise to also compare CSV data against existing country objects
+        db_data = []
+        if db:
+            for obj in db:
+                country = {}
+                country['country'] = obj.country
+                country['capital'] = obj.capital
+                country['hint'] = obj.hint if obj.hint else ""
+                country['cc'] = obj.country_code
+                country['pk'] = obj.pk
+                db_data.append(country)
 
         try:
             with open('import_data.csv') as csv:
-                new = 0
-                updated_pk_list = []
+                new, edits, unchanged, deletions = 0, 0, 0, []
+                csv_pk_list = []
                 data_reader = reader(csv)
                 next(data_reader)
                 for row in data_reader:
+                    # Validate data quality
                     try: 
                         _, _, _ = row[0], row[1], row[2]
                     except IndexError:
@@ -126,40 +135,54 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                         pk_str = False
                     if pk_str:
                         try:
-                            pk = int(pk)
-                            updated_pk_list.append(pk)
+                            pk = int(pk_str)
+                            csv_pk_list.append(pk)
                         except:
-                            TypeError
+                            raise TypeError
                     else:
-                        new += 1          
+                        new += 1
+                        pk = False
+                    # Check CSV data against existing objects saved in DB
+                    if pk:
+                        if any((country := data).get('pk') == pk for data in db_data):
+                            if (
+                                country['country'] == row[0] 
+                                and country['capital'] == row[1]
+                                and country['cc'] == row[2] 
+                                and country['hint'] == row[3]
+                            ):
+                                country['status'] = 'unchanged'
+                                unchanged += 1
+                            else:
+                                country['status'] = 'edited'
+                                edits += 1
+                        else:
+                            country['status'] = 'deleted'
+                            deletions.append(pk)
+                          
         except (ValueError, TypeError, ObjectDoesNotExist):
-            msg = "Error: Review data.csv and fix errors then refresh this page."
+            msg = "Error: Review data.csv and fix errors then refresh this page. "
             msg += "If you previously cleared the database you may need to delete"
-            msk += "former primary keys from the pk column."
+            msg += "former primary keys from the pk column."
             return render(request, self.template_name, { 'message': msg })
         
-        old_pk_list = Country.objects.values_list('id', flat=True).distinct()
-        for pk in updated_pk_list:
-            if pk not in old_pk_list:
+        db_pk_list = Country.objects.values_list('id', flat=True).distinct()
+        for pk in csv_pk_list:
+            if pk not in db_pk_list:
                 msg = f"Error: primary key {pk} does not exist in database."
                 msg += "<br>Correct CSV then refresh the page"
                 return render(request, self.template_name, { 'message': msg })
 
-        edits, deletions = 0, []
-        for pk in updated_pk_list:
-            if pk in old_pk_list:
-                edits += 1
-            else:
-                deletions.append(pk)
 
         if new == 0 and edits == 0 and deletions == 0:
             msg = 'Nothing to edit'
             return render(request, self.template_name, { 'message': msg })
         
-        msg = f"New entries: {new}<br>Edited entries: {edits}"
-        msg += f"<br>Deleted entries: {len(deletions)} {old_pk_list}" 
+        msg = f"New entries: {new}<br>Edited entries: {edits}<br>"
+        msg += f"Unchanged entries: {unchanged}"
+        msg += f"<br>Deleted entries: {len(deletions)} {db_pk_list}" 
         form = PopulateDbForm()
-        context = { 'form': form, 'message': msg, 'db': db }
+        context = { 'form': form, 'message': msg, 'db': db_data }
 
         request.session['deletions'] = deletions if deletions else []
         
