@@ -35,7 +35,6 @@ function loadFlagQuiz() {
     document.querySelector('#page-heading').innerText = "Flag quiz";
     document.querySelector('#quiz-card').hidden = false;
     
-    
     // Start quiz
     setTimeout(() => {
         loadNextFlag();
@@ -82,8 +81,6 @@ function flagFeedback() {
     .then(response => response.json())
     .then(country => {
         const normalizedCountry = country.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
-        // TODO - remove log after testing
-        console.log('Ans:', ansText, normalizedAns, 'Corr:', country.country, normalizedCountry);
         if (normalizedAns.toLowerCase() == normalizedCountry.toLowerCase()) {
             fetch(`update_score/${1}`)
             .then(response => response.json())
