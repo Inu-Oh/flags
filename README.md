@@ -1,5 +1,5 @@
 # flags
-In development - the app is functional but still missing most eleent
+In development - the app is functional but still missing most elements
 
 A flag / country / capital quiz app 
 implemented with Django and JavaScript
