@@ -1,10 +1,8 @@
 // Initiate data
 let flagCount;
-let currId;
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Create a list for first quiz
-    setList();
+
     // Add event listeners to switch main quiz GUIs and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
@@ -19,14 +17,21 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('#submit').click();
         }
     });
+
+    fetch('check_sess')
+    .then(response => response.json())
+    .then(session => {
+        if (session.quiz) {
+            loadFlagQuiz()
+        } else {
+            // Create quiz question list
+            setList();
+        }
+    })
 });
 
 
 function loadFlagQuiz() {
-    // Choose a random flag and set currID
-    resetScore();
-    getFlagId();
-
     // Switch nav tabs
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
@@ -35,17 +40,29 @@ function loadFlagQuiz() {
     document.querySelector('#page-heading').innerText = "Flag quiz";
     document.querySelector('#quiz-card').hidden = false;
     
-    // Start quiz
-    setTimeout(() => {
-        loadNextFlag();
-    }, 100);
+    fetch('check_sess2')
+    .then(response => response.json())
+    .then(session => {
+        if (session.quiz == "flag") {
+            loadNextFlag()
+        } else {
+            // Choose a random flag and randomly choose first flag
+            resetScore();
+            getFlagId();
+            // Start quiz
+            setTimeout(() => {
+                loadNextFlag();
+            }, 150);
+        }
+    })
 }
 
 
 function loadNextFlag() {    
     // Get flag data
     const hint = document.querySelector('#hint-text');
-    fetch(`get_flag_q/${currId}`)
+    const flag = document.querySelector('#flag');
+    fetch(`get_flag_q`)
     .then(response => response.json())
     .then(country => {
         flag.src = country.flag;
@@ -77,7 +94,7 @@ function flagFeedback() {
     const feedbackText = document.querySelector('#feedback-text');
 
     // Update score and generate feedback
-    fetch(`get_flag_ans/${currId}`)
+    fetch(`get_flag_ans`)
     .then(response => response.json())
     .then(country => {
         const normalizedCountry = country.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
@@ -134,7 +151,6 @@ function getFlagId() {
     .then(response => response.json())
     .then(data => {
         flagCount = data.flagCount;
-        currId = data.currId;
     });
 }
 

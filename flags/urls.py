@@ -7,9 +7,11 @@ urlpatterns = [
     path('manage_content', views.PopulateDbView.as_view(), name='manage_content'),
 
     # API Routes
+    path('check_sess', views.check_sess, name='check_sess'),
+    path('check_sess2', views.check_sess2, name='check_sess2'),
     path('get_flag_id', views.get_flag_id, name='get_flag_id'),
-    path('get_flag_q/<int:pk>', views.get_flag_q, name='get_flag_q'),
-    path('get_flag_ans/<int:pk>', views.get_flag_ans, name='get_flag_ans'),
+    path('get_flag_q', views.get_flag_q, name='get_flag_q'),
+    path('get_flag_ans', views.get_flag_ans, name='get_flag_ans'),
     path('get_score', views.get_score, name='get_score'),
     path('set_list', views.set_list, name='set_list'),
     path('update_score/<int:score>', views.update_score, name='update_score'),

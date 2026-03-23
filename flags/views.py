@@ -17,9 +17,26 @@ def index(request):
     return render(request, 'index.html')
 
 
+def check_sess(request):
+    if 'quiz' in request.session:
+        quiz = request.session['quiz']
+    else:
+        quiz = False
+    
+    return JsonResponse({'quiz': quiz})
+
+
+def  check_sess2(request):
+    if 'quiz' in request.session:
+        return JsonResponse({'quiz': True})
+    else:
+        request.session['quiz'] = quiz = "flag"
+        return JsonResponse({'quiz': False})
+
+
 # Javascript API views
 def get_flag_id(request):
-    if not request.session['quiz_list']:
+    if not 'quiz_list' in request.session:
         quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
         
     else:
@@ -28,6 +45,7 @@ def get_flag_id(request):
     next_id = choice(quiz_list)
     quiz_list.remove(next_id)
     request.session['quiz_list'] = quiz_list
+    request.session['flag_id'] = next_id
     quiz_length = len(quiz_list)
 
     return JsonResponse({
@@ -37,20 +55,18 @@ def get_flag_id(request):
 
 
 
-def get_flag_q(request, pk):
+def get_flag_q(request):
+    pk = request.session['flag_id']
     country = Country.objects.get(id=pk)
     # Change domain for production
     flag = "http://127.0.0.1:8000/static/images/" + str(country.country_code) + ".png"
     hint = str(country.hint) if country.hint is not None else ""
 
-    return JsonResponse({
-        'flag': flag,
-        'hint': hint,
-        'pk': pk
-    })
+    return JsonResponse({ 'flag': flag, 'hint': hint })
 
 
-def get_flag_ans(request, pk):
+def get_flag_ans(request):
+    pk = request.session['flag_id']
     country = Country.objects.get(id=pk)
     country_name = country.country
     return JsonResponse({'country': country_name})
