@@ -22,7 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(response => response.json())
     .then(session => {
         if (session.quiz) {
-            loadFlagQuiz()
+            flagCount = session.flagCount;
+            const scoreboard = document.querySelector('#score')
+            scoreboard.innerHTML = "Score: " + session.score + " &nbsp;&nbsp ";
+            scoreboard.innerHTML += "Flags left: " + flagCount;
+            loadFlagQuiz();
         } else {
             // Create quiz question list
             setList();
@@ -43,8 +47,8 @@ function loadFlagQuiz() {
     fetch('check_sess2')
     .then(response => response.json())
     .then(session => {
-        if (session.quiz == "flag") {
-            loadNextFlag()
+        if (session.quiz) {
+            loadNextFlag();
         } else {
             // Choose a random flag and randomly choose first flag
             resetScore();

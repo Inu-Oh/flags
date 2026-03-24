@@ -19,18 +19,20 @@ def index(request):
 
 def check_sess(request):
     if 'quiz' in request.session:
-        quiz = request.session['quiz']
+        quiz = True
+        quiz_length = len(request.session['quiz_list'])
+        score = request.session['score']
     else:
-        quiz = False
+        quiz = quiz_length = score = False
     
-    return JsonResponse({'quiz': quiz})
+    return JsonResponse({ 'quiz': quiz, 'flagCount': quiz_length, 'score': score })
 
 
 def  check_sess2(request):
     if 'quiz' in request.session:
         return JsonResponse({'quiz': True})
     else:
-        request.session['quiz'] = quiz = "flag"
+        request.session['quiz'] = "flag"
         return JsonResponse({'quiz': False})
 
 
