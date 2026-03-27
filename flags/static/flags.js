@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to switch main quiz GUIs and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
-    document.querySelector('#start').addEventListener('click', () => loadNextFlag());
+    document.querySelector('#next').addEventListener('click', () => loadNextFlag());
     
     document.querySelector('#quiz-form').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -89,6 +89,8 @@ function loadNextFlag() {
 function flagFeedback() {
     // Get result of user quiz answer and set feedback
     const answer = document.querySelector('#answer').value;
+    if (answer.length <= 0) return;
+
     const parser = new DOMParser();
     const cleanAns = parser.parseFromString(answer, 'text/html')
     const ansText = cleanAns.body.innerText;
@@ -139,7 +141,7 @@ function flagFeedback() {
     // Set up GUI for feedback and next button
     document.querySelector('#hint-text').innerText = "";
     document.querySelector('#quiz-form').hidden = true;
-    const next = document.getElementById('start');
+    const next = document.getElementById('next');
     
     next.innerText = "Next";
     setTimeout(() => {
