@@ -143,7 +143,6 @@ function flagFeedback() {
     document.querySelector('#quiz-form').hidden = true;
     const next = document.getElementById('next');
     
-    next.innerText = "Next";
     setTimeout(() => {
         next.focus();
         getFlagId();
