@@ -36,15 +36,15 @@
         </thead>
         <tbody>
         {% for c in db %}
-            <tr>
-                <td class="{% if c.status == "new" %}text-success{% elif c.status == "edited" %}text-danger{% endif %}">
+            <tr {% if c.status == "new" %}class="fst-italic"{% endif %}>
+                <td class="{% if c.status == "new" %}text-success fw-bold{% elif c.status == "edited" %}text-danger fw-bold{% endif %}">
                     {{ c.status|capfirst }}
                 </td>
-                <td>{{ c.country }}</td>
-                <td>{{ c.capital }}</td>
-                <td>{{ c.cc|upper }}</td>
-                <td>{{ c.hint }}</td>
-                <td>{{ c.pk }}</td>
+                <td {% if "=>" in c.country %}class="text-danger fw-bold"{% endif %}>{{ c.country }}</td>
+                <td {% if "=>" in c.capital %}class="text-danger fw-bold"{% endif %}>{{ c.capital }}</td>
+                <td {% if "=>" in c.cc %}class="text-danger fw-bold"{% endif %}>{{ c.cc|upper }}</td>
+                <td {% if "=>" in c.hint %}class="text-danger fw-bold"{% endif %}>{{ c.hint }}</td>
+                <td>{% if c.status == "new" %}TBD{% endif %}{{ c.pk }}</td>
             </tr> 
         {% endfor %}
         </tbody>

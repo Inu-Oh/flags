@@ -219,7 +219,6 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
         dup_country = [country for country, count in country_dict.items() if count > 1]
         dup_cc = [cc for cc, count in cc_dict.items() if count > 1]
         dup_pk = [pk for pk, count in pk_dict.items() if count > 1]
-        print(dup_country)
 
         if len(dup_country) > 0 or len(dup_cc) > 0 or len(dup_pk):
             msg = "<h3>Error</h3>"
@@ -252,10 +251,14 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                 msg += f"<br>{country}"
         
         form = PopulateDbForm()
-        context = { 'form': form, 'message': msg, 'db': db_data }
+        print(db_data)
+        # for x in db_data: print(x['status'])
+        filtered_db_data = [country for country in db_data if country.get('status', 'ignore') in ['new', 'edited']]
+        sorted_db_data = sorted(db_data, key=lambda country: country.get('status', 'ignore'))
+        context = { 'form': form, 'message': msg, 'db': sorted_db_data }
 
         request.session['deletions'] = deletions if deletions else []
-        
+        request.session['db_data_changes'] = filtered_db_data        
         return render(request, self.template_name, context)
     
     def post(self, request):
@@ -268,55 +271,81 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
             return render(request, self.template_name, { 'form': form })
 
         # TODO check database before creating new object
-        # TODO CHANGE logic for deletions since deletions were change din get
+        # TODO CHANGE logic for deletions since deletions were changed in get
 
-        with open('import_data.csv') as csv:
-            data_reader = reader(csv)
-            next(data_reader)
-            for row in data_reader:
-                try:
-                    pk = int(row[4])
-                except:
-                    pk = False
-                # pk value was verified in get method / Edit existing country objects
-                if pk:
-                    country = Country.objects.get(id=pk)
-                    country.country = row[0]
-                    country.capital = row[1]
-                    country.country_code = row[2]
-                    try:
-                        country.hint = row[3]
-                    except IndexError:
-                        pass
-                    country.save()
-                    continue
-                # Create new country objects
-                try:
-                    hint = row[3]
-                    Country.objects.create(
-                        country=row[0], 
-                        capital=row[1], 
-                        country_code=row[2],
-                        hint=hint
-                    )
-                except IntegrityError:
-                    pass
-                except IndexError:
-                    Country.objects.create(
-                        country=row[0], 
-                        capital=row[1], 
-                        country_code=row[2]
-                    )
+        # with open('import_data.csv') as csv:
+        #     data_reader = reader(csv)
+        #     next(data_reader)
+        #     for row in data_reader:
+        #         try:
+        #             pk = int(row[4])
+        #         except:
+        #             pk = False
+        #         # pk value was verified in get method / Edit existing country objects
+        #         if pk:
+        #             country = Country.objects.get(id=pk)
+        #             country.country = row[0]
+        #             country.capital = row[1]
+        #             country.country_code = row[2]
+        #             try:
+        #                 country.hint = row[3]
+        #             except IndexError:
+        #                 pass
+        #             country.save()
+        #             continue
+        #         # Create new country objects
+        #         try:
+        #             hint = row[3]
+        #             Country.objects.create(
+        #                 country=row[0], 
+        #                 capital=row[1], 
+        #                 country_code=row[2],
+        #                 hint=hint
+        #             )
+        #         except IntegrityError:
+        #             pass
+        #         except IndexError:
+        #             Country.objects.create(
+        #                 country=row[0], 
+        #                 capital=row[1], 
+        #                 country_code=row[2]
+        #             )
+
+        # Make changes to objects stored in database base on test in GET saved to session
+        db_data_changes = request.session.get('db_data_changes')
+        for country in db_data_changes:
+            if country['status'] == 'new':
+                new_country = Country(
+                    country=country['country'],
+                    capital=country['capital'],
+                    country_code=country['cc'],
+                )
+                if country['hint']:
+                    new_country.hint = country['hint']
+                new_country.save()
+            elif country['status'] == 'edited':
+                updated_country = Country.objects.get(pk=int(country['pk']))
+                if updated_country.country != country['country']:
+                    updated_country.country = country['country']
+                if updated_country.capital != country['capital']:
+                    updated_country.capital = country['capital']
+                if country['hint'] and (updated_country.hint != country['hint']):
+                    updated_country.hint = country['hint']
+                if updated_country.country_code != country['cc']:
+                    updated_country.country_code = country['cc']
+                updated_country.save()
 
         # Delete items from DB that are not in the updated CSV
         deletions = request.session.get('deletions')
-        del request.session['deletions']
-
         if deletions:
             for pk in deletions:
                 country = Country.objects.get(id=pk)
                 country.delete()
-        
+
+        # Clear session data
+        del request.session['deletions']
+        del request.session['db_data_changes']
+
         # Export CSV of updated database
         export_data = []
         countries = Country.objects.all()
