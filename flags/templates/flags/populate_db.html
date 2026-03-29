@@ -36,15 +36,27 @@
         </thead>
         <tbody>
         {% for c in db %}
-            <tr {% if c.status == "new" %}class="fst-italic"{% endif %}>
-                <td class="{% if c.status == "new" %}text-success fw-bold{% elif c.status == "edited" %}text-danger fw-bold{% endif %}">
+            <tr {% if c.status == "new" %}class="fst-italic"
+                {% endif %}>
+                <td class="{% if c.status == "new" %}text-success fw-bold
+                    {% elif c.status == "edited" or c.status == 'deleted' %}
+                    text-danger fw-bold{% endif %}">
                     {{ c.status|capfirst }}
                 </td>
-                <td {% if "=>" in c.country %}class="text-danger fw-bold"{% endif %}>{{ c.country }}</td>
-                <td {% if "=>" in c.capital %}class="text-danger fw-bold"{% endif %}>{{ c.capital }}</td>
-                <td {% if "=>" in c.cc %}class="text-danger fw-bold"{% endif %}>{{ c.cc|upper }}</td>
-                <td {% if "=>" in c.hint %}class="text-danger fw-bold"{% endif %}>{{ c.hint }}</td>
-                <td>{% if c.status == "new" %}TBD{% endif %}{{ c.pk }}</td>
+                <td {% if "=>" in c.country or c.status == 'deleted' %}
+                    class="text-danger fw-bold"{% endif %}>
+                    {{ c.country }}</td>
+                <td {% if "=>" in c.capital or c.status == 'deleted' %}
+                    class="text-danger fw-bold"{% endif %}>
+                    {{ c.capital }}</td>
+                <td {% if "=>" in c.cc or c.status == 'deleted' %}
+                    class="text-danger fw-bold"{% endif %}>
+                    {{ c.cc|upper }}</td>
+                <td {% if "=>" in c.hint or c.status == 'deleted' %}
+                    class="text-dangerf wo-bld"{% endif %}>
+                    {{ c.hint }}</td>
+                <td {% if c.status == 'deleted' %}class="text-danger fw-bold"{% endif %}>
+                    {% if c.status == "new" %}TBD{% endif %}{{ c.pk }}</td>
             </tr> 
         {% endfor %}
         </tbody>

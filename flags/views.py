@@ -235,30 +235,25 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
         deletions = []
         for pk in db_pk_list:
             if pk not in csv_pk_list:
-                country = Country.objects.get(pk=pk)
-                deletions.append(
-                    "<b>" + country.country + "</b> " + country.country_code.upper() + 
-                    " " + country.capital + " " + str(country.pk)
-                )
+                deleted_country = next(country for country in db_data if int(country['pk']) == pk)
+                deleted_country['status'] = 'deleted'
+                deletions.append(pk)
 
         # Prepare all data for context, form and session if validation is successful
         msg = "<h3>Update Summary</h3>"
         msg += f"New entries: {new}<br>Edited entries: {edits}<br>Unchanged entries: "
         msg += f"{unchanged}<br>Deleted entries: {len(deletions)}"
-        if deletions:
-            msg += "<br><br>The following countries will be deleted from the database:"
-            for country in deletions:
-                msg += f"<br>{country}"
-        
+
+        # Prepare data for GET view and POST session
         form = PopulateDbForm()
-        print(db_data)
-        # for x in db_data: print(x['status'])
-        filtered_db_data = [country for country in db_data if country.get('status', 'ignore') in ['new', 'edited']]
+        filtered_db_data = [country for country in db_data if country.get('status', 'ignore')
+                            in ['new', 'edited', 'deleted']]
         sorted_db_data = sorted(db_data, key=lambda country: country.get('status', 'ignore'))
-        context = { 'form': form, 'message': msg, 'db': sorted_db_data }
 
         request.session['deletions'] = deletions if deletions else []
-        request.session['db_data_changes'] = filtered_db_data        
+        request.session['db_data_changes'] = filtered_db_data    
+        
+        context = { 'form': form, 'message': msg, 'db': sorted_db_data }            
         return render(request, self.template_name, context)
     
     def post(self, request):
