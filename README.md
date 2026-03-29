@@ -4,7 +4,7 @@ In development - the app is functional but still missing most elements
 A flag / country / capital quiz app 
 implemented with Django and JavaScript
 - the flag to country quiz is done
-- the app includes admin page with login for superusers only - allows to populate database objects from CSV where all country data can be edited
+- includes an admin page with login for superusers only - allows to populate Django objects from CSV where all country data can be created and edited directly to database
 - planned additional quizzes - flag to capital, capital to country, and country to capital 
 
 ## Flag quiz with input
