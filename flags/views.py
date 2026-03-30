@@ -1,6 +1,7 @@
 from csv import reader, DictWriter
 from datetime import datetime
 from random import choice
+import shutil
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
@@ -124,7 +125,8 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
         except:
             db = False
 
-        # Create researchable dictionary of existing DB objects
+        # Create researchable list and dictionary of existing DB objects
+        db_pk_list = Country.objects.all().values_list('id', flat=True)
         db_data = []
         if db:
             for obj in db:
@@ -190,12 +192,16 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                                 country['status'] = 'edited'
                                 edits += 1
                                 if country['country'] != row[0]:
+                                    country['country_bu'] = row[0]
                                     country['country'] += " => "+row[0]
                                 if country['capital'] != row[1]:
+                                    country['capital_bu'] = row[1]
                                     country['capital'] += " => "+row[1]
                                 if country['cc'] != row[2]:
+                                    country['cc_bu'] = row[2]
                                     country['cc'] += " => "+row[2]
                                 if country['hint'] != row[3]:
+                                    country['hint_bu'] = row[3]
                                     country['hint'] += " => "+row[3]
                         else: 
                             bad_pks.append(pk)                    
@@ -229,9 +235,9 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
 
             return render(request, self.template_name, {'message': msg})
 
-        # Get data on deleted items
+        # Set data on deleted items
         csv_pk_list = [pk for pk, count in pk_dict.items()]
-        db_pk_list = Country.objects.all().values_list('id', flat=True)
+        
         deletions = []
         for pk in db_pk_list:
             if pk not in csv_pk_list:
@@ -241,19 +247,24 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
 
         # Prepare all data for context, form and session if validation is successful
         msg = "<h3>Update Summary</h3>"
-        msg += f"New entries: {new}<br>Edited entries: {edits}<br>Unchanged entries: "
-        msg += f"{unchanged}<br>Deleted entries: {len(deletions)}"
+        if 'update_msg' in request.session:
+            msg += f'<p class="text-success fw-bold">{request.session['update_msg']}</p>'
+            del request.session['update_msg']
+        else:
+            msg += f"New entries: {new}<br>Edited entries: {edits}<br>Unchanged entries: "
+            msg += f"{unchanged}<br>Deleted entries: {len(deletions)}"
 
         # Prepare data for GET view and POST session
         form = PopulateDbForm()
         filtered_db_data = [country for country in db_data if country.get('status', 'ignore')
                             in ['new', 'edited', 'deleted']]
         sorted_db_data = sorted(db_data, key=lambda country: country.get('status', 'ignore'))
+        changes = True if (new > 0 or edits > 0 or len(deletions) > 0) else False
 
         request.session['deletions'] = deletions if deletions else []
-        request.session['db_data_changes'] = filtered_db_data    
-        
-        context = { 'form': form, 'message': msg, 'db': sorted_db_data }            
+        request.session['db_data_changes'] = filtered_db_data
+
+        context = { 'form': form, 'message': msg, 'db': sorted_db_data, 'changes': changes }            
         return render(request, self.template_name, context)
     
     def post(self, request):
@@ -264,47 +275,6 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
 
         if not form.is_valid():
             return render(request, self.template_name, { 'form': form })
-
-        # TODO check database before creating new object
-        # TODO CHANGE logic for deletions since deletions were changed in get
-
-        # with open('import_data.csv') as csv:
-        #     data_reader = reader(csv)
-        #     next(data_reader)
-        #     for row in data_reader:
-        #         try:
-        #             pk = int(row[4])
-        #         except:
-        #             pk = False
-        #         # pk value was verified in get method / Edit existing country objects
-        #         if pk:
-        #             country = Country.objects.get(id=pk)
-        #             country.country = row[0]
-        #             country.capital = row[1]
-        #             country.country_code = row[2]
-        #             try:
-        #                 country.hint = row[3]
-        #             except IndexError:
-        #                 pass
-        #             country.save()
-        #             continue
-        #         # Create new country objects
-        #         try:
-        #             hint = row[3]
-        #             Country.objects.create(
-        #                 country=row[0], 
-        #                 capital=row[1], 
-        #                 country_code=row[2],
-        #                 hint=hint
-        #             )
-        #         except IntegrityError:
-        #             pass
-        #         except IndexError:
-        #             Country.objects.create(
-        #                 country=row[0], 
-        #                 capital=row[1], 
-        #                 country_code=row[2]
-        #             )
 
         # Make changes to objects stored in database base on test in GET saved to session
         db_data_changes = request.session.get('db_data_changes')
@@ -318,30 +288,26 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                 if country['hint']:
                     new_country.hint = country['hint']
                 new_country.save()
+                country['pk'] = new_country.pk
             elif country['status'] == 'edited':
                 updated_country = Country.objects.get(pk=int(country['pk']))
                 if updated_country.country != country['country']:
-                    updated_country.country = country['country']
+                    updated_country.country = country['country_bu']
                 if updated_country.capital != country['capital']:
-                    updated_country.capital = country['capital']
+                    updated_country.capital = country['capital_bu']
                 if country['hint'] and (updated_country.hint != country['hint']):
-                    updated_country.hint = country['hint']
+                    updated_country.hint = country['hint_bu']
                 if updated_country.country_code != country['cc']:
-                    updated_country.country_code = country['cc']
+                    updated_country.country_code = country['cc_bu']
                 updated_country.save()
-
-        # Delete items from DB that are not in the updated CSV
-        deletions = request.session.get('deletions')
-        if deletions:
-            for pk in deletions:
-                country = Country.objects.get(id=pk)
-                country.delete()
+            elif country['status'] == 'deleted':
+                Country.objects.filter(id=int(country['pk'])).delete()
 
         # Clear session data
         del request.session['deletions']
         del request.session['db_data_changes']
 
-        # Export CSV of updated database
+        # Export CSV of updated database as import_data.csv and save copy of old CSV
         export_data = []
         countries = Country.objects.all()
         for country in countries:
@@ -355,8 +321,9 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
 
         current_time = datetime.now()
         now = str(current_time)[:17].replace("-", "_").replace(" ", "_").replace(":", "_")
+        shutil.copy('import_data.csv', 'copy_of_db_bf_update_'+now+'.csv')
 
-        with open(f"exported_data_{now}.csv", 'w') as export:
+        with open(f"import_data.csv", 'w') as export:
             writer = DictWriter(
                 export,
                 fieldnames=['country', 'capital', 'code', 'hint', 'pk']
@@ -373,5 +340,5 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
                     }
                 )
 
-        msg = 'Data successfully posted'
-        return render(request, self.template_name, { 'message': msg })
+        request.session['update_msg'] = 'Data successfully posted'
+        return redirect('manage_content')

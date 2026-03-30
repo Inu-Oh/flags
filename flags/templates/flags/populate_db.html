@@ -5,15 +5,12 @@
 {% if user.is_staff %}
 
 
-    {% if form %}
+    {% if changes and form %}
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_table }}
             <input type="submit" value="Submit"
                 class="btn btn-outline-success m-2">
-            <input type="submit" value="Cancel &nbsp;&raquo;&nbsp; return to menu"
-                class="btn btn-outline-danger m-2 text-dark"
-                onclick="window.location.href='{% url 'index' %}';return false">
         </form>
     {% endif %}
 
@@ -41,7 +38,8 @@
                 <td class="{% if c.status == "new" %}text-success fw-bold
                     {% elif c.status == "edited" or c.status == 'deleted' %}
                     text-danger fw-bold{% endif %}">
-                    {{ c.status|capfirst }}
+                    {% if "successfully" in message|safe %}Added
+                    {% else %}{{ c.status|capfirst }}{% endif %}
                 </td>
                 <td {% if "=>" in c.country or c.status == 'deleted' %}
                     class="text-danger fw-bold"{% endif %}>

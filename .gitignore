@@ -5,7 +5,7 @@ __pycache__
 *.sqlite3
 database_settings.py
 github_settings.py
-old_import_data.csv
+copy_of_db_bf_update_*
 
 db.save
 .ve*
