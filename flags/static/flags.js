@@ -113,10 +113,8 @@ function flagFeedback() {
              });
             feedback.hidden = false;
             feedbackText.classList.remove('text-danger');
-            feedbackText.classList.add('text-success');
-            feedbackText.classList.remove('fs-5');
-            feedbackText.classList.add('fs-3');
-            feedbackText.innerText = "Correct";
+            const plus1 = '<span class="text-success float-end fs-5 pe-3">+1</p>';
+            feedbackText.innerHTML = `${country.country} ${plus1}`;
         } else {
             fetch('get_score') 
             .then(response => response.json())           
@@ -125,11 +123,9 @@ function flagFeedback() {
                 scoreboard.innerHTML += "Flags left: " + flagCount;
              });
             feedback.hidden = false;
-            feedbackText.classList.remove('text-success');
             feedbackText.classList.add('text-danger');
-            feedbackText.classList.remove('fs-3');
-            feedbackText.classList.add('fs-5');
-            feedbackText.innerText = country.country;
+            const zero = '<span class="float-end fs-5 pe-3">0</span>'
+            feedbackText.innerHTML = `${country.country} ${zero}`;
         }
     });
     
