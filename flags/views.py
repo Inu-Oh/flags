@@ -105,7 +105,7 @@ def quiz_result(request):
     count = Country.objects.all().count()
     score = request.session['score']
     result = round((score / count) * 100)
-    return JsonResponse({'result': result})
+    return JsonResponse({'score': score, 'result': result})
 
 
 def set_list(request):

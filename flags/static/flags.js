@@ -35,57 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-function loadFlagQuiz() {
-    // Switch nav tabs
-    document.getElementById('home-link').classList.remove('active');
-    document.getElementById('flag-quiz').classList.add('active');
-
-    // Show quiz card
-    document.querySelector('#page-heading').innerText = "Flag quiz";
-    document.querySelector('#quiz-card').hidden = false;
-    
-    fetch('check_sess2')
-    .then(response => response.json())
-    .then(session => {
-        if (session.quiz) {
-            loadNextFlag();
-        } else {
-            // Choose a random flag and randomly choose first flag
-            resetScore();
-            getFlagId();
-            // Start quiz
-            setTimeout(() => {
-                loadNextFlag();
-            }, 150);
-        }
-    })
-}
-
-
-function loadNextFlag() {    
-    // Get flag data
-    const hint = document.querySelector('#hint-text');
-    const flag = document.querySelector('#flag');
-    fetch(`get_flag_q`)
-    .then(response => response.json())
-    .then(country => {
-        flag.src = country.flag;
-        if (country.hint != "") {
-            hint.innerText = country.hint;
-        } else {
-            hint.innerText = "";
-        }
-    });
-
-    // Set up GUI for quiz question
-    document.querySelector('#feedback').hidden = true;
-    document.querySelector('#quiz-form').hidden = false;
-    const answer = document.querySelector('#answer');
-    answer.value = "";
-    answer.focus();
-}
-
-
 function flagFeedback() {
     // Get result of user quiz answer and set feedback
     const answer = document.querySelector('#answer').value;
@@ -156,6 +105,57 @@ function getFlagId() {
 }
 
 
+function loadFlagQuiz() {
+    // Switch nav tabs
+    document.getElementById('home-link').classList.remove('active');
+    document.getElementById('flag-quiz').classList.add('active');
+
+    // Show quiz card
+    document.querySelector('#page-heading').innerText = "Name the flag !";
+    document.querySelector('#quiz-card').hidden = false;
+    
+    fetch('check_sess2')
+    .then(response => response.json())
+    .then(session => {
+        if (session.quiz) {
+            loadNextFlag();
+        } else {
+            // Choose a random flag and randomly choose first flag
+            resetScore();
+            getFlagId();
+            // Start quiz
+            setTimeout(() => {
+                loadNextFlag();
+            }, 150);
+        }
+    })
+}
+
+
+function loadNextFlag() {    
+    // Get flag data
+    const hint = document.querySelector('#hint-text');
+    const flag = document.querySelector('#flag');
+    fetch(`get_flag_q`)
+    .then(response => response.json())
+    .then(country => {
+        flag.src = country.flag;
+        if (country.hint != "") {
+            hint.innerText = country.hint;
+        } else {
+            hint.innerText = "";
+        }
+    });
+
+    // Set up GUI for quiz question
+    document.querySelector('#feedback').hidden = true;
+    document.querySelector('#quiz-form').hidden = false;
+    const answer = document.querySelector('#answer');
+    answer.value = "";
+    answer.focus();
+}
+
+
 function resetScore() {
     // Sets score to 0 in session
     const score = document.getElementById('score');
@@ -177,14 +177,30 @@ function setList() {
 
 
 function quizResult() {
-    const card = document.getElementById('quiz-card');
-    let result;
-    card.innerHTML = '<div class="d-flex align-items-center justify-content-center">';
-    card.innerHTML += '<h1>Congrats !</h1>';
+    const score = document.getElementById('score');
+    
     fetch('quiz_result')
     .then(response => response.json())
     .then(data => {
-        card.innerHTML += `<p class="fs-1">${data.result}%</p>`
+        score.innerHTML = `Congrats ! &nbsp; &nbsp; You named ${data.score} countries`;
+        quizResultImage(data.result);
     })
-    
+
+    document.getElementById('quiz-form').hidden = true;
+    document.getElementById('page-heading').innerText = "That's a wrap !"
+}
+
+
+function quizResultImage(result) {
+    var canvas = document.createElement('canvas');
+    canvas.width = 640;
+    canvas.height = 360;
+    var ctx = canvas.getContext('2d');
+    ctx.font = "150px Arial";
+    ctx.fillStyle = "green";
+    str = result + "%";
+    ctx.fillText(str, 190, 230);
+    var img = document.createElement("img");
+    img.src = canvas.toDataURL();
+    document.getElementById('flag').src = img.src;
 }
