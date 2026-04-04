@@ -112,8 +112,7 @@ function flagFeedback() {
                 scoreboard.innerHTML += "Flags left: " + flagCount;
              });
             feedback.hidden = false;
-            feedbackText.classList.remove('text-danger');
-            const plus1 = '<span class="text-success float-end fs-5 pe-3">+1</p>';
+            const plus1 = '<span class="text-success float-end pe-3">+1</p>';
             feedbackText.innerHTML = `${country.country} ${plus1}`;
         } else {
             fetch('get_score') 
@@ -123,8 +122,7 @@ function flagFeedback() {
                 scoreboard.innerHTML += "Flags left: " + flagCount;
              });
             feedback.hidden = false;
-            feedbackText.classList.add('text-danger');
-            const zero = '<span class="float-end fs-5 pe-3">0</span>'
+            const zero = '<span class="text-danger float-end pe-3">0</span>'
             feedbackText.innerHTML = `${country.country} ${zero}`;
         }
     });
@@ -152,6 +150,8 @@ function getFlagId() {
     .then(response => response.json())
     .then(data => {
         flagCount = data.flagCount;
+        if ( data.endQuiz )
+            quizResult();
     });
 }
 
@@ -173,4 +173,18 @@ function setList() {
     .then(data => {
         flagCount = data.flagCount;
     });
+}
+
+
+function quizResult() {
+    const card = document.getElementById('quiz-card');
+    let result;
+    card.innerHTML = '<div class="d-flex align-items-center justify-content-center">';
+    card.innerHTML += '<h1>Congrats !</h1>';
+    fetch('quiz_result')
+    .then(response => response.json())
+    .then(data => {
+        card.innerHTML += `<p class="fs-1">${data.result}%</p>`
+    })
+    
 }

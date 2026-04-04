@@ -45,17 +45,22 @@ def get_flag_id(request):
     else:
         quiz_list = request.session['quiz_list']
 
-    next_id = choice(quiz_list)
-    quiz_list.remove(next_id)
-    request.session['quiz_list'] = quiz_list
-    request.session['flag_id'] = next_id
-    quiz_length = len(quiz_list)
+    if len(quiz_list) > 0:
+        next_id = choice(quiz_list)
+        quiz_list.remove(next_id)
+        request.session['quiz_list'] = quiz_list
+        request.session['flag_id'] = next_id
+        quiz_length = len(quiz_list)
+        end_quiz = False
+    else:
+        quiz_length = next_id = False
+        end_quiz = True
 
     return JsonResponse({
         'flagCount': quiz_length,
-        'currId': next_id
+        'currId': next_id,
+        'endQuiz': end_quiz
     })
-
 
 
 def get_flag_q(request):
@@ -88,14 +93,19 @@ def update_score(request, score):
         request.session['score'] = 1
     
     new_score = request.session['score']
-
     return JsonResponse({'new_score': new_score})
 
 
 def reset_score(request):
     request.session['score'] = 0
-
     return HttpResponse(status=204)
+
+
+def quiz_result(request):
+    count = Country.objects.all().count()
+    score = request.session['score']
+    result = round((score / count) * 100)
+    return JsonResponse({'result': result})
 
 
 def set_list(request):
