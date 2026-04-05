@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add event listeners to switch main quiz GUIs and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
+    document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagQuiz());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
     document.querySelector('#next').addEventListener('click', () => loadNextFlag());
     
@@ -111,7 +112,7 @@ function loadFlagQuiz() {
     document.getElementById('flag-quiz').classList.add('active');
 
     // Show quiz card
-    document.querySelector('#page-heading').innerText = "Name the flag !";
+    document.querySelector('#page-heading').innerText = "Name the country !";
     document.querySelector('#quiz-card').hidden = false;
     
     fetch('check_sess2')
