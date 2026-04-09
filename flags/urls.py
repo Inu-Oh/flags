@@ -8,7 +8,7 @@ urlpatterns = [
 
     # API Routes
     path('check_sess', views.check_sess, name='check_sess'),
-    path('check_sess2', views.check_sess2, name='check_sess2'),
+    path('flag_country_quiz', views.flag_country_quiz, name='flag_country_quiz'),
     path('get_flag_id', views.get_flag_id, name='get_flag_id'),
     path('get_flag_q', views.get_flag_q, name='get_flag_q'),
     path('get_flag_ans', views.get_flag_ans, name='get_flag_ans'),

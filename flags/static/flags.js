@@ -4,8 +4,8 @@ let flagCount;
 document.addEventListener('DOMContentLoaded', function() {
 
     // Add event listeners to switch main quiz GUIs and set quiz list
-    document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagQuiz());
-    document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagQuiz());
+    document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagCountryQuiz());
+    document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagCapitalQuiz());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
     document.querySelector('#next').addEventListener('click', () => loadNextFlag());
     
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const scoreboard = document.querySelector('#score')
             scoreboard.innerHTML = "Score: " + session.score + " &nbsp;&nbsp ";
             scoreboard.innerHTML += "Flags left: " + flagCount;
-            loadFlagQuiz();
+            loadFlagCountryQuiz();
         } else {
             // Create quiz question list
             setList();
@@ -106,7 +106,7 @@ function getFlagId() {
 }
 
 
-function loadFlagQuiz() {
+function loadFlagCountryQuiz() {
     // Switch nav tabs
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
@@ -115,10 +115,10 @@ function loadFlagQuiz() {
     document.querySelector('#page-heading').innerText = "Name the country !";
     document.querySelector('#quiz-card').hidden = false;
     
-    fetch('check_sess2')
+    fetch('flag_country_quiz')
     .then(response => response.json())
     .then(session => {
-        if (session.quiz) {
+        if (session.quiz == 'flag_country') {
             loadNextFlag();
         } else {
             // Choose a random flag and randomly choose first flag

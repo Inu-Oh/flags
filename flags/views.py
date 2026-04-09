@@ -29,9 +29,9 @@ def check_sess(request):
     return JsonResponse({ 'quiz': quiz, 'flagCount': quiz_length, 'score': score })
 
 
-def  check_sess2(request):
-    if 'quiz' in request.session:
-        return JsonResponse({'quiz': True})
+def  flag_country_quiz(request):
+    if 'quiz' in request.session and request.session['quiz'] == 'flag_country':
+        return JsonResponse({'quiz': 'flag_country'})
     else:
         request.session['quiz'] = "flag"
         return JsonResponse({'quiz': False})
