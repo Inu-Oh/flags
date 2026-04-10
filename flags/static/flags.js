@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add event listeners to switch main quiz GUIs and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagCountryQuiz());
-    document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagCapitalQuiz());
+    // document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagCapitalQuiz());
     document.querySelector('#submit').addEventListener('click', () => flagFeedback());
     document.querySelector('#next').addEventListener('click', () => loadNextFlag());
     
@@ -159,11 +159,14 @@ function loadNextFlag() {
 
 function resetScore() {
     // Sets score to 0 in session
+    fetch('reset_score')
+    .then(response => response.json())
+    .then(data => {
+        flagCount = data.flagCount;
+    });
     const score = document.getElementById('score');
     score.hidden = false;
     score.innerHTML = "Score: 0 &nbsp;&nbsp Flags left: " + flagCount;
-
-    fetch('reset_score');
 }
 
 

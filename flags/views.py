@@ -29,11 +29,19 @@ def check_sess(request):
     return JsonResponse({ 'quiz': quiz, 'flagCount': quiz_length, 'score': score })
 
 
-def  flag_country_quiz(request):
-    if 'quiz' in request.session and request.session['quiz'] == 'flag_country':
-        return JsonResponse({'quiz': 'flag_country'})
+def flag_capital_quiz(request):
+    if 'quiz' in request.session and request.session['quiz'] == "flag_capital":
+        return JsonResponse({'quiz': "flag_capital"})
     else:
-        request.session['quiz'] = "flag"
+        request.session['quiz'] = "flag_capital"
+        return JsonResponse({'quiz': False})
+
+
+def  flag_country_quiz(request):
+    if 'quiz' in request.session and request.session['quiz'] == "flag_country":
+        return JsonResponse({'quiz': "flag_country"})
+    else:
+        request.session['quiz'] = "flag_country"
         return JsonResponse({'quiz': False})
 
 
@@ -98,7 +106,9 @@ def update_score(request, score):
 
 def reset_score(request):
     request.session['score'] = 0
-    return HttpResponse(status=204)
+    if 'quiz_list' in request.session:
+        del request.session['quiz_list']
+    return get_flag_id(request)
 
 
 def quiz_result(request):
