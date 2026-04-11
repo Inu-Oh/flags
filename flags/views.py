@@ -90,6 +90,13 @@ def get_score(request):
     return JsonResponse({'score': score})
 
 
+def reset_score(request):
+    request.session['score'] = 0
+    if 'quiz_list' in request.session:
+        del request.session['quiz_list']
+    return get_flag_id(request)
+
+
 def update_score(request, score):
     if 'score' in request.session:
         if int(score) == 1:
@@ -105,16 +112,10 @@ def update_scoreboard(request):
     try:
         score = request.session['score']
         questions_remaining = len(request.session['quiz_list'])
-        scoreboard_text = f"Score: ${score} &nbsp;&nbsp Flags left: ${questions_remaining}"
-        JsonResponse({'scoreboardText': scoreboard_text})
+        scoreboard_text = f"Score: {score} &nbsp;&nbsp Flags left: {questions_remaining}"
+        return JsonResponse({'scoreboardText': scoreboard_text})
     except:
-        JsonResponse({'scoreboardText': "Your score is not available."})
-
-def reset_score(request):
-    request.session['score'] = 0
-    if 'quiz_list' in request.session:
-        del request.session['quiz_list']
-    return get_flag_id(request)
+        return JsonResponse({'scoreboardText': "Your score is not available."})
 
 
 def quiz_result(request):

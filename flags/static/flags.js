@@ -1,10 +1,9 @@
 // Initiate data TODO  remove this global
 let flagCount;
-
-document.addEventListener('DOMContentLoaded', function() {
+$(document).ready( function() {
 
     // Add event listeners to switch main quiz GUIs and set quiz list
-    document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagCountryQuiz());
+    $('#flag-quiz').on('click', () => loadFlagCountryQuiz());
     // document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagCapitalQuiz());
     fetch('check_session')
     .then(response => response.json())
@@ -106,7 +105,7 @@ function loadFlagCountryQuiz() {
 
         <div id="flag-div" class="card card-img-top bg-light hover-overlay border-light" 
             data-mbd-ripple-init data-mdb-ripple-color="light">
-            <img id="flag" class="card-img-top" src="" alt="guess the flag">
+            <img id="flag" class="card-img-top" src="" alt="">
         </div>
     
         <div id="card-bod" class="container bg-light border-light">
@@ -157,12 +156,12 @@ function loadFlagCountryQuiz() {
     document.querySelector('#page-heading').innerText = "Name the country !";
     document.querySelector('#quiz-card').hidden = false;
 
+    // Start quiz
     setTimeout(() => {
         updateScoreboard();
-    }, 250);
-
-    // Start quiz
-    loadNextFlag();
+        loadNextFlag();
+        $('#flag').attr("alt", "Guess the flag");
+    }, 100);
 }
 
 
