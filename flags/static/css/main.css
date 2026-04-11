@@ -30,6 +30,7 @@
 
 #card-bod {
     height: 8rem;
+    position: relative;
 }
 
 #hint-frame {

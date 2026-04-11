@@ -1,4 +1,4 @@
-// Initiate data
+// Initiate data TODO  remove this global
 let flagCount;
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -6,31 +6,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listeners to switch main quiz GUIs and set quiz list
     document.querySelector('#flag-quiz').addEventListener('click', () => loadFlagCountryQuiz());
     // document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagCapitalQuiz());
-    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
-    document.querySelector('#next').addEventListener('click', () => loadNextFlag());
-    
-    document.querySelector('#quiz-form').addEventListener('submit', function(event) {
-        event.preventDefault();
-    });
-    const input = document.querySelector('#answer');
-    input.addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-            document.querySelector('#submit').click();
-        }
-    });
-
-    fetch('check_sess')
+    fetch('check_session')
     .then(response => response.json())
-    .then(session => {
-        if (session.quiz) {
-            flagCount = session.flagCount;
-            const scoreboard = document.querySelector('#score')
-            scoreboard.innerHTML = "Score: " + session.score + " &nbsp;&nbsp ";
-            scoreboard.innerHTML += "Flags left: " + flagCount;
-            loadFlagCountryQuiz();
-        } else {
-            // Create quiz question list
-            setList();
+    .then(data => {
+        switch (data.quiz) {
+            case "flag_country":
+                loadFlagCountryQuiz();
+                break;
+            default:
+                break;
         }
     })
 });
@@ -107,6 +91,64 @@ function getFlagId() {
 
 
 function loadFlagCountryQuiz() {
+    // Set up quiz question list
+    fetch('check_session')
+    .then(response => response.json())
+    .then(data => {
+        if (data.quiz != "flag_country") {
+            fetch('set_flag_country_quiz');
+        }
+    });
+
+    $('#quiz-card').html(`<div class="card mb-3 pt-2 bg-secondary border-light">
+            <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
+        </div>
+
+        <div id="flag-div" class="card card-img-top bg-light hover-overlay border-light" 
+            data-mbd-ripple-init data-mdb-ripple-color="light">
+            <img id="flag" class="card-img-top" src="" alt="guess the flag">
+        </div>
+    
+        <div id="card-bod" class="container bg-light border-light">
+            <div id="hint-frame" class="ps-2 my-1">
+                    <p id="hint-text"></p>
+            </div>
+            <div id="feedback-form-frame">
+                <div id="feedback" hidden="true" class="row py-2">
+                    <div class="col-10">
+                        <p id="feedback-text" class="ps-2 fs-5 fw-bold"></p>
+                    </div>
+                    <div class="col-2">
+                        <a id="next" class="btn btn-success" href="#">Next</a>
+                    </div>
+                </div>
+
+                <form id="quiz-form" action="" class="row py-2" hidden="true" autocomplete="off">
+                    <div class="col-9">
+                        <input id="answer" class="form-control" type="text" 
+                            name="answer" placeholder="Enter country" value="" autofocus >
+                    </div>
+                    <div class="col-3">
+                        <input id="submit" class="btn btn-success form-control" 
+                        type="button" value="Submit">
+                    </div>       
+                </form>
+            </div>
+        </div>`);
+
+    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
+    document.querySelector('#next').addEventListener('click', () => loadNextFlag());
+    
+    document.querySelector('#quiz-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+    });
+    const input = document.querySelector('#answer');
+    input.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            document.querySelector('#submit').click();
+        }
+    });
+    
     // Switch nav tabs
     document.getElementById('home-link').classList.remove('active');
     document.getElementById('flag-quiz').classList.add('active');
@@ -114,22 +156,13 @@ function loadFlagCountryQuiz() {
     // Show quiz card
     document.querySelector('#page-heading').innerText = "Name the country !";
     document.querySelector('#quiz-card').hidden = false;
-    
-    fetch('flag_country_quiz')
-    .then(response => response.json())
-    .then(session => {
-        if (session.quiz == 'flag_country') {
-            loadNextFlag();
-        } else {
-            // Choose a random flag and randomly choose first flag
-            resetScore();
-            getFlagId();
-            // Start quiz
-            setTimeout(() => {
-                loadNextFlag();
-            }, 150);
-        }
-    })
+
+    setTimeout(() => {
+        updateScoreboard();
+    }, 250);
+
+    // Start quiz
+    loadNextFlag();
 }
 
 
@@ -170,16 +203,6 @@ function resetScore() {
 }
 
 
-function setList() {
-    // Set list of question IDs in session for quiz progress & get question count
-    fetch('set_list')
-    .then(response => response.json())
-    .then(data => {
-        flagCount = data.flagCount;
-    });
-}
-
-
 function quizResult() {
     const score = document.getElementById('score');
     
@@ -207,4 +230,14 @@ function quizResultImage(result) {
     var img = document.createElement("img");
     img.src = canvas.toDataURL();
     document.getElementById('flag').src = img.src;
+}
+
+
+function updateScoreboard() {
+    // TODO figure out and fix this
+    fetch('update_scoreboard')
+    .then(response => response.json())
+    .then(data => {
+        $('#score').html(data.scoreboardText);
+    });   
 }

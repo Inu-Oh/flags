@@ -18,15 +18,12 @@ def index(request):
     return render(request, 'index.html')
 
 
-def check_sess(request):
+def check_session(request):
     if 'quiz' in request.session:
-        quiz = True
-        quiz_length = len(request.session['quiz_list'])
-        score = request.session['score']
+        quiz = request.session['quiz']
     else:
-        quiz = quiz_length = score = False
-    
-    return JsonResponse({ 'quiz': quiz, 'flagCount': quiz_length, 'score': score })
+        quiz = False
+    return JsonResponse({ 'quiz': quiz })
 
 
 def flag_capital_quiz(request):
@@ -104,6 +101,15 @@ def update_score(request, score):
     return JsonResponse({'new_score': new_score})
 
 
+def update_scoreboard(request):
+    try:
+        score = request.session['score']
+        questions_remaining = len(request.session['quiz_list'])
+        scoreboard_text = f"Score: ${score} &nbsp;&nbsp Flags left: ${questions_remaining}"
+        JsonResponse({'scoreboardText': scoreboard_text})
+    except:
+        JsonResponse({'scoreboardText': "Your score is not available."})
+
 def reset_score(request):
     request.session['score'] = 0
     if 'quiz_list' in request.session:
@@ -118,12 +124,15 @@ def quiz_result(request):
     return JsonResponse({'score': score, 'result': result})
 
 
-def set_list(request):
+def set_flag_country_quiz(request):
     # Set list of question IDs in session for quiz progress & get question count
     quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
+    first_flag_id = choice(quiz_list)
     request.session['quiz_list'] = quiz_list
-    quiz_length = len(quiz_list)
-    return JsonResponse({'flagCount': quiz_length})
+    request.session['flag_id'] = first_flag_id
+    request.session['score'] = 0
+    request.session['quiz'] = "flag_country"
+    return HttpResponse(status=204)
 
 
 # Superuser view for pupulating DB - edit import_data.csv then submit
