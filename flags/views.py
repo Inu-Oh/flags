@@ -49,12 +49,10 @@ def get_flag_ans(request):
     return JsonResponse({'country': country_name})
 
 
-# TODO - refactor - review revisions in flags.js
 def get_flag_id(request):
     if not 'quiz_list' in request.session:
-        quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
-    else:
-        quiz_list = request.session['quiz_list']
+        return set_flag_country_quiz(request)
+    quiz_list = request.session['quiz_list']
 
     if len(quiz_list) > 0:
         next_id = choice(quiz_list)
@@ -65,9 +63,7 @@ def get_flag_id(request):
     else:
         end_quiz = True
 
-    return JsonResponse({
-        'endQuiz': end_quiz
-    })
+    return JsonResponse({'endQuiz': end_quiz})
 
 
 def get_flag_q(request):
@@ -92,21 +88,11 @@ def quiz_result(request):
     return JsonResponse({'score': score, 'result': result})
 
 
-def reset_score(request):
-    quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
-    first_flag_id = choice(quiz_list)
-    quiz_list.remove(first_flag_id)
-    request.session['quiz_list'] = quiz_list
-    request.session['flag_id'] = first_flag_id
-    request.session['score'] = 0
-    request.session.modified = True
-    return get_flag_q(request)
-
-
 def set_flag_country_quiz(request):
     # Set list of question IDs in session for quiz progress & get question count
     quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
     first_flag_id = choice(quiz_list)
+    quiz_list.remove(first_flag_id)
     request.session['quiz_list'] = quiz_list
     request.session['flag_id'] = first_flag_id
     request.session['score'] = 0
@@ -114,10 +100,9 @@ def set_flag_country_quiz(request):
     return HttpResponse(status=204)
 
 
-def update_score(request, score):
+def update_score(request):
     if 'score' in request.session:
-        if int(score) == 1:
-            request.session['score'] += 1
+        request.session['score'] += 1
     else:
         request.session['score'] = 1
     if len(request.session['quiz_list']) < 1:

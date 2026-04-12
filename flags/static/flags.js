@@ -35,7 +35,7 @@ function flagCountryFeedback() {
     .then(ans => {
         const normalizedCountry = ans.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
         if (normalizedAns.toLowerCase() == normalizedCountry.toLowerCase()) {
-            fetch(`update_score/${1}`)
+            fetch(`update_score`)
             .then(response => response.json())
             .then(data => {
                 $('#score').html(data.scoreboardText);
@@ -140,14 +140,14 @@ function loadFlagCountryQuiz() {
     $('#flag-country-quiz').addClass('active');
     $('#flag-capital-quiz').removeClass('active');
 
-    // Show quiz card content
-    $('#page-heading').text("Name the country !");
-    $('#quiz-card').attr("hidden", false);
-
     // Start quiz
     setTimeout(() => {
         updateScoreboard();
         loadNextFlag();
+
+        // Show quiz card content
+        $('#page-heading').text("Name the country !");
+        $('#quiz-card').attr("hidden", false);
         $('#flag').attr("alt", "Guess the flag");
     }, 100);
 }
@@ -177,20 +177,12 @@ function loadNextFlag() {
 
 
 function resetScore() {
-    // Reset the quiz and set flag data
-    const $hint = $('#hint-text');
-    fetch('reset_score')
-    .then(response => response.json())
-    .then(data => {
-        $('#flag').attr("src", data.flag);
-        if (data.hint != "") {
-            $hint.text(data.hint);
-        } else {
-            $hint.text("");
-        }
-    });
-    updateScoreboard();
-    loadNextFlag();
+    // Reset the quiz, set flag data and load next question
+    fetch('set_flag_country_quiz');
+    setTimeout(() => {
+        updateScoreboard();
+        loadNextFlag();
+    }, 100)
 }
 
 
