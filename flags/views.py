@@ -42,11 +42,17 @@ def  flag_country_quiz(request):
         return JsonResponse({'quiz': False})
 
 
-# Javascript API views
+def get_flag_ans(request):
+    pk = request.session['flag_id']
+    country = Country.objects.get(id=pk)
+    country_name = country.country
+    return JsonResponse({'country': country_name})
+
+
+# TODO - refactor - review revisions in flags.js
 def get_flag_id(request):
     if not 'quiz_list' in request.session:
         quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
-        
     else:
         quiz_list = request.session['quiz_list']
 
@@ -70,23 +76,20 @@ def get_flag_q(request):
     # Change domain for production
     flag = "http://127.0.0.1:8000/static/images/" + str(country.country_code) + ".png"
     hint = str(country.hint) if country.hint is not None else ""
-
     return JsonResponse({ 'flag': flag, 'hint': hint })
 
 
-def get_flag_ans(request):
-    pk = request.session['flag_id']
-    country = Country.objects.get(id=pk)
-    country_name = country.country
-    return JsonResponse({'country': country_name})
-
-
-# TODO - delete after replacing with update_scoreborad in flags.js
 def get_score(request):
     if len(request.session['quiz_list']) < 1:
-        return quiz_result
-
+        return quiz_result(request)
     return update_scoreboard(request)
+
+
+def quiz_result(request):
+    count = Country.objects.all().count()
+    score = request.session['score']
+    result = round((score / count) * 100)
+    return JsonResponse({'score': score, 'result': result})
 
 
 def reset_score(request):
@@ -96,38 +99,8 @@ def reset_score(request):
     request.session['quiz_list'] = quiz_list
     request.session['flag_id'] = first_flag_id
     request.session['score'] = 0
+    request.session.modified = True
     return get_flag_q(request)
-
-
-# TODO - refactor post creation of set_...quiz and return update_scoreboard instead
-def update_score(request, score):
-    if 'score' in request.session:
-        if int(score) == 1:
-            request.session['score'] += 1
-    else:
-        request.session['score'] = 1
-
-    if len(request.session['quiz_list']) < 1:
-        return quiz_result
-    
-    return update_scoreboard(request)
-
-
-def update_scoreboard(request):
-    try:
-        score = request.session['score']
-        questions_remaining = len(request.session['quiz_list'])
-        scoreboard_text = f"Score: {score} &nbsp;&nbsp Flags left: {questions_remaining}"
-        return JsonResponse({'scoreboardText': scoreboard_text})
-    except:
-        return JsonResponse({'scoreboardText': "Your score is not available."})
-
-
-def quiz_result(request):
-    count = Country.objects.all().count()
-    score = request.session['score']
-    result = round((score / count) * 100)
-    return JsonResponse({'score': score, 'result': result})
 
 
 def set_flag_country_quiz(request):
@@ -139,6 +112,27 @@ def set_flag_country_quiz(request):
     request.session['score'] = 0
     request.session['quiz'] = "flag_country"
     return HttpResponse(status=204)
+
+
+def update_score(request, score):
+    if 'score' in request.session:
+        if int(score) == 1:
+            request.session['score'] += 1
+    else:
+        request.session['score'] = 1
+    if len(request.session['quiz_list']) < 1:
+        return quiz_result
+    return update_scoreboard(request)
+
+
+def update_scoreboard(request):
+    try:
+        score = request.session['score']
+        questions_remaining = len(request.session['quiz_list'])
+        scoreboard_text = f"Score: {score} &nbsp;&nbsp Flags left: {questions_remaining}"
+        return JsonResponse({'scoreboardText': scoreboard_text})
+    except:
+        return JsonResponse({'scoreboardText': "Refresh to see your score."})
 
 
 # Superuser view for pupulating DB - edit import_data.csv then submit

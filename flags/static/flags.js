@@ -1,9 +1,9 @@
 // Initiate data TODO  remove this global
 $(document).ready( function() {
-
     // Add event listeners to switch main quiz GUIs or load quiz saved to session
     $('#flag-country-quiz').on('click', () => loadFlagCountryQuiz());
     // $('#flag-capital-quiz').on('click', () => loadFlagCapitalQuiz());
+    // Switch automatically if a quiz is storred in session
     fetch('check_session')
     .then(response => response.json())
     .then(data => {
@@ -18,7 +18,7 @@ $(document).ready( function() {
 });
 
 
-function flagFeedback() {
+function flagCountryFeedback() {
     // Get result of user quiz answer and set feedback
     const $answer = $('#answer').val();
     if ($answer.length <= 0) return;
@@ -32,8 +32,8 @@ function flagFeedback() {
     // Update score and generate feedback
     fetch(`get_flag_ans`)
     .then(response => response.json())
-    .then(country => {
-        const normalizedCountry = country.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    .then(ans => {
+        const normalizedCountry = ans.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
         if (normalizedAns.toLowerCase() == normalizedCountry.toLowerCase()) {
             fetch(`update_score/${1}`)
             .then(response => response.json())
@@ -41,7 +41,7 @@ function flagFeedback() {
                 $('#score').html(data.scoreboardText);
              });
             const plus1 = '<span class="text-success float-end pe-3">+1</p>';
-            $('#feedback-text').html(`${country.country} ${plus1}`);
+            $('#feedback-text').html(`${ans.country} ${plus1}`);
         } else {
             fetch('get_score') 
             .then(response => response.json())           
@@ -49,7 +49,7 @@ function flagFeedback() {
                 $('#score').html(data.scoreboardText);
              });
             const zero = '<span class="text-danger float-end pe-3">0</span>'
-            $('#feedback-text').html(`${country.country} ${zero}`);
+            $('#feedback-text').html(`${ans.country} ${zero}`);
         }
     });
 
@@ -85,6 +85,7 @@ function loadFlagCountryQuiz() {
         }
     });
 
+    // Add quiz card, flag, form and feedback GUI
     $('#quiz-card').html(`<div class="card mb-3 pt-2 bg-secondary border-light">
             <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
         </div>
@@ -121,26 +122,27 @@ function loadFlagCountryQuiz() {
             </div>
         </div>`);
 
-    document.querySelector('#submit').addEventListener('click', () => flagFeedback());
-    document.querySelector('#next').addEventListener('click', () => loadNextFlag());
+    // Set events listeners
+    $('#submit').on('click', () => flagCountryFeedback());
+    $('#next').on('click', () => loadNextFlag());
     
-    document.querySelector('#quiz-form').addEventListener('submit', function(event) {
+    $('#quiz-form').on('submit', function(event) {
         event.preventDefault();
     });
-    const input = document.querySelector('#answer');
-    input.addEventListener('keypress', function(event) {
+    $('#answer').on('keypress', function(event) {
         if (event.key === 'Enter') {
-            document.querySelector('#submit').click();
+            $('#submit').click();
         }
     });
     
     // Switch nav tabs
-    document.getElementById('home-link').classList.remove('active');
-    document.getElementById('flag-country-quiz').classList.add('active');
+    $('#home-link').removeClass('active');
+    $('#flag-country-quiz').addClass('active');
+    $('#flag-capital-quiz').removeClass('active');
 
-    // Show quiz card
-    document.querySelector('#page-heading').innerText = "Name the country !";
-    document.querySelector('#quiz-card').hidden = false;
+    // Show quiz card content
+    $('#page-heading').text("Name the country !");
+    $('#quiz-card').attr("hidden", false);
 
     // Start quiz
     setTimeout(() => {
@@ -152,10 +154,8 @@ function loadFlagCountryQuiz() {
 
 
 function loadNextFlag() {    
-    
+    // Get flag and hint data
     const $hint = $('#hint-text');
-
-    // Get flag data
     fetch(`get_flag_q`)
     .then(response => response.json())
     .then(data => {
@@ -168,18 +168,17 @@ function loadNextFlag() {
     });
 
     // Set up GUI for quiz question
-    document.querySelector('#feedback').hidden = true;
-    document.querySelector('#quiz-form').hidden = false;
-    const answer = document.querySelector('#answer');
-    answer.value = "";
-    answer.focus();
+    $('#feedback').attr("hidden", true);
+    $('#quiz-form').attr("hidden", false);
+    const $answer = $('#answer');
+    $answer.val("");
+    $answer.focus();
 }
 
 
 function resetScore() {
+    // Reset the quiz and set flag data
     const $hint = $('#hint-text');
-
-    // Resets the quiz and sets flag data
     fetch('reset_score')
     .then(response => response.json())
     .then(data => {
@@ -191,25 +190,25 @@ function resetScore() {
         }
     });
     updateScoreboard();
+    loadNextFlag();
 }
 
 
 function quizResult() {
-    const score = document.getElementById('score');
-    
+    // Get and show user quiz results
     fetch('quiz_result')
     .then(response => response.json())
     .then(data => {
-        score.innerHTML = `Congrats ! &nbsp; &nbsp; You named ${data.score} countries`;
+        $('#score').html(`Congrats ! &nbsp; &nbsp; You named ${data.score} countries`);
         quizResultImage(data.result);
     })
-
-    document.getElementById('quiz-form').hidden = true;
-    document.getElementById('page-heading').innerText = "That's a wrap !"
+    $('#quiz-form').attr("hidden", true);
+    $('page-heading').text("That's a wrap !");
 }
 
 
 function quizResultImage(result) {
+    // Generate and add source to image for results - JS got clearer image than jQuery here
     var canvas = document.createElement('canvas');
     canvas.width = 640;
     canvas.height = 360;
@@ -220,12 +219,11 @@ function quizResultImage(result) {
     ctx.fillText(str, 190, 230);
     var img = document.createElement("img");
     img.src = canvas.toDataURL();
-    document.getElementById('flag').src = img.src;
+    $('#flag').attr("src", img.src);
 }
 
 
 function updateScoreboard() {
-    // TODO figure out and fix this
     fetch('update_scoreboard')
     .then(response => response.json())
     .then(data => {
