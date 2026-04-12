@@ -55,15 +55,11 @@ def get_flag_id(request):
         quiz_list.remove(next_id)
         request.session['quiz_list'] = quiz_list
         request.session['flag_id'] = next_id
-        quiz_length = len(quiz_list)
         end_quiz = False
     else:
-        quiz_length = next_id = False
         end_quiz = True
 
     return JsonResponse({
-        'flagCount': quiz_length,
-        'currId': next_id,
         'endQuiz': end_quiz
     })
 
@@ -85,27 +81,36 @@ def get_flag_ans(request):
     return JsonResponse({'country': country_name})
 
 
+# TODO - delete after replacing with update_scoreborad in flags.js
 def get_score(request):
-    score = request.session['score']
-    return JsonResponse({'score': score})
+    if len(request.session['quiz_list']) < 1:
+        return quiz_result
+
+    return update_scoreboard(request)
 
 
 def reset_score(request):
+    quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
+    first_flag_id = choice(quiz_list)
+    quiz_list.remove(first_flag_id)
+    request.session['quiz_list'] = quiz_list
+    request.session['flag_id'] = first_flag_id
     request.session['score'] = 0
-    if 'quiz_list' in request.session:
-        del request.session['quiz_list']
-    return get_flag_id(request)
+    return get_flag_q(request)
 
 
+# TODO - refactor post creation of set_...quiz and return update_scoreboard instead
 def update_score(request, score):
     if 'score' in request.session:
         if int(score) == 1:
             request.session['score'] += 1
     else:
         request.session['score'] = 1
+
+    if len(request.session['quiz_list']) < 1:
+        return quiz_result
     
-    new_score = request.session['score']
-    return JsonResponse({'new_score': new_score})
+    return update_scoreboard(request)
 
 
 def update_scoreboard(request):

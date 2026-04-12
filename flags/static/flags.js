@@ -1,10 +1,9 @@
 // Initiate data TODO  remove this global
-let flagCount;
 $(document).ready( function() {
 
-    // Add event listeners to switch main quiz GUIs and set quiz list
-    $('#flag-quiz').on('click', () => loadFlagCountryQuiz());
-    // document.querySelector('#capital-quiz').addEventListener('click', () => loadFlagCapitalQuiz());
+    // Add event listeners to switch main quiz GUIs or load quiz saved to session
+    $('#flag-country-quiz').on('click', () => loadFlagCountryQuiz());
+    // $('#flag-capital-quiz').on('click', () => loadFlagCapitalQuiz());
     fetch('check_session')
     .then(response => response.json())
     .then(data => {
@@ -21,16 +20,14 @@ $(document).ready( function() {
 
 function flagFeedback() {
     // Get result of user quiz answer and set feedback
-    const answer = document.querySelector('#answer').value;
-    if (answer.length <= 0) return;
+    const $answer = $('#answer').val();
+    if ($answer.length <= 0) return;
 
     const parser = new DOMParser();
-    const cleanAns = parser.parseFromString(answer, 'text/html')
+    const cleanAns = parser.parseFromString($answer, 'text/html')
     const ansText = cleanAns.body.innerText;
     const normalizedAns = ansText.trim().normalize('NFD').replace(/\p{Diacritic}/gu, '');
-    const scoreboard = document.querySelector('#score');
-    const feedback = document.querySelector('#feedback');
-    const feedbackText = document.querySelector('#feedback-text');
+    $('#feedback').attr("hidden", false);
 
     // Update score and generate feedback
     fetch(`get_flag_ans`)
@@ -41,37 +38,27 @@ function flagFeedback() {
             fetch(`update_score/${1}`)
             .then(response => response.json())
             .then(data => {
-                scoreboard.innerHTML = "Score: " + data.new_score + " &nbsp;&nbsp ";
-                scoreboard.innerHTML += "Flags left: " + flagCount;
+                $('#score').html(data.scoreboardText);
              });
-            feedback.hidden = false;
             const plus1 = '<span class="text-success float-end pe-3">+1</p>';
-            feedbackText.innerHTML = `${country.country} ${plus1}`;
+            $('#feedback-text').html(`${country.country} ${plus1}`);
         } else {
             fetch('get_score') 
             .then(response => response.json())           
             .then(data => {
-                scoreboard.innerHTML = "Score: " + data.score + " &nbsp;&nbsp ";
-                scoreboard.innerHTML += "Flags left: " + flagCount;
+                $('#score').html(data.scoreboardText);
              });
-            feedback.hidden = false;
             const zero = '<span class="text-danger float-end pe-3">0</span>'
-            feedbackText.innerHTML = `${country.country} ${zero}`;
+            $('#feedback-text').html(`${country.country} ${zero}`);
         }
     });
-    
-    // TODO - game over results page
-    if (flagCount <= 0) {
-        document.querySelector('#page-heading').innerText = "Done"
-    }
 
     // Set up GUI for feedback and next button
-    document.querySelector('#hint-text').innerText = "";
-    document.querySelector('#quiz-form').hidden = true;
-    const next = document.getElementById('next');
+    $('#hint-text').text("");
+    $('#quiz-form').attr("hidden", true);
     
     setTimeout(() => {
-        next.focus();
+        $('#next').focus();
         getFlagId();
     }, 100);
 }
@@ -82,7 +69,6 @@ function getFlagId() {
     fetch('get_flag_id')
     .then(response => response.json())
     .then(data => {
-        flagCount = data.flagCount;
         if ( data.endQuiz )
             quizResult();
     });
@@ -150,7 +136,7 @@ function loadFlagCountryQuiz() {
     
     // Switch nav tabs
     document.getElementById('home-link').classList.remove('active');
-    document.getElementById('flag-quiz').classList.add('active');
+    document.getElementById('flag-country-quiz').classList.add('active');
 
     // Show quiz card
     document.querySelector('#page-heading').innerText = "Name the country !";
@@ -166,17 +152,18 @@ function loadFlagCountryQuiz() {
 
 
 function loadNextFlag() {    
+    
+    const $hint = $('#hint-text');
+
     // Get flag data
-    const hint = document.querySelector('#hint-text');
-    const flag = document.querySelector('#flag');
     fetch(`get_flag_q`)
     .then(response => response.json())
-    .then(country => {
-        flag.src = country.flag;
-        if (country.hint != "") {
-            hint.innerText = country.hint;
+    .then(data => {
+        $('#flag').attr("src", data.flag);
+        if (data.hint != "") {
+            $hint.text(data.hint);
         } else {
-            hint.innerText = "";
+            $hint.text("");
         }
     });
 
@@ -190,15 +177,20 @@ function loadNextFlag() {
 
 
 function resetScore() {
-    // Sets score to 0 in session
+    const $hint = $('#hint-text');
+
+    // Resets the quiz and sets flag data
     fetch('reset_score')
     .then(response => response.json())
     .then(data => {
-        flagCount = data.flagCount;
+        $('#flag').attr("src", data.flag);
+        if (data.hint != "") {
+            $hint.text(data.hint);
+        } else {
+            $hint.text("");
+        }
     });
-    const score = document.getElementById('score');
-    score.hidden = false;
-    score.innerHTML = "Score: 0 &nbsp;&nbsp Flags left: " + flagCount;
+    updateScoreboard();
 }
 
 
