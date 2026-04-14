@@ -26,23 +26,14 @@ def check_session(request):
     return JsonResponse({ 'quiz': quiz })
 
 
-def flag_capital_quiz(request):
-    if 'quiz' in request.session and request.session['quiz'] == "flag_capital":
-        return JsonResponse({'quiz': "flag_capital"})
-    else:
-        request.session['quiz'] = "flag_capital"
-        return JsonResponse({'quiz': False})
+def get_flag_capital_ans(request):
+    pk = request.session['flag_id']
+    country = Country.objects.get(id=pk)
+    capital = country.capital
+    return JsonResponse({'capital': capital})
 
 
-def  flag_country_quiz(request):
-    if 'quiz' in request.session and request.session['quiz'] == "flag_country":
-        return JsonResponse({'quiz': "flag_country"})
-    else:
-        request.session['quiz'] = "flag_country"
-        return JsonResponse({'quiz': False})
-
-
-def get_flag_ans(request):
+def get_flag_country_ans(request):
     pk = request.session['flag_id']
     country = Country.objects.get(id=pk)
     country_name = country.country

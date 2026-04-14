@@ -30,7 +30,7 @@ function flagCountryFeedback() {
     $('#feedback').attr("hidden", false);
 
     // Update score and generate feedback
-    fetch(`get_flag_ans`)
+    fetch(`get_flag_country_ans`)
     .then(response => response.json())
     .then(ans => {
         const normalizedCountry = ans.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
