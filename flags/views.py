@@ -42,7 +42,7 @@ def get_flag_country_ans(request):
 
 def get_flag_id(request):
     if not 'quiz_list' in request.session:
-        return set_flag_country_quiz(request)
+        pass # TODO return to home page or other solution
     quiz_list = request.session['quiz_list']
 
     if len(quiz_list) > 0:
@@ -79,8 +79,21 @@ def quiz_result(request):
     return JsonResponse({'score': score, 'result': result})
 
 
+def set_flag_capital_quiz(request):
+    # Set list of question IDs for flaq quiz with capital vals & get question count
+    quiz_list = list(
+        Country.objects.exclude(capital=0).values_list('id', flat=True).distinct())
+    first_flag_id = choice(quiz_list)
+    quiz_list.remove(first_flag_id)
+    request.session['quiz_list'] = quiz_list
+    request.session['flag_id'] = first_flag_id
+    request.session['score'] = 0
+    request.session['quiz'] = "flag_capital"
+    return HttpResponse(status=204)
+
+
 def set_flag_country_quiz(request):
-    # Set list of question IDs in session for quiz progress & get question count
+    # Set list of question IDs for flag country quiz & get question count
     quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
     first_flag_id = choice(quiz_list)
     quiz_list.remove(first_flag_id)
