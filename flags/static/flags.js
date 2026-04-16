@@ -1,39 +1,3 @@
-const flagCard = `<div class="card mb-3 pt-2 bg-secondary border-light">
-            <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
-        </div>
-
-        <div id="flag-div" class="card card-img-top bg-light hover-overlay border-light" 
-            data-mbd-ripple-init data-mdb-ripple-color="light">
-            <img id="flag" class="card-img-top" src="" alt="">
-        </div>
-    
-        <div id="card-bod" class="container bg-light border-light">
-            <div id="hint-frame" class="ps-2 my-1">
-                    <p id="hint-text"></p>
-            </div>
-            <div id="feedback-form-frame">
-                <div id="feedback" hidden="true" class="row py-2">
-                    <div class="col-10">
-                        <p id="feedback-text" class="ps-2 fs-5 fw-bold"></p>
-                    </div>
-                    <div class="col-2">
-                        <a id="next" class="btn btn-success" href="#">Next</a>
-                    </div>
-                </div>
-
-                <form id="quiz-form" action="" class="row py-2" hidden="true" autocomplete="off">
-                    <div class="col-9">
-                        <input id="answer" class="form-control" type="text" 
-                            name="answer" placeholder="Enter country" value="" autofocus >
-                    </div>
-                    <div class="col-3">
-                        <input id="submit" class="btn btn-success form-control" 
-                        type="button" value="Submit">
-                    </div>       
-                </form>
-            </div>
-        </div>`
-
 // Initiate data TODO  remove this global
 $(document).ready( function() {
     // Add event listeners to switch main quiz GUIs or load quiz saved to session
@@ -160,6 +124,56 @@ function getFlagId() {
 }
 
 
+function loadFlagCard() {
+$('#quiz-card').html(`<div class="card mb-3 pt-2 bg-secondary border-light">
+        <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
+    </div>
+
+    <div id="flag-div" class="card card-img-top bg-light hover-overlay border-light" 
+        data-mbd-ripple-init data-mdb-ripple-color="light">
+        <img id="flag" class="card-img-top" src="" alt="">
+    </div>
+
+    <div id="card-bod" class="container bg-light border-light">
+        <div id="hint-frame" class="ps-2 my-1">
+                <p id="hint-text"></p>
+        </div>
+        <div id="feedback-form-frame">
+            <div id="feedback" hidden="true" class="row py-2">
+                <div class="col-10">
+                    <p id="feedback-text" class="ps-2 fs-5 fw-bold"></p>
+                </div>
+                <div class="col-2">
+                    <a id="next" class="btn btn-success" href="#">Next</a>
+                </div>
+            </div>
+
+            <form id="quiz-form" action="" class="row py-2" hidden="true" autocomplete="off">
+                <div class="col-9">
+                    <input id="answer" class="form-control" type="text" 
+                        name="answer" placeholder="Enter country" value="" autofocus >
+                </div>
+                <div class="col-3">
+                    <input id="submit" class="btn btn-success form-control" 
+                    type="button" value="Submit">
+                </div>       
+            </form>
+        </div>
+    </div>`);
+
+    // Set events listeners
+    $('#next').on('click', () => loadNextFlag());
+    $('#quiz-form').on('submit', function(event) {
+        event.preventDefault();
+    });
+    $('#answer').on('keypress', function(event) {
+        if (event.key === 'Enter') {
+            $('#submit').click();
+        }
+    });
+}
+
+
 function loadFlagCapitalQuiz() {
     // Set up quiz question list
     fetch('check_session')
@@ -170,21 +184,10 @@ function loadFlagCapitalQuiz() {
         }
     });
 
-    // Add quiz card, flag, form and feedback GUI
-    $('#quiz-card').html(flagCard);
+    // Add quiz card, flag, form and feedback GUI with event listeners
+    loadFlagCard();
     $('#answer').attr("placeholder", "Enter capital")
-
-    // Set events listeners
     $('#submit').on('click', () => flagCapitalFeedback());
-    $('#next').on('click', () => loadNextFlag());
-    $('#quiz-form').on('submit', function(event) {
-        event.preventDefault();
-    });
-    $('#answer').on('keypress', function(event) {
-        if (event.key === 'Enter') {
-            $('#submit').click();
-        }
-    });
     
     // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -199,7 +202,7 @@ function loadFlagCapitalQuiz() {
         // Show quiz card content
         $('#page-heading').text("Name the capital !");
         $('#quiz-card').attr("hidden", false);
-        $('#flag').attr("alt", "Guess the flag");
+        $('#flag').attr("alt", "Guess the flag's capital");
     }, 100);
 }
 
@@ -214,20 +217,9 @@ function loadFlagCountryQuiz() {
         }
     });
 
-    // Add quiz card, flag, form and feedback GUI
-    $('#quiz-card').html(flagCard);
-
-    // Set events listeners
+    // Add quiz card, flag, form and feedback GUI and event listens
+    loadFlagCard();
     $('#submit').on('click', () => flagCountryFeedback());
-    $('#next').on('click', () => loadNextFlag());
-    $('#quiz-form').on('submit', function(event) {
-        event.preventDefault();
-    });
-    $('#answer').on('keypress', function(event) {
-        if (event.key === 'Enter') {
-            $('#submit').click();
-        }
-    });
     
     // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -242,7 +234,7 @@ function loadFlagCountryQuiz() {
         // Show quiz card content
         $('#page-heading').text("Name the country !");
         $('#quiz-card').attr("hidden", false);
-        $('#flag').attr("alt", "Guess the flag");
+        $('#flag').attr("alt", "Guess the flag's country");
     }, 100);
 }
 
