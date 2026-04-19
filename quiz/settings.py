@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     # Additional installed apps
     'crispy_forms',
     'crispy_bootstrap5',
-    'jquery',
+    'jquery', # link {% static 'js/jquery.js' %}
 ]
 
 MIDDLEWARE = [
