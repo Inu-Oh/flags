@@ -248,7 +248,7 @@ function loadFlagCapitalQuiz() {
     .then(response => response.json())
     .then(data => {
         if (data.quiz != "flag_capital") {
-            fetch('set_flag_capital_quiz');
+            fetch('set_capital_list/flag_capital');
         }
     });
 
@@ -281,7 +281,7 @@ function loadFlagCountryQuiz() {
     .then(response => response.json())
     .then(data => {
         if (data.quiz != "flag_country") {
-            fetch('set_flag_country_quiz');
+            fetch('set_country_list');
         }
     });
 

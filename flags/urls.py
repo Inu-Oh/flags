@@ -14,8 +14,9 @@ urlpatterns = [
     path('get_flag_q', views.get_flag_q, name='get_flag_q'),
     path('get_score', views.get_score, name='get_score'),
     path('quiz_result', views.quiz_result, name='quiz_result'),
-    path('set_flag_capital_quiz', views.set_flag_capital_quiz, name='set_flag_capital_quiz'),
-    path('set_flag_country_quiz', views.set_flag_country_quiz, name='set_flag_country_quiz'),
+    path('set_capital_list/<slug:quiz_name>/', views.set_capital_list, 
+         name='set_capital_list'),
+    path('set_country_list', views.set_country_list, name='set_country_list'),
     path('update_score', views.update_score, name='update_score'),
     path('update_scoreboard', views.update_scoreboard, name='update_scoreboard'),
 ]

@@ -79,19 +79,17 @@ def quiz_result(request):
     return JsonResponse({'score': score, 'result': result})
 
 
-def set_flag_capital_quiz(request):
+def set_capital_list(request, quiz_name):
     # Set list of question IDs for flaq quiz with capital vals & get question count
     quiz_list = list(
         Country.objects.exclude(capital=0).values_list('id', flat=True).distinct())
-    set_quiz_session(request, quiz_list, "flag_capital")
-    return HttpResponse(status=204)
+    return set_quiz_session(request, quiz_list, quiz_name)
 
 
-def set_flag_country_quiz(request):
+def set_country_list(request):
     # Set list of question IDs for flag country quiz & get question count
     quiz_list = list(Country.objects.all().values_list('id', flat=True).distinct())
-    set_quiz_session(request, quiz_list, "flag_country")
-    return HttpResponse(status=204)
+    return set_quiz_session(request, quiz_list, "flag_country")
 
 
 def set_quiz_session(request, quiz_list, quiz_name):
@@ -101,6 +99,7 @@ def set_quiz_session(request, quiz_list, quiz_name):
     request.session['flag_id'] = first_flag_id
     request.session['score'] = 0
     request.session['quiz'] = quiz_name
+    return HttpResponse(status=204)
 
 
 def update_score(request):
