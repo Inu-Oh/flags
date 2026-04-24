@@ -66,10 +66,18 @@ def get_flag_q(request):
     return JsonResponse({ 'flag': flag, 'hint': hint })
 
 
-def get_score(request):
-    if len(request.session['quiz_list']) < 1:
-        return quiz_result(request)
-    return update_scoreboard(request)
+def get_q(request):
+    pk = request.session['flag_id']
+    country = Country.objects.get(id=pk)
+    match request.session['quiz']:
+        case "capital_country":
+            q = country.capital
+        case "country_capital":
+            q = country.country
+        case _:
+            q = False
+    hint = str(country.hint) if country.hint is not None else ""
+    return JsonResponse({ 'hint': hint, 'question': q })
 
 
 def quiz_result(request):
@@ -77,6 +85,12 @@ def quiz_result(request):
     score = request.session['score']
     result = round((score / count) * 100)
     return JsonResponse({'score': score, 'result': result})
+
+
+def get_score(request):
+    if len(request.session['quiz_list']) < 1:
+        return quiz_result(request)
+    return update_scoreboard(request)
 
 
 def set_capital_list(request, quiz_name):

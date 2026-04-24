@@ -14,6 +14,13 @@
 #flag {
     max-height: 18rem;
     max-width: 32rem;
+    border:0;
+    border-style: none;
+}
+
+#text-quiz {
+    max-height: 8rem;
+    max-width: 32rem;
 }
 
 #flag-div {

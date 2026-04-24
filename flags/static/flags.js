@@ -29,66 +29,6 @@ $(document).ready( function() {
 });
 
 
-function loadCapitalCountryQuiz() {
-    loadCard();
-    $('#country').attr('id', "capital");
-}
-
-
-function loadCountryCapitalQuiz() {
-    loadCard();
-}
-
-
-function loadCard() {
-    $('#quiz-card').html(`<div class="card mb-3 pt-2 bg-secondary border-light">
-        <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
-    </div>
-
-    <div class="card">
-        <p id="country" class=""></p>
-    </div>
-
-    <div id="card-bod" class="container bg-light border-light">
-        <div id="hint-frame" class="ps-2 my-1">
-                <p id="hint-text"></p>
-        </div>
-        <div id="feedback-form-frame">
-            <div id="feedback" hidden="true" class="row py-2">
-                <div class="col-10">
-                    <p id="feedback-text" class="ps-2 fs-5 fw-bold"></p>
-                </div>
-                <div class="col-2">
-                    <a id="next" class="btn btn-success" href="#">Next</a>
-                </div>
-            </div>
-
-            <form id="quiz-form" action="" class="row py-2" hidden="true" autocomplete="off">
-                <div class="col-9">
-                    <input id="answer" class="form-control" type="text" 
-                        name="answer" placeholder="Enter country" value="" autofocus >
-                </div>
-                <div class="col-3">
-                    <input id="submit" class="btn btn-success form-control" 
-                    type="button" value="Submit">
-                </div>       
-            </form>
-        </div>
-    </div>`);
-
-    // Set events listeners
-    $('#next').on('click', () => loadNextFlag());
-    $('#quiz-form').on('submit', function(event) {
-        event.preventDefault();
-    });
-    $('#answer').on('keypress', function(event) {
-        if (event.key === 'Enter') {
-            $('#submit').click();
-        }
-    });
-}
-
-
 function flagCapitalFeedback() {
     // Get result of user quiz answer and set feedback
     const $answer = $('#answer').val();
@@ -192,42 +132,106 @@ function getFlagId() {
 }
 
 
+function capitalCountryFeedback() {}
+function countryCapitalFeedback() {}
+
+function loadCapitalCountryQuiz() {
+    // Set up quiz question list if not already set
+    fetch('check_session')
+    .then(response => response.json())
+    .then(data => {
+        if (data.quiz != "capital_country") {
+            fetch('set_capital_list/capital_country');
+        }
+    });
+
+    // Add quiz card, flag, form and feedback GUI and event listens
+    loadCard();
+    $('#q-head').text("Capital city");
+    $('#submit').on('click', () => capitalCountryFeedback());
+    
+    // Switch nav tabs
+    $('#home-link').removeClass('active');
+    $('#flag-country-quiz').removeClass('active');
+    $('#flag-capital-quiz').removeClass('active');
+    $('#country-capital-quiz').removeClass('active');
+    $('#capital-country-quiz').addClass('active');
+
+    // Start quiz
+    setTimeout(() => {
+        updateScoreboard();
+        loadNextQ();
+
+        // Show quiz card content
+        $('#page-heading').text("Name the country !");
+        $('#quiz-card').attr("hidden", false);
+    }, 100);
+}
+
+
+function loadCountryCapitalQuiz() {
+    // Set up quiz question list if not already set
+    fetch('check_session')
+    .then(response => response.json())
+    .then(data => {
+        if (data.quiz != "country_capital") {
+            fetch('set_capital_list/country_capital');
+        }
+    });
+
+    // Add quiz card, flag, form and feedback GUI and event listens
+    loadCard();
+    $('#submit').on('click', () => countryCapitalFeedback());
+
+        // Switch nav tabs
+    $('#home-link').removeClass('active');
+    $('#flag-country-quiz').removeClass('active');
+    $('#flag-capital-quiz').removeClass('active');
+    $('#country-capital-quiz').addClass('active');
+    $('#capital-country-quiz').removeClass('active');
+
+    // Start quiz
+    setTimeout(() => {
+        updateScoreboard();
+        loadNextQ();
+
+        // Show quiz card content
+        $('#page-heading').text("Name the capital !");
+        $('#quiz-card').attr("hidden", false);
+    }, 100);
+}
+
+
+function loadCard() {
+    // Add quiz HTML content to the page
+    quizCard();
+    $('#quiz-card').css('height', '22rem');
+    $('#flag-div').attr('id', "text-quiz");
+    $textQuiz = $('#text-quiz');
+    $textQuiz.addClass("text-center");
+    $textQuiz.html(`<p id="q-head" class="fs-5">What's the capital of</p>
+        <p id="question" class="fs-2 fw-bold"></p>`);
+
+    // Set events listeners
+    $('#next').on('click', () => loadNextQ());
+    $('#quiz-form').on('submit', function(event) {
+        event.preventDefault();
+    });
+    $('#answer').on('keypress', function(event) {
+        if (event.key === 'Enter') {
+            $('#submit').click();
+        }
+    });
+}
+
+
 function loadFlagCard() {
-$('#quiz-card').html(`<div class="card mb-3 pt-2 bg-secondary border-light">
-        <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
-    </div>
-
-    <div id="flag-div" class="card card-img-top bg-light hover-overlay border-light" 
-        data-mbd-ripple-init data-mdb-ripple-color="light">
-        <img id="flag" class="card-img-top" src="" alt="">
-    </div>
-
-    <div id="card-bod" class="container bg-light border-light">
-        <div id="hint-frame" class="ps-2 my-1">
-                <p id="hint-text"></p>
-        </div>
-        <div id="feedback-form-frame">
-            <div id="feedback" hidden="true" class="row py-2">
-                <div class="col-10">
-                    <p id="feedback-text" class="ps-2 fs-5 fw-bold"></p>
-                </div>
-                <div class="col-2">
-                    <a id="next" class="btn btn-success" href="#">Next</a>
-                </div>
-            </div>
-
-            <form id="quiz-form" action="" class="row py-2" hidden="true" autocomplete="off">
-                <div class="col-9">
-                    <input id="answer" class="form-control" type="text" 
-                        name="answer" placeholder="Enter country" value="" autofocus >
-                </div>
-                <div class="col-3">
-                    <input id="submit" class="btn btn-success form-control" 
-                    type="button" value="Submit">
-                </div>       
-            </form>
-        </div>
-    </div>`);
+    // Add quiz HTML content to the page
+    quizCard();
+    $('#quiz-card').css('height', '32rem');
+    $flagDiv = $('#flag-div');
+    $flagDiv.html(`<img id="flag" class="card-img-top" src="" alt="">`);
+    $flagDiv.addClass("card card-img-top bg-light hover-overlay border-light");
 
     // Set events listeners
     $('#next').on('click', () => loadNextFlag());
@@ -243,7 +247,7 @@ $('#quiz-card').html(`<div class="card mb-3 pt-2 bg-secondary border-light">
 
 
 function loadFlagCapitalQuiz() {
-    // Set up quiz question list
+    // Set up quiz question list if not already set
     fetch('check_session')
     .then(response => response.json())
     .then(data => {
@@ -261,6 +265,8 @@ function loadFlagCapitalQuiz() {
     $('#home-link').removeClass('active');
     $('#flag-country-quiz').removeClass('active');
     $('#flag-capital-quiz').addClass('active');
+    $('#country-capital-quiz').removeClass('active');
+    $('#capital-country-quiz').removeClass('active');
 
     // Start quiz
     setTimeout(() => {
@@ -293,6 +299,8 @@ function loadFlagCountryQuiz() {
     $('#home-link').removeClass('active');
     $('#flag-country-quiz').addClass('active');
     $('#flag-capital-quiz').removeClass('active');
+    $('#country-capital-quiz').removeClass('active');
+    $('#capital-country-quiz').removeClass('active');
 
     // Start quiz
     setTimeout(() => {
@@ -322,21 +330,64 @@ function loadNextFlag() {
     });
 
     // Set up GUI for quiz question
-    $('#feedback').attr("hidden", true);
-    $('#quiz-form').attr("hidden", false);
-    const $answer = $('#answer');
-    $answer.val("");
-    $answer.focus();
+    showQuizForm();
 }
 
 
-function resetScore() {
-    // Reset the quiz, set flag data and load next question
-    fetch('set_flag_country_quiz');
-    setTimeout(() => {
-        updateScoreboard();
-        loadNextFlag();
-    }, 100)
+function loadNextQ() {
+    // Get hint data
+    const $hint = $('#hint-text');
+    fetch(`get_q`)
+    .then(response => response.json())
+    .then(data => {
+        $('#question').text(data.question);
+        if (data.hint != "") {
+            $hint.text(data.hint);
+        } else {
+            $hint.text("");
+        }
+    });
+
+    // Set up GUI for quiz question
+    showQuizForm();
+}
+
+
+function quizCard() {
+    $('#quiz-card').html(`<div class="card mb-3 pt-2 bg-secondary border-light">
+        <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
+    </div>
+
+    <div id="flag-div">
+        
+    </div>
+
+    <div id="card-bod" class="container bg-light border-light">
+        <div id="hint-frame" class="ps-2 my-1">
+                <p id="hint-text"></p>
+        </div>
+        <div id="feedback-form-frame">
+            <div id="feedback" hidden="true" class="row py-2">
+                <div class="col-10">
+                    <p id="feedback-text" class="ps-2 fs-5 fw-bold"></p>
+                </div>
+                <div class="col-2">
+                    <a id="next" class="btn btn-success" href="#">Next</a>
+                </div>
+            </div>
+
+            <form id="quiz-form" action="" class="row py-2" hidden="true" autocomplete="off">
+                <div class="col-9">
+                    <input id="answer" class="form-control" type="text" 
+                        name="answer" placeholder="Enter country" value="" autofocus >
+                </div>
+                <div class="col-3">
+                    <input id="submit" class="btn btn-success form-control" 
+                    type="button" value="Submit">
+                </div>       
+            </form>
+        </div>
+    </div>`);
 }
 
 
@@ -366,6 +417,25 @@ function quizResultImage(result) {
     var img = document.createElement("img");
     img.src = canvas.toDataURL();
     $('#flag').attr("src", img.src);
+}
+
+
+function resetScore() {
+    // Reset the quiz, set flag data and load next question
+    fetch('set_flag_country_quiz');
+    setTimeout(() => {
+        updateScoreboard();
+        loadNextFlag();
+    }, 100)
+}
+
+
+function showQuizForm() {
+    $('#feedback').attr("hidden", true);
+    $('#quiz-form').attr("hidden", false);
+    const $answer = $('#answer');
+    $answer.val("");
+    $answer.focus();
 }
 
 

@@ -8,10 +8,13 @@ urlpatterns = [
 
     # API Routes
     path('check_session', views.check_session, name='check_session'),
-    path('get_flag_capital_ans', views.get_flag_capital_ans, name='get_flag_capital_ans'),
-    path('get_flag_country_ans', views.get_flag_country_ans, name='get_flag_country_ans'),
+    path('get_flag_capital_ans', views.get_flag_capital_ans,
+        name='get_flag_capital_ans'),
+    path('get_flag_country_ans', views.get_flag_country_ans,
+         name='get_flag_country_ans'),
     path('get_flag_id', views.get_flag_id, name='get_flag_id'),
     path('get_flag_q', views.get_flag_q, name='get_flag_q'),
+    path('get_q', views.get_q, name='get_q'),
     path('get_score', views.get_score, name='get_score'),
     path('quiz_result', views.quiz_result, name='quiz_result'),
     path('set_capital_list/<slug:quiz_name>/', views.set_capital_list, 
