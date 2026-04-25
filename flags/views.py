@@ -93,6 +93,13 @@ def get_score(request):
     return update_scoreboard(request)
 
 
+def reset_score(request):
+    if "capital" in (quiz_name := request.session['quiz']):
+        return set_capital_list(request, quiz_name)
+    else:
+        return set_country_list(request)
+
+
 def set_capital_list(request, quiz_name):
     # Set list of question IDs for flaq quiz with capital vals & get question count
     quiz_list = list(
@@ -113,6 +120,7 @@ def set_quiz_session(request, quiz_list, quiz_name):
     request.session['question_id'] = first_q_id
     request.session['score'] = 0
     request.session['quiz'] = quiz_name
+    request.session['count'] = 1
     return HttpResponse(status=204)
 
 

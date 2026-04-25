@@ -262,41 +262,47 @@ function loadFlagCountryQuiz() {
 }
 
 
-function loadNextFlag() {    
-    // Get flag and hint data
-    const $hint = $('#hint-text');
-    fetch(`get_flag_q`)
-    .then(response => response.json())
-    .then(data => {
-        $('#flag').attr("src", data.flag);
-        if (data.hint != "") {
-            $hint.text(data.hint);
-        } else {
-            $hint.text("");
-        }
-    });
+function loadNextFlag() {
+    $flag = $('#flag');
+    if ($flag.length) {
+        // Get flag and hint data
+        const $hint = $('#hint-text');
+        fetch(`get_flag_q`)
+        .then(response => response.json())
+        .then(data => {
+            $flag.attr("src", data.flag);
+            if (data.hint != "") {
+                $hint.text(data.hint);
+            } else {
+                $hint.text("");
+            }
+        });
 
-    // Set up GUI for quiz question
-    showQuizForm();
+        // Set up GUI for quiz question
+        showQuizForm();
+    }
 }
 
 
 function loadNextQ() {
-    // Get hint data
-    const $hint = $('#hint-text');
-    fetch(`get_q`)
-    .then(response => response.json())
-    .then(data => {
-        $('#question').text(data.question);
-        if (data.hint != "") {
-            $hint.text(data.hint);
-        } else {
-            $hint.text("");
-        }
-    });
+    $question = $('#question');
+    if ($question.length) {
+        // Get hint data
+        const $hint = $('#hint-text');
+        fetch(`get_q`)
+        .then(response => response.json())
+        .then(data => {
+            $question.text(data.question);
+            if (data.hint != "") {
+                $hint.text(data.hint);
+            } else {
+                $hint.text("");
+            }
+        });
 
-    // Set up GUI for quiz question
-    showQuizForm();
+        // Set up GUI for quiz question
+        showQuizForm();
+    }
 }
 
 
@@ -367,11 +373,14 @@ function quizResultImage(result) {
 
 function resetScore() {
     // Reset the quiz, set flag data and load next question
-    fetch('set_flag_country_quiz');
+    fetch('reset_score');
+
     setTimeout(() => {
         updateScoreboard();
+        // One of the following will have no result depending on current quiz
         loadNextFlag();
-    }, 100)
+        loadNextQ();
+    }, 150)
 }
 
 
