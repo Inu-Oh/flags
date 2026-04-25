@@ -29,23 +29,15 @@ $(document).ready( function() {
 });
 
 
-function flagCapitalFeedback() {
-    // Get result of user quiz answer and set feedback
-    const $answer = $('#answer').val();
-    if ($answer.length <= 0) return;
-
-    const parser = new DOMParser();
-    const cleanAns = parser.parseFromString($answer, 'text/html')
-    const ansText = cleanAns.body.innerText;
-    const normalizedAns = ansText.trim().normalize('NFD').replace(/\p{Diacritic}/gu, '');
-    $('#feedback').attr("hidden", false);
+function capitalFeedback() {
+    answer = getAnswer(); // that user typed as input
 
     // Update score and generate feedback
-    fetch(`get_flag_capital_ans`)
+    fetch('get_capital_ans')
     .then(response => response.json())
     .then(ans => {
         const normalizedCapital = ans.capital.normalize('NFD').replace(/\p{Diacritic}/gu, '');
-        if (normalizedAns.toLowerCase() == normalizedCapital.toLowerCase()) {
+        if (answer == normalizedCapital.toLowerCase()) {
             fetch(`update_score`)
             .then(response => response.json())
             .then(data => {
@@ -64,34 +56,19 @@ function flagCapitalFeedback() {
         }
     });
 
-    // Set up GUI for feedback and next button
-    $('#hint-text').text("");
-    $('#quiz-form').attr("hidden", true);
-    
-    setTimeout(() => {
-        $('#next').focus();
-        getFlagId();
-    }, 100);
+    setFeedbackGUI();
 }
 
 
-function flagCountryFeedback() {
-    // Get result of user quiz answer and set feedback
-    const $answer = $('#answer').val();
-    if ($answer.length <= 0) return;
-
-    const parser = new DOMParser();
-    const cleanAns = parser.parseFromString($answer, 'text/html')
-    const ansText = cleanAns.body.innerText;
-    const normalizedAns = ansText.trim().normalize('NFD').replace(/\p{Diacritic}/gu, '');
-    $('#feedback').attr("hidden", false);
+function countryFeedback() {
+    answer = getAnswer(); // that user typed as input
 
     // Update score and generate feedback
-    fetch(`get_flag_country_ans`)
+    fetch('get_country_ans')
     .then(response => response.json())
     .then(ans => {
         const normalizedCountry = ans.country.normalize('NFD').replace(/\p{Diacritic}/gu, '');
-        if (normalizedAns.toLowerCase() == normalizedCountry.toLowerCase()) {
+        if (answer == normalizedCountry.toLowerCase()) {
             fetch(`update_score`)
             .then(response => response.json())
             .then(data => {
@@ -110,20 +87,27 @@ function flagCountryFeedback() {
         }
     });
 
-    // Set up GUI for feedback and next button
-    $('#hint-text').text("");
-    $('#quiz-form').attr("hidden", true);
-    
-    setTimeout(() => {
-        $('#next').focus();
-        getFlagId();
-    }, 100);
+    setFeedbackGUI();
 }
 
 
-function getFlagId() {
+function getAnswer() {
+    // Get result of user quiz answer and set feedback
+    const $answer = $('#answer').val();
+    if ($answer.length <= 0) return;
+
+    const parser = new DOMParser();
+    const cleanAns = parser.parseFromString($answer, 'text/html')
+    const ansText = cleanAns.body.innerText;
+    const normalizedAns = ansText.trim().normalize('NFD').replace(/\p{Diacritic}/gu, '');
+    $('#feedback').attr("hidden", false);
+    return normalizedAns.toLowerCase();
+}
+
+
+function getID() {
     // Get ID of next flag question and update quiz question list in session
-    fetch('get_flag_id')
+    fetch('get_id')
     .then(response => response.json())
     .then(data => {
         if ( data.endQuiz )
@@ -131,9 +115,6 @@ function getFlagId() {
     });
 }
 
-
-function capitalCountryFeedback() {}
-function countryCapitalFeedback() {}
 
 function loadCapitalCountryQuiz() {
     // Set up quiz question list if not already set
@@ -148,7 +129,7 @@ function loadCapitalCountryQuiz() {
     // Add quiz card, flag, form and feedback GUI and event listens
     loadCard();
     $('#q-head').text("Capital city");
-    $('#submit').on('click', () => capitalCountryFeedback());
+    $('#submit').on('click', () => countryFeedback());
     
     // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -157,15 +138,7 @@ function loadCapitalCountryQuiz() {
     $('#country-capital-quiz').removeClass('active');
     $('#capital-country-quiz').addClass('active');
 
-    // Start quiz
-    setTimeout(() => {
-        updateScoreboard();
-        loadNextQ();
-
-        // Show quiz card content
-        $('#page-heading').text("Name the country !");
-        $('#quiz-card').attr("hidden", false);
-    }, 100);
+    startQuiz("Name the country !", false);
 }
 
 
@@ -181,7 +154,7 @@ function loadCountryCapitalQuiz() {
 
     // Add quiz card, flag, form and feedback GUI and event listens
     loadCard();
-    $('#submit').on('click', () => countryCapitalFeedback());
+    $('#submit').on('click', () => capitalFeedback());
 
         // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -190,15 +163,7 @@ function loadCountryCapitalQuiz() {
     $('#country-capital-quiz').addClass('active');
     $('#capital-country-quiz').removeClass('active');
 
-    // Start quiz
-    setTimeout(() => {
-        updateScoreboard();
-        loadNextQ();
-
-        // Show quiz card content
-        $('#page-heading').text("Name the capital !");
-        $('#quiz-card').attr("hidden", false);
-    }, 100);
+    startQuiz("Name the capital !", false);
 }
 
 
@@ -209,7 +174,7 @@ function loadCard() {
     $('#flag-div').attr('id', "text-quiz");
     $textQuiz = $('#text-quiz');
     $textQuiz.addClass("text-center");
-    $textQuiz.html(`<p id="q-head" class="fs-5">What's the capital of</p>
+    $textQuiz.html(`<p id="q-head" class="fs-4">What's the capital of</p>
         <p id="question" class="fs-2 fw-bold"></p>`);
 
     // Set events listeners
@@ -259,7 +224,7 @@ function loadFlagCapitalQuiz() {
     // Add quiz card, flag, form and feedback GUI with event listeners
     loadFlagCard();
     $('#answer').attr("placeholder", "Enter capital")
-    $('#submit').on('click', () => flagCapitalFeedback());
+    $('#submit').on('click', () => capitalFeedback());
     
     // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -268,16 +233,7 @@ function loadFlagCapitalQuiz() {
     $('#country-capital-quiz').removeClass('active');
     $('#capital-country-quiz').removeClass('active');
 
-    // Start quiz
-    setTimeout(() => {
-        updateScoreboard();
-        loadNextFlag();
-
-        // Show quiz card content
-        $('#page-heading').text("Name the capital !");
-        $('#quiz-card').attr("hidden", false);
-        $('#flag').attr("alt", "Guess the flag's capital");
-    }, 100);
+    startQuiz("Name the capital !", true);
 }
 
 
@@ -293,7 +249,7 @@ function loadFlagCountryQuiz() {
 
     // Add quiz card, flag, form and feedback GUI and event listens
     loadFlagCard();
-    $('#submit').on('click', () => flagCountryFeedback());
+    $('#submit').on('click', () => countryFeedback());
     
     // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -302,16 +258,7 @@ function loadFlagCountryQuiz() {
     $('#country-capital-quiz').removeClass('active');
     $('#capital-country-quiz').removeClass('active');
 
-    // Start quiz
-    setTimeout(() => {
-        updateScoreboard();
-        loadNextFlag();
-
-        // Show quiz card content
-        $('#page-heading').text("Name the country !");
-        $('#quiz-card').attr("hidden", false);
-        $('#flag').attr("alt", "Guess the flag's country");
-    }, 100);
+    startQuiz("Name the country !", true);
 }
 
 
@@ -358,9 +305,7 @@ function quizCard() {
         <p id="score" class="pb-3 fs-5 fw-bold text-light"></p>
     </div>
 
-    <div id="flag-div">
-        
-    </div>
+    <div id="flag-div"></div>
 
     <div id="card-bod" class="container bg-light border-light">
         <div id="hint-frame" class="ps-2 my-1">
@@ -430,12 +375,38 @@ function resetScore() {
 }
 
 
+function setFeedbackGUI() {
+    // Set up GUI for feedback and next button
+    $('#hint-text').text("");
+    $('#quiz-form').attr("hidden", true);
+    
+    setTimeout(() => {
+        $('#next').focus();
+        getID();
+    }, 100);
+}
+
+
 function showQuizForm() {
     $('#feedback').attr("hidden", true);
     $('#quiz-form').attr("hidden", false);
     const $answer = $('#answer');
     $answer.val("");
     $answer.focus();
+}
+
+
+function startQuiz(heading, flag) {
+    // Start quiz
+    setTimeout(() => {
+        updateScoreboard();
+        if (flag) loadNextFlag();
+        else loadNextQ();
+
+        // Show quiz card content
+        $('#page-heading').text(heading);
+        $('#quiz-card').attr("hidden", false);
+    }, 100);
 }
 
 

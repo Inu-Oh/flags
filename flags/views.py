@@ -26,21 +26,21 @@ def check_session(request):
     return JsonResponse({ 'quiz': quiz })
 
 
-def get_flag_capital_ans(request):
-    pk = request.session['flag_id']
+def get_capital_ans(request):
+    pk = request.session['question_id']
     country = Country.objects.get(id=pk)
     capital = country.capital
     return JsonResponse({'capital': capital})
 
 
-def get_flag_country_ans(request):
-    pk = request.session['flag_id']
+def get_country_ans(request):
+    pk = request.session['question_id']
     country = Country.objects.get(id=pk)
     country_name = country.country
     return JsonResponse({'country': country_name})
 
 
-def get_flag_id(request):
+def get_id(request):
     if not 'quiz_list' in request.session:
         pass # TODO return to home page or other solution
     quiz_list = request.session['quiz_list']
@@ -49,7 +49,7 @@ def get_flag_id(request):
         next_id = choice(quiz_list)
         quiz_list.remove(next_id)
         request.session['quiz_list'] = quiz_list
-        request.session['flag_id'] = next_id
+        request.session['question_id'] = next_id
         end_quiz = False
     else:
         end_quiz = True
@@ -58,7 +58,7 @@ def get_flag_id(request):
 
 
 def get_flag_q(request):
-    pk = request.session['flag_id']
+    pk = request.session['question_id']
     country = Country.objects.get(id=pk)
     # Change domain for production
     flag = "http://127.0.0.1:8000/static/images/" + str(country.country_code) + ".png"
@@ -67,7 +67,7 @@ def get_flag_q(request):
 
 
 def get_q(request):
-    pk = request.session['flag_id']
+    pk = request.session['question_id']
     country = Country.objects.get(id=pk)
     match request.session['quiz']:
         case "capital_country":
@@ -107,10 +107,10 @@ def set_country_list(request):
 
 
 def set_quiz_session(request, quiz_list, quiz_name):
-    first_flag_id = choice(quiz_list)
-    quiz_list.remove(first_flag_id)
+    first_q_id = choice(quiz_list)
+    quiz_list.remove(first_q_id)
     request.session['quiz_list'] = quiz_list
-    request.session['flag_id'] = first_flag_id
+    request.session['question_id'] = first_q_id
     request.session['score'] = 0
     request.session['quiz'] = quiz_name
     return HttpResponse(status=204)

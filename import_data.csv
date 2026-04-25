@@ -87,13 +87,13 @@ Greece,Athens,gr,,834
 Greenland,Nuuk,gl,,835
 Grenada,St. George'S,gd,,836
 Guadeloupe,Basse-Terre,gp,,837
-Guam,Hagatna,gu,,838
+Guam,Hagåtña,gu,,838
 Guatemala,Guatemala City,gt,,839
 Guernsey,Saint Peter Port,gg,,840
 Guinea,Conakry,gn,,841
 Guinea-Bissau,Bissau,gw,,842
 Guyana,Georgetown,gy,,843
-Haiti,Port-Au-Prince,ht,,844
+Haiti,Port-au-Prince,ht,,844
 Honduras,Tegucigalpa,hn,,845
 Hong Kong,Hong Kong,hk,,846
 Hungary,Budapest,hu,,847
@@ -106,7 +106,7 @@ Ireland,Dublin,ie,,853
 Isle of Man,Douglas,im,,854
 Israel,Jerusalem,il,,855
 Italy,Rome,it,,856
-Jamaica,Kingston,jm,,857
+Jamaica,Kingston,jm,Same capital name as Norfolk Island,857
 Japan,Tokyo,jp,,858
 Jersey,Saint Helier,je,,859
 Jordan,Amman,jo,,860
@@ -155,7 +155,7 @@ Nicaragua,Managua,ni,,902
 Niger,Niamey,ne,,903
 Nigeria,Abuja,ng,,904
 Niue,Alofi,nu,,905
-Norfolk Island,Kingston,nf,,906
+Norfolk Island,Kingston,nf,Same capital name as Jamaica,906
 North Korea,Pyongyang,kp,,907
 North Macedonia,Skopje,mk,,908
 Northern Ireland,Belfast,gb-nir,,909
