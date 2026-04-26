@@ -30,7 +30,7 @@ $(document).ready( function() {
 
 
 function capitalFeedback() {
-    answer = getAnswer(); // that user typed as input
+    const answer = getAnswer(); // that user typed as input
 
     // Update score and generate feedback
     fetch('get_capital_ans')
@@ -61,7 +61,7 @@ function capitalFeedback() {
 
 
 function countryFeedback() {
-    answer = getAnswer(); // that user typed as input
+    const answer = getAnswer(); // that user typed as input
 
     // Update score and generate feedback
     fetch('get_country_ans')
@@ -94,8 +94,6 @@ function countryFeedback() {
 function getAnswer() {
     // Get result of user quiz answer and set feedback
     const $answer = $('#answer').val();
-    if ($answer.length <= 0) return;
-
     const parser = new DOMParser();
     const cleanAns = parser.parseFromString($answer, 'text/html')
     const ansText = cleanAns.body.innerText;
@@ -129,7 +127,10 @@ function loadCapitalCountryQuiz() {
     // Add quiz card, flag, form and feedback GUI and event listens
     loadCard();
     $('#q-head').text("Capital city");
-    $('#submit').on('click', () => countryFeedback());
+    $('#submit').on('click', () => {
+        if ($('#answer').val().length <= 0) return;
+        countryFeedback();
+    });
     
     // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -154,7 +155,10 @@ function loadCountryCapitalQuiz() {
 
     // Add quiz card, flag, form and feedback GUI and event listens
     loadCard();
-    $('#submit').on('click', () => capitalFeedback());
+    $('#submit').on('click', () => {
+        if ($('#answer').val().length <= 0) return;
+        capitalFeedback();
+    });
 
         // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -224,7 +228,10 @@ function loadFlagCapitalQuiz() {
     // Add quiz card, flag, form and feedback GUI with event listeners
     loadFlagCard();
     $('#answer').attr("placeholder", "Enter capital")
-    $('#submit').on('click', () => capitalFeedback());
+    $('#submit').on('click', () => {
+        if ($('#answer').val().length <= 0) return;
+        capitalFeedback();
+    });
     
     // Switch nav tabs
     $('#home-link').removeClass('active');
@@ -249,7 +256,10 @@ function loadFlagCountryQuiz() {
 
     // Add quiz card, flag, form and feedback GUI and event listens
     loadFlagCard();
-    $('#submit').on('click', () => countryFeedback());
+    $('#submit').on('click', () => {
+        if ($('#answer').val().length <= 0) return;
+        countryFeedback();
+    });
     
     // Switch nav tabs
     $('#home-link').removeClass('active');

@@ -63,6 +63,11 @@ def get_flag_q(request):
     # Change domain for production
     flag = "http://127.0.0.1:8000/static/images/" + str(country.country_code) + ".png"
     hint = str(country.hint) if country.hint is not None else ""
+    if len(hint) > 0:
+        if hint[:2] == "F:":
+            hint = hint[2:]
+        else:
+            hint = ""
     return JsonResponse({ 'flag': flag, 'hint': hint })
 
 
@@ -77,6 +82,11 @@ def get_q(request):
         case _:
             q = False
     hint = str(country.hint) if country.hint is not None else ""
+    if len(hint) > 0:
+        if hint[:2] == "C:":
+            hint = hint[2:]
+        else:
+            hint = ""
     return JsonResponse({ 'hint': hint, 'question': q })
 
 

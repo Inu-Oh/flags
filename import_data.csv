@@ -40,7 +40,7 @@ Canada,Ottawa,ca,,786
 Cape Verde,Praia,cv,,787
 Cayman Islands,George Town,ky,,788
 Central African Republic,Bangui,cf,,789
-Chad,N'Djamena,td,Flag similar to Romania,790
+Chad,N'Djamena,td,F:Flag similar to Romania,790
 Chile,Santiago,cl,,791
 China,Beijing,cn,,792
 Christmas Island,Flying Fish Cove,cx,,793
@@ -64,7 +64,7 @@ East Timor,Dili,tl,,810
 Ecuador,Quito,ec,,811
 Egypt,Cairo,eg,,812
 El Salvador,San Salvador,sv,,813
-England,London,gb-eng,,814
+England,London,gb-eng,C:Constituent country,814
 Equatorial Guinea,Malabo,gq,,815
 Eritrea,Asmara,er,,816
 Estonia,Tallinn,ee,,817
@@ -99,17 +99,18 @@ Hong Kong,Hong Kong,hk,,846
 Hungary,Budapest,hu,,847
 Iceland,Reykjavík,is,,848
 India,New Delhi,in,,849
-Indonesia,Jakarta,id,Flag similar to Monaco,850
+Indonesia,Jakarta,id,F:Flag similar to Monaco,850
 Iran,Tehran,ir,,851
 Iraq,Baghdad,iq,,852
 Ireland,Dublin,ie,,853
 Isle of Man,Douglas,im,,854
 Israel,Jerusalem,il,,855
 Italy,Rome,it,,856
-Jamaica,Kingston,jm,Same capital name as Norfolk Island,857
+Jamaica,Kingston,jm,C:Same capital name as Norfolk Island,857
 Japan,Tokyo,jp,,858
 Jersey,Saint Helier,je,,859
 Jordan,Amman,jo,,860
+Kaliningrad,Kaliningrad,ru-kal,,996
 Kazakhstan,Astana,kz,,861
 Kenya,Nairobi,ke,,862
 Kiribati,Tarawa,ki,,863
@@ -138,7 +139,7 @@ Mauritius,Port Louis,mu,,885
 Mayotte,Mamoudzou,yt,,886
 Mexico,Mexico City,mx,,887
 Moldova,Chisinau,md,,888
-Monaco,Monaco,mc,Flag similar to Indonesia,889
+Monaco,Monaco,mc,F:Flag similar to Indonesia,889
 Mongolia,Ulaanbaatar,mn,,890
 Montenegro,Podgorica,me,,891
 Montserrat,Brades,ms,,892
@@ -155,7 +156,7 @@ Nicaragua,Managua,ni,,902
 Niger,Niamey,ne,,903
 Nigeria,Abuja,ng,,904
 Niue,Alofi,nu,,905
-Norfolk Island,Kingston,nf,Same capital name as Jamaica,906
+Norfolk Island,Kingston,nf,C:Same capital name as Jamaica,906
 North Korea,Pyongyang,kp,,907
 North Macedonia,Skopje,mk,,908
 Northern Ireland,Belfast,gb-nir,,909
@@ -175,7 +176,7 @@ Portugal,Lisbon,pt,,923
 Puerto Rico,San Juan,pr,,924
 Qatar,Doha,qa,,925
 Republic of the Congo,Brazzaville,cg,,926
-Romania,Bucharest,ro,Flag similar to Chad,927
+Romania,Bucharest,ro,F:Flag similar to Chad,927
 Russia,Moscow,ru,,928
 Rwanda,Kigali,rw,,929
 Réunion,0,re,,930
@@ -184,7 +185,7 @@ Saint Barthelemy,Gustavia,bl,,932
 Saint Helena,Jamestown,sh,,933
 Saint Kitts and Nevis,Basseterre,kn,,934
 Saint Lucia,Castries,lc,,935
-Saint Martin,Marigot,mf,Flag similar to France,936
+Saint Martin,Marigot,mf,F:Flag similar to France,936
 Saint Pierre and Miquelon,Saint-Pierre,pm,,937
 Saint Vincent and the Grenadines,Kingstown,vc,,938
 Samoa,Apia,ws,,939
@@ -233,7 +234,7 @@ Tuvalu,Funafuti,tv,,978
 Uganda,Kampala,ug,,979
 Ukraine,Kiev,ua,,980
 United Arab Emirates,Abu Dhabi,ae,,981
-United Kingdom,London,gb,,982
+United Kingdom,London,gb,C:Sovereign country,982
 United States Virgin Islands,Charlotte Amalie,vi,,983
 United States of America,Washington D.C.,us,,984
 Uruguay,Montevideo,uy,,985
@@ -247,4 +248,3 @@ Yemen,Sana'a,ye,,992
 Zambia,Lusaka,zm,,993
 Zimbabwe,Harare,zw,,994
 Åland Islands,Mariehamn,ax,,995
-Kaliningrad,Kaliningrad,ru-kal,,
