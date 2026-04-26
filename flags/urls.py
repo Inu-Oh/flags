@@ -14,6 +14,7 @@ urlpatterns = [
     path('get_id', views.get_id, name='get_id'),
     path('get_q', views.get_q, name='get_q'),
     path('get_score', views.get_score, name='get_score'),
+    path('intermission', views.intermission, name='intermission'),
     path('quiz_result', views.quiz_result, name='quiz_result'),
     path('reset_score', views.reset_score, name='reset_score'),
     path('set_capital_list/<slug:quiz_name>', views.set_capital_list, 

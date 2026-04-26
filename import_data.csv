@@ -85,7 +85,7 @@ Ghana,Accra,gh,,832
 Gibraltar,Gibraltar,gi,,833
 Greece,Athens,gr,,834
 Greenland,Nuuk,gl,,835
-Grenada,St. George'S,gd,,836
+Grenada,St. George's,gd,,836
 Guadeloupe,Basse-Terre,gp,,837
 Guam,Hagåtña,gu,,838
 Guatemala,Guatemala City,gt,,839
@@ -104,7 +104,7 @@ Iran,Tehran,ir,,851
 Iraq,Baghdad,iq,,852
 Ireland,Dublin,ie,,853
 Isle of Man,Douglas,im,,854
-Israel,Jerusalem,il,,855
+Israel,Jerusalem,il,C:Same capital as Palestine,855
 Italy,Rome,it,,856
 Jamaica,Kingston,jm,C:Same capital name as Norfolk Island,857
 Japan,Tokyo,jp,,858
@@ -165,7 +165,7 @@ Norway,Oslo,no,,911
 Oman,Muscat,om,,912
 Pakistan,Islamabad,pk,,913
 Palau,Ngerulmud,pw,,914
-Palestine,Jerusalem,ps,,915
+Palestine,Jerusalem,ps,C:Same capital as Israel,915
 Panama,Panama City,pa,,916
 Papua New Guinea,Port Moresby,pg,,917
 Paraguay,Asunción,py,,918

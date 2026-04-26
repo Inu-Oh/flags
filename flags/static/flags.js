@@ -26,6 +26,15 @@ $(document).ready( function() {
                 break;
         }
     })
+    $('#close-modal').on('click', () => {
+        $('#modal').hide();
+        $('#next').click();
+        $('#answer').on('keypress', function(event) {
+            if (event.key === 'Enter') {
+                $('#submit').click();
+            }
+        });
+    });
 });
 
 
@@ -41,14 +50,20 @@ function capitalFeedback() {
             fetch(`update_score`)
             .then(response => response.json())
             .then(data => {
+                if (data.intermission) {
+                    showModal();
+                }
                 $('#score').html(data.scoreboardText);
              });
             const plus1 = '<span class="text-success float-end pe-3">+1</p>';
             $('#feedback-text').html(`${ans.capital} ${plus1}`);
         } else {
-            fetch('get_score') 
+            fetch('get_score')
             .then(response => response.json())           
             .then(data => {
+                if (data.intermission) {
+                    showModal();
+                }
                 $('#score').html(data.scoreboardText);
              });
             const zero = '<span class="text-danger float-end pe-3">0</span>'
@@ -57,6 +72,19 @@ function capitalFeedback() {
     });
 
     setFeedbackGUI();
+}
+
+
+function showModal() {
+    fetch('intermission')
+    .then(response => response.json())
+    .then(data => {
+        $('#modal-head').text(data.round);
+        $('#modal-p').text(data.msg);
+        $('#modal').show();
+        $('#answer').off('keypress');
+        $('#close-modal').focus();
+    });
 }
 
 
@@ -72,6 +100,9 @@ function countryFeedback() {
             fetch(`update_score`)
             .then(response => response.json())
             .then(data => {
+                if (data.intermission) {
+                    showModal();
+                }
                 $('#score').html(data.scoreboardText);
              });
             const plus1 = '<span class="text-success float-end pe-3">+1</p>';
@@ -80,6 +111,9 @@ function countryFeedback() {
             fetch('get_score') 
             .then(response => response.json())           
             .then(data => {
+                if (data.intermission) {
+                    showModal();
+                }
                 $('#score').html(data.scoreboardText);
              });
             const zero = '<span class="text-danger float-end pe-3">0</span>'

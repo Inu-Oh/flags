@@ -18,6 +18,26 @@ def index(request):
     return render(request, 'index.html')
 
 
+def intermission(request):
+    count = request.session['count']
+    score = request.session['score']
+    perc = score/count
+
+    msg = f"You got {score} out of {count}. "
+    if perc >= 0.8:
+        msg += "Awesome!"
+    elif perc >= 0.65:
+        msg += "Nice!"
+    elif perc >= 0.5:
+        msg += "Not bad."
+    elif perc >= 0.25:
+        msg += "Keep at it."
+    else:
+        msg += "Bogus!"
+    
+    return JsonResponse({ 'msg': msg, 'round': f'Round {int(count/10)}' })
+
+
 def check_session(request):
     if 'quiz' in request.session:
         quiz = request.session['quiz']
@@ -125,12 +145,13 @@ def set_country_list(request):
 
 def set_quiz_session(request, quiz_list, quiz_name):
     first_q_id = choice(quiz_list)
+    request.session['length'] = len(quiz_list)
     quiz_list.remove(first_q_id)
     request.session['quiz_list'] = quiz_list
     request.session['question_id'] = first_q_id
     request.session['score'] = 0
     request.session['quiz'] = quiz_name
-    request.session['count'] = 1
+    request.session['count'] = 0
     return HttpResponse(status=204)
 
 
@@ -145,13 +166,24 @@ def update_score(request):
 
 
 def update_scoreboard(request):
+    request.session['count'] += 1
+    print(request.session['count'])
+    if (request.session['count'] % 10 == 0 and 
+        request.session['length'] >= 20):
+        intermission = True
+    else:
+        intermission = False
+
     try:
         score = request.session['score']
         questions_remaining = len(request.session['quiz_list'])
         scoreboard_text = f"Score: {score} &nbsp;&nbsp Flags left: {questions_remaining}"
-        return JsonResponse({'scoreboardText': scoreboard_text})
     except:
-        return JsonResponse({'scoreboardText': "Refresh to see your score."})
+        scoreboard_text = "Refresh to see your score."
+    return JsonResponse({
+        'scoreboardText': scoreboard_text,
+        'intermission': intermission
+    })
 
 
 # Superuser view for pupulating DB - edit import_data.csv then submit
