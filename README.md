@@ -15,6 +15,7 @@ Takes written input of user answer to random country query. 10 questions at a ti
 - Considering future addition that will tracks user progress.
 
 **Admin page**
+
 Simple interface for superusers. Takes CSV as input to manage and make changes to quiz data in database: flags, countries, capitals and hints. Easy to manage and allows to changes to all. See image
 
 ## Image gallery
@@ -27,14 +28,17 @@ Tabs at top navigate between quizzes.
 
 
 **Guess capital from flag - showing positive feedback to user guess and next button**
+
 <img width="1262" height="867" alt="image" src="https://github.com/user-attachments/assets/b1ca43a3-67a0-4f81-95b7-ff348f9106a1" />
 
 
 **Guess capital from country - showing form with user entry and submit button**
+
 <img width="1262" height="667" alt="image" src="https://github.com/user-attachments/assets/c52d50d5-ed29-4529-b2f9-791ad92b4495" />
 
 
 **Guess country from capital - showing negative feedback to user guess and next button**
+
 <img width="1262" height="667" alt="image" src="https://github.com/user-attachments/assets/01439920-20de-48d3-982d-0fe8497c8595" />
 
 
@@ -46,5 +50,6 @@ The admin page is accessed by the default Django login page path, no hyperlink i
 
 
 **Admin login page**
+
 
 <img width="1262" height="382" alt="image" src="https://github.com/user-attachments/assets/f6496674-3dd9-4021-a127-e95057dcdaf3" />
