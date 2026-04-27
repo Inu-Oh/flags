@@ -11,6 +11,7 @@ Takes written input of user answer to random country query. 10 questions at a ti
 - Guess country from capital
 
 **Planned additions**
+- Improve interface of intermission modal pop-up
 - Mixed quiz that randomly chooses between above 4 quizzes and each country.
 - Considering future addition that will tracks user progress.
 
@@ -20,11 +21,11 @@ Simple interface for superusers. Takes CSV as input to manage and make changes t
 
 ## Image gallery
 
-**Guess country from flag** - showing blank entry form and submit button
+**Guess country from flag** - showing blank entry form with hint and submit button
 
 Tabs at top navigate between quizzes.
 
-<img width="1262" height="867" alt="Guess country from flag" src="https://github.com/user-attachments/assets/2a5d10c2-fed9-49c1-8994-154c6b1fe383" />
+<img width="1262" height="867" alt="image" src="https://github.com/user-attachments/assets/a7b822b8-d247-4528-9ae1-8ffa4252ab74" />
 
 
 **Guess capital from flag** - showing positive feedback to user guess and next button
@@ -40,6 +41,11 @@ Tabs at top navigate between quizzes.
 **Guess country from capital** - showing negative feedback to user guess and next button
 
 <img width="1262" height="667" alt="image" src="https://github.com/user-attachments/assets/01439920-20de-48d3-982d-0fe8497c8595" />
+
+
+**Intermission odal pop-up** - showing progress feedback after each 10 questions tested
+
+<img width="1262" height="925" alt="image" src="https://github.com/user-attachments/assets/2ee702f7-060c-4622-a2b8-e6f5e01ccae7" />
 
 
 **Admin page**
