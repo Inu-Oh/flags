@@ -20,24 +20,24 @@ Simple interface for superusers. Takes CSV as input to manage and make changes t
 
 ## Image gallery
 
-**Guess country from flag - showing blank entry form and submit button**
+**Guess country from flag** - showing blank entry form and submit button
 
 Tabs at top navigate between quizzes.
 
 <img width="1262" height="867" alt="Guess country from flag" src="https://github.com/user-attachments/assets/2a5d10c2-fed9-49c1-8994-154c6b1fe383" />
 
 
-**Guess capital from flag - showing positive feedback to user guess and next button**
+**Guess capital from flag** - showing positive feedback to user guess and next button
 
 <img width="1262" height="867" alt="image" src="https://github.com/user-attachments/assets/b1ca43a3-67a0-4f81-95b7-ff348f9106a1" />
 
 
-**Guess capital from country - showing form with user entry and submit button**
+**Guess capital from country** - showing form with user entry and submit button
 
 <img width="1262" height="667" alt="image" src="https://github.com/user-attachments/assets/c52d50d5-ed29-4529-b2f9-791ad92b4495" />
 
 
-**Guess country from capital - showing negative feedback to user guess and next button**
+**Guess country from capital** - showing negative feedback to user guess and next button
 
 <img width="1262" height="667" alt="image" src="https://github.com/user-attachments/assets/01439920-20de-48d3-982d-0fe8497c8595" />
 
