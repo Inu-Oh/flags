@@ -34,6 +34,7 @@ $(document).ready( function() {
                 $('#submit').click();
             }
         });
+        $('#submit').prop('disabled', false);
     });
 });
 
@@ -82,8 +83,8 @@ function showModal() {
         $('#modal-head').text(data.round);
         $('#modal-p').text(data.msg);
         $('#modal').show();
+        $('#submit').prop('disabled', true);
         $('#answer').off('keypress');
-        $('#close-modal').focus();
     });
 }
 
@@ -378,11 +379,13 @@ function quizCard() {
                 </div>
                 <div class="col-3">
                     <input id="submit" class="btn btn-success form-control" 
-                    type="button" value="Submit">
+                    type="button" value="Submit" disabled>
                 </div>       
             </form>
         </div>
     </div>`);
+    // disabled will be set to true during intermissions
+    $('#submit').prop('disabled', false)
 }
 
 

@@ -96,14 +96,16 @@ def get_q(request):
     country = Country.objects.get(id=pk)
     match request.session['quiz']:
         case "capital_country":
+            need_hint = True
             q = country.capital
         case "country_capital":
+            need_hint = False
             q = country.country
         case _:
             q = False
     hint = str(country.hint) if country.hint is not None else ""
     if len(hint) > 0:
-        if hint[:2] == "C:":
+        if hint[:2] == "C:" and need_hint:
             hint = hint[2:]
         else:
             hint = ""
@@ -167,9 +169,7 @@ def update_score(request):
 
 def update_scoreboard(request):
     request.session['count'] += 1
-    print(request.session['count'])
-    if (request.session['count'] % 10 == 0 and 
-        request.session['length'] >= 20):
+    if (request.session['count'] % 10 == 0 and request.session['length'] >= 20):
         intermission = True
     else:
         intermission = False
@@ -410,15 +410,13 @@ class PopulateDbView(PermissionRequiredMixin, CreateView):
             )
             writer.writeheader()
             for row in export_data:
-                writer.writerow(
-                    {
-                        'country': row['country'],
-                        'capital': row['capital'],
-                        'code': row['country_code'],
-                        'hint': row['hint'],
-                        'pk': row['pk']
-                    }
-                )
+                writer.writerow({
+                    'country': row['country'],
+                    'capital': row['capital'],
+                    'code': row['country_code'],
+                    'hint': row['hint'],
+                    'pk': row['pk']
+                })
 
         request.session['update_msg'] = 'Data successfully posted'
         return redirect('manage_content')
