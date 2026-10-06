@@ -5,6 +5,16 @@ $(document).ready( function() {
     $('#flag-country-quiz').on('click', () => loadFlagCountryQuiz());
     $('#country-capital-quiz').on('click', () => loadCountryCapitalQuiz());
     $('#capital-country-quiz').on('click', () => loadCapitalCountryQuiz());
+    $('#close-modal').on('click', () => {
+        $('#modal').hide();
+        $('#next').click();
+        $('#answer').on('keypress', function(event) {
+            if (event.key === 'Enter') {
+                $('#submit').click();
+            }
+        });
+        $('#submit').prop('disabled', false);
+    });
     // Switch automatically if a quiz is storred in session
     fetch('check_session')
     .then(response => response.json())
@@ -26,16 +36,6 @@ $(document).ready( function() {
                 break;
         }
     })
-    $('#close-modal').on('click', () => {
-        $('#modal').hide();
-        $('#next').click();
-        $('#answer').on('keypress', function(event) {
-            if (event.key === 'Enter') {
-                $('#submit').click();
-            }
-        });
-        $('#submit').prop('disabled', false);
-    });
 });
 
 
@@ -73,19 +73,6 @@ function capitalFeedback() {
     });
 
     setFeedbackGUI();
-}
-
-
-function showModal() {
-    fetch('intermission')
-    .then(response => response.json())
-    .then(data => {
-        $('#modal-head').text(data.round);
-        $('#modal-p').text(data.msg);
-        $('#modal').show();
-        $('#submit').prop('disabled', true);
-        $('#answer').off('keypress');
-    });
 }
 
 
@@ -440,6 +427,19 @@ function setFeedbackGUI() {
         $('#next').focus();
         getID();
     }, 100);
+}
+
+
+function showModal() {
+    fetch('intermission')
+    .then(response => response.json())
+    .then(data => {
+        $('#modal-head').text(data.round);
+        $('#modal-p').text(data.msg);
+        $('#modal').show();
+        $('#submit').prop('disabled', true);
+        $('#answer').off('keypress');
+    });
 }
 
 
